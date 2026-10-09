@@ -8,7 +8,7 @@ The owner clarified that Step 1 instructions are advance instructions and missin
 
 The CoreCart reference at `D:/mstar companies/Game keys and ecommerce pc site/Claude outputs/CoreCart task list 2026-10-08 v50.xlsx` was inspected read-only for its six-tab structure, fixed IDs, open category views and canonical status tabs. No CoreCart task content was imported.
 
-The original 79 tracker IDs are preserved. R01 records preparation. B34 records the owner's planned health endpoint without starting it. F01/F04/F05/F06/F07 and other planned implementation tasks remain Not started. All eight owner choices remain Pending.
+The original 79 tracker IDs are preserved. R01 records preparation. B34 records the owner's planned health endpoint without starting it. F01/F04/F05/F06/F07 and other planned implementation tasks remain Not started. Updated owner choices are recorded below; the workflow rows remain Pending until mandatory completion gates pass.
 
 ## Completion gates
 
@@ -25,3 +25,9 @@ Overall status remains Pending. The next actor is the owner to start Step 1 and 
 Preparation commit `cd897da` was pushed successfully to origin/main on 2026-10-09. This verification update records that preceding commit; the final report identifies the latest pushed verification commit. Push authentication worked. Never interpret the local live mirror as a published site.
 
 Tracker verification confirms 81 unique canonical IDs: all 79 original IDs plus R01 and B34. Recalculated counts are 0 Done, 11 Pending and 70 Not started. All six sheets were rendered and reviewed. Git preserves the original line endings of immutable handoff/historical files; CRLF is not a reason to rewrite approved sources.
+
+## Owner decision update — 2026-10-09 — R01 remains Pending
+
+Recorded wireframe colours/default gold (F02), deferred logo (F03), chat buttons before integration (B18), USD/THB (B28), admin-selected public/contact-gated prices (B29), and free open-source mapping (B09). Enquiry routing (B17), sign-in providers (B23), chat contacts/routing, concrete map provider/library and exchange-rate source remain unresolved. No new task IDs or UI code are introduced.
+
+All maintained Markdown and the same tracker are updated. Approved handoff files remain unchanged. Git/live comparison, tracker checks and push verification are repeated for this documentation change. The preceding preparation verification commit `c600068` was pushed successfully; the final report records this change's own commit. No app, DB configuration or localhost endpoints exist, so overall status stays Pending. Chat-button creation is the recorded first priority when the foundation build starts.

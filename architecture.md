@@ -19,3 +19,7 @@ No package versions, application ports or database credentials are selected in S
 The project root is the Git working folder. `live/` is the local preparation/deployment mirror and is excluded from Git to avoid duplicate source history. Explicit allowlisting and SHA-256 checks prevent copying secrets, dependencies, .git or build caches. No deployable code exists yet; matching preparation files do not prove an operational deployment.
 
 The canonical tracker remains at the project root under the latest user instruction. Its copy in live is a mirror, not a second editable source.
+
+## Decision update — 2026-10-09
+
+The future application supports THB and approximate USD display, per-record admin price visibility and free open-source mapping. Specific exchange-rate and mapping providers remain undecided. LINE/WhatsApp buttons precede integration. No dependencies, package versions, code, ports or services changed in this documentation task.

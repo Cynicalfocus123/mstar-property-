@@ -17,3 +17,5 @@ Step 0 prepares documentation, permanent instructions, the existing task tracker
 Read `AGENTS.md` before each task. `design.md`, `architecture.md`, `database.md`, `testing.md` and `progress.md` describe the current state and remaining work. R01 remains Pending under the mandatory completion gates.
 
 Historical `WIREFRAME.md`, `wireframe-v2.html` and `wireframe-v3.html` remain unchanged. Only the approved copy inside `codex-handoff/` governs the build.
+
+Owner choices recorded on 2026-10-09: wireframe colours/default gold, USD and THB, admin-selected price visibility, chat buttons before integration, free open-source mapping, and a deferred header logo. See `design.md` for resolved choices and remaining details. Application status is unchanged; no frontend/API/admin endpoints exist yet.

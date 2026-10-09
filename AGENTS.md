@@ -48,3 +48,7 @@ If any gate fails, retain Pending with the exact reason and next action. Report 
 ## Step 0 record — 2026-10-09
 
 R01 records preparation as Pending because no application, project PostgreSQL configuration or localhost endpoints exist. No application code or approved UI was changed. See `progress.md` and `testing.md`.
+
+## Owner choices — 2026-10-09
+
+Use the approved wireframe colours/default gold. The header logo is deferred. Support USD and THB, with THB as the stored base. Allow an admin to choose public or contact-gated prices per listing/project. Prioritize approved LINE/WhatsApp buttons before integration; do not invent contacts. Mapping must be free and open-source for now; the concrete provider/library is still undecided. These choices update `design.md` without rewriting the immutable handoff. No full Step 1 or Step 2 implementation starts in this decision-recording task.

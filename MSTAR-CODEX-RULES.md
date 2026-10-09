@@ -49,3 +49,7 @@
 - Step 1 instructions are advance instructions for the later build. This preparation step does not implement the frontend foundation or Step 2 database.
 - R01 remains Pending because application/DB tests and localhost verification cannot pass before those components exist. Maintained documentation, the tracker and preparation mirror record the exact state. The approved handoff remains immutable.
 - `WIREFRAME.md` and the older prototype copies are historical, not maintained implementation documentation. Preserve them unchanged; the approved V3 handoff governs current work.
+
+## Owner decision update — 9 Oct 2026
+
+The owner selected wireframe colours/default gold, USD and THB, per-record admin price visibility, chat buttons before integration, and free open-source mapping. The header logo will be supplied later. `design.md` records these choices and the remaining details. Preserve the original handoff while applying the owner's later choices. No application code is built in this decision-recording update; runtime completion gates remain Pending.

@@ -20,3 +20,7 @@
 Test the actual Next.js application at all four required widths in Thai and English. Check overflow, nonwrapping navigation/buttons, keyboard focus and responsive behavior. Run affected flows on desktop and phone, against real PostgreSQL where relevant. Verify stored rows after submissions and report actual working frontend/API/admin URLs.
 
 Do not count static prototype parsing, tracker validation or mirrored hashes as a replacement for application/DB tests. G4 and G5 remain Pending for this preparation task under the owner's rules.
+
+## Owner decision update — 2026-10-09
+
+This change updates documentation and existing tracker IDs only. Recheck six-tab/full-record synchronization, immutable handoff hashes and Git/live hashes after saving. No UI or backend tests are applicable to implemented code because no application code changed; no desktop/phone, PostgreSQL or localhost result is claimed. Runtime gates remain Pending until the application exists.
