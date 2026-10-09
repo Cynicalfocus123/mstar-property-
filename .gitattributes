@@ -1,0 +1,9 @@
+*.md text eol=lf
+*.html text eol=lf
+*.ps1 text eol=lf
+*.xlsx binary
+.gitignore text eol=lf
+.gitattributes text eol=lf
+codex-handoff/** -text
+WIREFRAME.md -text
+wireframe-v*.html -text

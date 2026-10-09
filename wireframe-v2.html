@@ -1,0 +1,485 @@
+<title>Mstar Property Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a spec sheet. Each page = desktop frame + phone frame side by side, numbered notes underneath. */
+:root{
+  --ink:#141210;        /* logo black */
+  --paper:#fbfaf7;      /* page ground */
+  --sheet:#ffffff;      /* wireframe surface */
+  --gold:#b8922e;       /* logo gold, darkened for text contrast */
+  --gold-soft:#efe4c4;
+  --line:#d9d4c8;       /* wireframe strokes */
+  --fill:#ece8de;       /* wireframe blocks */
+  --muted:#6d675c;
+  --f-display:"Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --f-body:"IBM Plex Sans Thai", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ink:#f1ece0;--paper:#0e0d0b;--sheet:#181613;--gold:#d8b45a;--gold-soft:#3a3120;
+  --line:#3b372f;--fill:#26231e;--muted:#a59d8d;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#f1ece0;--paper:#0e0d0b;--sheet:#181613;--gold:#d8b45a;--gold-soft:#3a3120;
+  --line:#3b372f;--fill:#26231e;--muted:#a59d8d;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:15px/1.6 var(--f-body);padding:0 16px}
+.wrap{max-width:1180px;margin:0 auto;padding-block:40px 80px}
+h1,h2{font-family:var(--f-display);font-weight:500;text-wrap:balance;margin:0;letter-spacing:.01em}
+h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.1}
+h2{font-size:clamp(1.5rem,3vw,2rem);line-height:1.2}
+h3{font-size:1rem;margin:0 0 .4rem;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font:500 .72rem/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.muted{color:var(--muted)}
+a{color:var(--gold)}
+
+/* masthead */
+.mast{display:flex;gap:20px;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;border-bottom:1px solid var(--ink);padding-bottom:24px}
+.mast .meta{font:.8rem/1.6 var(--f-mono);color:var(--muted);text-align:right}
+.mono-mark{display:inline-grid;place-items:center;width:44px;height:44px;border:1.5px solid var(--gold);color:var(--gold);font:600 1.1rem var(--f-display);margin-bottom:14px;clip-path:polygon(50% 0,100% 28%,100% 100%,0 100%,0 28%)}
+
+section{padding-block:56px 0}
+.intro{display:grid;grid-template-columns:1.2fr 1fr;gap:40px}
+.intro>*{min-width:0}
+.changes{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.changes li{display:grid;grid-template-columns:7.5rem 1fr;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line);font-size:.92rem}
+.changes b{font:500 .72rem/1.5 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding-top:.15rem}
+
+.swatches{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.sw{display:flex;align-items:center;gap:8px;font:.75rem var(--f-mono);color:var(--muted)}
+.sw i{width:28px;height:28px;border:1px solid var(--line);display:block}
+
+/* sitemap */
+.sitemap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px}
+.sitemap div{background:var(--sheet);padding:14px}
+.sitemap b{display:block;font-weight:600;margin-bottom:4px}
+.sitemap span{font-size:.82rem;color:var(--muted);display:block;line-height:1.45}
+
+/* page block */
+.page-head{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+.page-head .num{font:500 .8rem var(--f-mono);color:var(--gold)}
+.page-sub{margin-bottom:24px;color:var(--muted)}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:28px;align-items:start}
+.notes{margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px 28px;padding:0;list-style:none;counter-reset:n}
+.notes li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:.88rem;line-height:1.5}
+.notes li::before{counter-increment:n;content:counter(n);}
+.notes li::before,.pin{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--gold);color:var(--paper);font:600 .68rem/1 var(--f-mono)}
+.pin{position:absolute;top:-8px;left:-8px;z-index:2}
+
+/* frames */
+.frame{background:var(--sheet);border:1px solid var(--line);min-width:0}
+.frame .chrome{display:flex;gap:5px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.frame .chrome i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.frame .label{font:.68rem var(--f-mono);color:var(--muted);margin-left:auto}
+.phone{background:var(--sheet);border:1px solid var(--line);border-radius:26px;padding:12px 8px 8px;position:relative}
+.phone .screen{border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative}
+.phone .label{display:block;text-align:center;font:.68rem var(--f-mono);color:var(--muted);margin-bottom:8px}
+.body{padding:14px;display:grid;gap:14px}
+.phone .body{padding:10px;gap:10px}
+
+/* wireframe parts */
+.r{position:relative}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.img{background:var(--fill);border:1px solid var(--line);position:relative;display:grid;place-items:center;min-height:40px;
+  background-image:linear-gradient(to top right,transparent calc(50% - .5px),var(--line) 50%,transparent calc(50% + .5px)),linear-gradient(to top left,transparent calc(50% - .5px),var(--line) 50%,transparent calc(50% + .5px))}
+.img span{background:var(--sheet);font:.66rem var(--f-mono);color:var(--muted);padding:2px 6px;position:relative;text-align:center}
+.ln{height:7px;background:var(--fill);border-radius:2px}
+.ln.d{background:var(--ink);opacity:.75}
+.ln.g{background:var(--gold)}
+.t{font-size:.72rem;line-height:1.3}
+.tb{font-size:.78rem;font-weight:600;line-height:1.3}
+.th{font:500 1rem/1.2 var(--f-display)}
+.thx{font:500 1.5rem/1.15 var(--f-display)}
+.btn{font-size:.68rem;padding:5px 9px;border:1px solid var(--ink);white-space:nowrap;line-height:1.2}
+.btn.p{background:var(--ink);color:var(--sheet)}
+.btn.line{background:#06c755;border-color:#06c755;color:#fff}
+.chip{font-size:.66rem;padding:3px 8px;border:1px solid var(--line);border-radius:20px;white-space:nowrap}
+.chip.on{border-color:var(--gold);background:var(--gold-soft)}
+.field{border:1px solid var(--line);padding:6px 8px;font-size:.66rem;color:var(--muted);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.box{border:1px solid var(--line);padding:10px}
+.dark{background:var(--ink);color:var(--sheet);padding:12px}
+.dark .ln{background:var(--muted)}
+.nav{display:flex;gap:10px;font-size:.66rem;flex-wrap:wrap}
+.logo{font:600 .78rem var(--f-display);letter-spacing:.12em;white-space:nowrap}
+.logo em{font-style:normal;color:var(--gold)}
+.card{display:grid;gap:5px}
+.stickybar{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:6px;padding:8px;border-top:1px solid var(--line);background:var(--sheet)}
+.stickybar .btn{text-align:center}
+.side{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:12px;align-items:start}
+.facts{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--line)}
+.facts div{padding:6px;border-right:1px solid var(--line);text-align:center}
+.facts div:last-child{border-right:0}
+.dl{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:.66rem}
+.dl span:nth-child(odd){color:var(--muted)}
+.tabs{display:flex;border-bottom:1px solid var(--line);font-size:.66rem}
+.tabs span{padding:4px 10px}
+.tabs .on{border-bottom:2px solid var(--gold);font-weight:600}
+.acc{border-top:1px solid var(--line);padding:8px 0;display:flex;justify-content:space-between;font-size:.7rem}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.steps div{border-top:2px solid var(--gold);padding-top:6px}
+
+.questions{counter-reset:q;list-style:none;padding:0;margin:24px 0 0;display:grid;gap:14px}
+.questions li{display:grid;grid-template-columns:2.2rem 1fr;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.questions li::before{counter-increment:q;content:"Q" counter(q);font:500 .8rem var(--f-mono);color:var(--gold);padding-top:.15rem}
+
+@media (max-width:900px){
+  .intro{grid-template-columns:1fr}
+  .pair{grid-template-columns:1fr}
+  .pair .phone{max-width:290px;margin:0 auto;width:100%}
+  .frame{overflow-x:auto}
+  .frame>.body{min-width:640px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div>
+    <div class="mono-mark">MP</div>
+    <div class="eyebrow">Mstar Property Development · new site</div>
+    <h1>Wireframe v2</h1>
+  </div>
+  <div class="meta">8 Oct 2026<br>Draft for review<br>Replaces Codex v1</div>
+</header>
+
+<section class="intro">
+  <div>
+    <div class="eyebrow">What changed from v1</div>
+    <ul class="changes" style="margin-top:16px">
+      <li><b>Brand</b><span>Black and gold from the MP logo, with a Didone serif for headings. v1 used forest green, which isn't part of the brand.</span></li>
+      <li><b>Portfolio</b><span>Covers everything Mstar sells: condos, houses, land plots, hotels for sale and new developments. Hotels and land get their own fact fields (rooms and occupancy for hotels, rai/ngan/wah and zoning for land).</span></li>
+      <li><b>Contact</b><span>LINE comes first, then a phone call, then the enquiry form. On phones they stay pinned to the bottom of the screen.</span></li>
+      <li><b>Detail page</b><span>Follows the page order from your old site sequence: gallery with enquiry box, overview, description, details, floor plan, nearby, map, mortgage calculator, video tour, then the 3-step visit.</span></li>
+      <li><b>Language</b><span>Thai/English switch in the header. The Thai font is set from the start, so Thai text doesn't fall back to a system font.</span></li>
+      <li><b>Scope</b><span>This covers the public pages only. Accounts, admin screens and backend planning come after you approve the layout.</span></li>
+    </ul>
+  </div>
+  <div>
+    <div class="eyebrow">Brand tokens</div>
+    <p class="muted" style="margin-top:16px;font-size:.92rem">Mostly white pages with black type. Gold is kept for prices, active filters and small accents. Black is used for the header, footer and a couple of feature bands, so it feels premium without making every page dark.</p>
+    <div class="swatches">
+      <div class="sw"><i style="background:#141210"></i>Ink</div>
+      <div class="sw"><i style="background:#d6b25e"></i>Gold</div>
+      <div class="sw"><i style="background:#ffffff"></i>White</div>
+      <div class="sw"><i style="background:#c9c9c9"></i>Silver</div>
+      <div class="sw"><i style="background:#06c755"></i>LINE</div>
+    </div>
+    <p class="muted" style="margin-top:20px;font-size:.85rem">Headings: Bodoni Moda (matches the logo). Body: IBM Plex Sans Thai (Thai + English).</p>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">Site map</div>
+  <h2 style="margin-top:8px">Main menu</h2>
+  <div class="sitemap">
+    <div><b>Buy</b><span>Condo, house, townhouse, commercial</span></div>
+    <div><b>Rent</b><span>Monthly / yearly</span></div>
+    <div><b>New Projects</b><span>Mstar developments, e.g. Emperor Grand View</span></div>
+    <div><b>Investment</b><span>Hotels, resorts, land plots</span></div>
+    <div><b>Services</b><span>Property management, cleaning, contractor, home decor</span></div>
+    <div><b>About</b><span>Company, team, open every day</span></div>
+    <div><b>Contact</b><span>LINE, phone, office map, form</span></div>
+  </div>
+</section>
+
+<!-- ========== HOME ========== -->
+<section>
+  <div class="page-head"><span class="num">PAGE 1</span><h2>Home</h2></div>
+  <p class="page-sub">Job: get a visitor searching within one scroll, and show that Mstar sells more than condos.</p>
+  <div class="pair">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span class="label">desktop · 1440</span></div>
+      <div class="body">
+        <div class="row between r"><span class="pin">1</span>
+          <span class="logo">MSTAR <em>PROPERTY</em></span>
+          <div class="nav"><span>Buy</span><span>Rent</span><span>New Projects</span><span>Investment</span><span>Services</span><span>About</span></div>
+          <div class="row"><span class="t muted">TH | EN</span><span class="btn line">LINE</span></div>
+        </div>
+        <div class="img r" style="min-height:200px;align-content:end;justify-items:start;padding:18px"><span class="pin">2</span>
+          <div style="background:var(--sheet);padding:12px;width:min(520px,90%);display:grid;gap:8px;border:1px solid var(--line)">
+            <div class="thx" style="text-align:left">Where your dream comes true</div>
+            <div class="row r"><span class="pin" style="left:-22px;top:28px">3</span><span class="chip on">Buy</span><span class="chip">Rent</span><span class="chip">Invest</span></div>
+            <div class="row"><span class="field">Area, project or BTS/MRT</span><span class="field" style="flex:.6">Type ▾</span><span class="field" style="flex:.6">Price ▾</span><span class="btn p">Search</span></div>
+          </div>
+        </div>
+        <div class="g5 r"><span class="pin">4</span>
+          <div class="box t" style="text-align:center">Condo<br><span class="muted">124</span></div>
+          <div class="box t" style="text-align:center">House<br><span class="muted">58</span></div>
+          <div class="box t" style="text-align:center">Land<br><span class="muted">31</span></div>
+          <div class="box t" style="text-align:center">Hotel<br><span class="muted">8</span></div>
+          <div class="box t" style="text-align:center">Commercial<br><span class="muted">12</span></div>
+        </div>
+        <div class="r"><span class="pin">5</span>
+          <div class="row between" style="margin-bottom:8px"><span class="th">Featured properties</span><span class="t" style="color:var(--gold)">View all →</span></div>
+          <div class="g4">
+            <div class="card"><div class="img" style="aspect-ratio:4/3"><span>photo</span></div><div class="tb" style="color:var(--gold)">฿ 8,900,000</div><div class="ln d" style="width:80%"></div><div class="t muted">3 bed · 2 bath · 120 m²</div></div>
+            <div class="card"><div class="img" style="aspect-ratio:4/3"><span>photo</span></div><div class="tb" style="color:var(--gold)">฿ 35,000 /mo</div><div class="ln d" style="width:70%"></div><div class="t muted">1 bed · 1 bath · 45 m²</div></div>
+            <div class="card"><div class="img" style="aspect-ratio:4/3"><span>photo</span></div><div class="tb" style="color:var(--gold)">฿ 12,500,000</div><div class="ln d" style="width:75%"></div><div class="t muted">Land · 2 rai 1 ngan</div></div>
+            <div class="card"><div class="img" style="aspect-ratio:4/3"><span>photo</span></div><div class="tb" style="color:var(--gold)">฿ 480M</div><div class="ln d" style="width:85%"></div><div class="t muted">Hotel · 156 rooms</div></div>
+          </div>
+        </div>
+        <div class="dark r"><span class="pin">6</span>
+          <div class="side" style="grid-template-columns:1fr 1fr">
+            <div style="display:grid;gap:6px"><span class="eyebrow">New project</span><span class="thx" style="color:var(--sheet)">Emperor Grand View</span><div class="ln" style="width:90%"></div><div class="ln" style="width:70%"></div><div class="row"><span class="btn" style="border-color:var(--gold);color:var(--gold)">See the project</span></div></div>
+            <div class="img" style="min-height:110px"><span>render / video</span></div>
+          </div>
+        </div>
+        <div class="r"><span class="pin">7</span>
+          <span class="th">Browse by location</span>
+          <div class="g4" style="margin-top:8px">
+            <div class="img" style="min-height:70px"><span>Bangkok</span></div><div class="img" style="min-height:70px"><span>Pattaya</span></div><div class="img" style="min-height:70px"><span>Phuket</span></div><div class="img" style="min-height:70px"><span>Rayong</span></div>
+          </div>
+        </div>
+        <div class="r box"><span class="pin">8</span>
+          <span class="th">Visit from home in 3 steps</span>
+          <div class="steps" style="margin-top:8px">
+            <div class="t"><b>Video tour</b><br><span class="muted">Watch the walkthrough</span></div>
+            <div class="t"><b>Talk on LINE</b><br><span class="muted">Ask an agent anything</span></div>
+            <div class="t"><b>Book or pay</b><br><span class="muted">Transfer, QR or card</span></div>
+          </div>
+        </div>
+        <div class="r"><span class="pin">9</span>
+          <span class="th">Services for owners</span>
+          <div class="g4" style="margin-top:8px">
+            <div class="card"><div class="img" style="min-height:50px"><span>photo</span></div><span class="t">Property management</span></div>
+            <div class="card"><div class="img" style="min-height:50px"><span>photo</span></div><span class="t">Cleaning</span></div>
+            <div class="card"><div class="img" style="min-height:50px"><span>photo</span></div><span class="t">Contractor</span></div>
+            <div class="card"><div class="img" style="min-height:50px"><span>photo</span></div><span class="t">Home decor</span></div>
+          </div>
+        </div>
+        <div class="dark r"><span class="pin">10</span>
+          <div class="g4"><div style="display:grid;gap:5px"><span class="logo" style="color:var(--sheet)">MSTAR <em>PROPERTY</em></span><span class="t" style="opacity:.7">Open every day 09:00–18:00</span></div><div class="ln"></div><div class="ln"></div><div class="img" style="min-height:50px;width:50px;background-color:var(--sheet)"><span>QR</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phone">
+      <span class="label">mobile · 390</span>
+      <div class="screen">
+        <div class="body">
+          <div class="row between"><span class="logo">MSTAR <em>P</em></span><div class="row"><span class="t muted">TH</span><span class="t">☰</span></div></div>
+          <div class="img" style="min-height:130px;align-content:end;padding:8px"><div style="background:var(--sheet);padding:8px;display:grid;gap:6px;width:100%;border:1px solid var(--line)"><span class="th">Where your dream comes true</span><div class="row"><span class="chip on">Buy</span><span class="chip">Rent</span><span class="chip">Invest</span></div><div class="row"><span class="field">Where?</span><span class="btn p">Go</span></div></div></div>
+          <div class="row" style="flex-wrap:nowrap;overflow:hidden"><span class="chip">Condo</span><span class="chip">House</span><span class="chip">Land</span><span class="chip">Hotel</span><span class="chip">Comm…</span></div>
+          <span class="tb">Featured</span>
+          <div class="card"><div class="img" style="aspect-ratio:16/10"><span>swipe ← →</span></div><div class="tb" style="color:var(--gold)">฿ 8,900,000</div><div class="t muted">3 bed · 2 bath · 120 m²</div></div>
+          <div class="dark" style="padding:8px"><span class="eyebrow">New project</span><div class="th" style="color:var(--sheet)">Emperor Grand View</div></div>
+          <div class="g2"><div class="img" style="min-height:44px"><span>Bangkok</span></div><div class="img" style="min-height:44px"><span>Pattaya</span></div></div>
+        </div>
+        <div class="stickybar r"><span class="pin" style="top:-10px;left:auto;right:6px">11</span><span class="btn line">LINE</span><span class="btn">Call</span><span class="btn p">Enquire</span></div>
+      </div>
+    </div>
+  </div>
+  <ol class="notes">
+    <li>Thin white header that stays at the top. LINE button always visible. Black header on scroll is an option.</li>
+    <li>One large hero photo of a real Mstar property. No slider: sliders hide content and slow the page.</li>
+    <li>Buy / Rent / Invest tabs. Invest swaps the price field for a budget and shows Hotel and Land types.</li>
+    <li>Property-type tiles with live counts. One tap opens the results page with that filter on.</li>
+    <li>Four hand-picked listings, chosen by admin. Price in gold, and the facts line changes by type.</li>
+    <li>Black feature band for a Mstar development, the strongest brand moment on the page.</li>
+    <li>Locations taken from your actual portfolio. Admin can add new ones.</li>
+    <li>The 3-step virtual visit from your old site, made simpler.</li>
+    <li>Owner services, so landlords have a reason to contact Mstar too.</li>
+    <li>Black footer: opening hours, office, LINE QR, social links.</li>
+    <li>Phone: LINE / Call / Enquire stay pinned to the bottom on every page.</li>
+  </ol>
+</section>
+
+<!-- ========== RESULTS ========== -->
+<section>
+  <div class="page-head"><span class="num">PAGE 2</span><h2>Search results</h2></div>
+  <p class="page-sub">Job: narrow down quickly, compare at a glance, see where things are.</p>
+  <div class="pair">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span class="label">desktop · /buy?type=condo&area=sukhumvit</span></div>
+      <div class="body">
+        <div class="row between"><span class="logo">MSTAR <em>PROPERTY</em></span><div class="nav"><span>Buy</span><span>Rent</span><span>New Projects</span><span>Investment</span></div><span class="btn line">LINE</span></div>
+        <div class="row r"><span class="pin">1</span><span class="field">Sukhumvit, Bangkok</span><span class="field" style="flex:.5">Condo ▾</span><span class="field" style="flex:.5">฿3M – ฿10M</span><span class="field" style="flex:.4">2+ bed</span><span class="btn">More filters</span><span class="btn p">Search</span></div>
+        <div class="row between r"><span class="pin">2</span><div class="row"><span class="chip on">Condo ✕</span><span class="chip on">Sukhumvit ✕</span><span class="chip on">2+ bed ✕</span><span class="t muted">Clear all</span></div><div class="row"><span class="t muted">86 results</span><span class="field" style="flex:none">Newest ▾</span></div></div>
+        <div class="side">
+          <div class="g2 r"><span class="pin">3</span>
+            <div class="card"><div class="img" style="aspect-ratio:4/3"><span>photo · 1/12</span></div><div class="row between"><span class="tb" style="color:var(--gold)">฿ 6,450,000</span><span class="t">♡</span></div><div class="ln d" style="width:85%"></div><div class="t muted">2 bed · 2 bath · 68 m² · BTS 300 m</div></div>
+            <div class="card"><div class="img" style="aspect-ratio:4/3"><span>photo · 1/9</span></div><div class="row between"><span class="tb" style="color:var(--gold)">฿ 9,200,000</span><span class="t">♡</span></div><div class="ln d" style="width:70%"></div><div class="t muted">2 bed · 2 bath · 82 m² · BTS 550 m</div></div>
+            <div class="card"><div class="img" style="aspect-ratio:4/3"><span>photo</span></div><div class="ln g" style="width:40%"></div><div class="ln d" style="width:75%"></div><div class="ln" style="width:60%"></div></div>
+            <div class="card"><div class="img" style="aspect-ratio:4/3"><span>photo</span></div><div class="ln g" style="width:40%"></div><div class="ln d" style="width:75%"></div><div class="ln" style="width:60%"></div></div>
+            <div class="row r" style="grid-column:1/-1;justify-content:center"><span class="pin">5</span><span class="btn">Load more</span></div>
+          </div>
+          <div class="img r" style="min-height:330px;position:sticky;top:0"><span class="pin">4</span><span>map · price pins</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone">
+      <span class="label">mobile · 390</span>
+      <div class="screen">
+        <div class="body">
+          <div class="row between"><span class="logo">MSTAR <em>P</em></span><span class="t">☰</span></div>
+          <div class="row"><span class="field">Sukhumvit · Condo · 2+ bed</span></div>
+          <div class="row between"><span class="btn">Filters (3)</span><span class="t muted">86 results</span><span class="btn">Sort</span></div>
+          <div class="card"><div class="img" style="aspect-ratio:16/10"><span>photo · swipe</span></div><div class="tb" style="color:var(--gold)">฿ 6,450,000</div><div class="t muted">2 bed · 2 bath · 68 m²</div></div>
+          <div class="card"><div class="img" style="aspect-ratio:16/10"><span>photo</span></div><div class="ln g" style="width:40%"></div></div>
+          <div class="row" style="justify-content:center"><span class="btn p r" style="border-radius:20px">Map ⌖<span class="pin" style="left:auto;right:-14px;top:-10px">6</span></span></div>
+        </div>
+        <div class="stickybar"><span class="btn line">LINE</span><span class="btn">Call</span><span class="btn p">Enquire</span></div>
+      </div>
+    </div>
+  </div>
+  <ol class="notes">
+    <li>Same search bar as the home page, already filled in. Filters are saved in the URL, so a search can be shared on LINE.</li>
+    <li>Active filters show as gold chips. Tap ✕ to remove one.</li>
+    <li>Cards show a photo you can swipe, price, a short title and a facts line that changes by type (land shows rai, hotels show rooms).</li>
+    <li>Map stays in view next to the list. Hovering a card highlights its pin.</li>
+    <li>"Load more" button instead of page numbers.</li>
+    <li>Phone: filters open as a full-screen sheet, and the floating Map button switches between list and map.</li>
+  </ol>
+</section>
+
+<!-- ========== DETAIL ========== -->
+<section>
+  <div class="page-head"><span class="num">PAGE 3</span><h2>Property detail</h2></div>
+  <p class="page-sub">Job: answer every question a buyer has, then make contacting an agent the obvious next step. The section order follows your old site sequence.</p>
+  <div class="pair">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span class="label">desktop · /property/BK-CD-0142</span></div>
+      <div class="body">
+        <div class="row between"><span class="logo">MSTAR <em>PROPERTY</em></span><div class="nav"><span>Buy</span><span>Rent</span><span>New Projects</span><span>Investment</span></div><span class="btn line">LINE</span></div>
+        <span class="t muted">Buy › Bangkok › Sukhumvit › Condo</span>
+        <div class="r" style="display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:80px 80px;gap:6px"><span class="pin">1</span>
+          <div class="img" style="grid-row:1/3"><span>main photo</span></div><div class="img"><span>2</span></div><div class="img"><span>3</span></div><div class="img"><span>4</span></div><div class="img"><span>+ 18 photos · video</span></div>
+        </div>
+        <div class="side">
+          <div style="display:grid;gap:14px">
+            <div class="r"><span class="pin">2</span>
+              <div class="row between"><div><div class="thx" style="color:var(--gold)">฿ 6,450,000</div><div class="t muted">≈ ฿ 31,200 / month · ฿ 94,850 / m²</div></div><div class="row"><span class="btn">♡ Save</span><span class="btn">Share</span></div></div>
+              <div class="ln d" style="width:60%;margin-top:6px"></div><div class="t muted" style="margin-top:4px">Sukhumvit 39, Khlong Tan Nuea, Watthana, Bangkok</div>
+            </div>
+            <div class="facts t r"><span class="pin">3</span><div><b>Condo</b><br><span class="muted">type</span></div><div><b>2</b><br><span class="muted">bed</span></div><div><b>2</b><br><span class="muted">bath</span></div><div><b>68 m²</b><br><span class="muted">size</span></div><div><b>18th</b><br><span class="muted">floor</span></div><div><b>2019</b><br><span class="muted">built</span></div></div>
+            <div class="r"><span class="pin">4</span><span class="tb">Description</span><div style="display:grid;gap:4px;margin-top:6px"><div class="ln"></div><div class="ln"></div><div class="ln" style="width:60%"></div></div><span class="t" style="color:var(--gold)">Read more</span></div>
+            <div class="box r"><span class="pin">5</span><span class="tb">Details</span><div class="dl" style="margin-top:6px"><span>Property ID</span><span>BK-CD-0142</span><span>Status</span><span>For sale</span><span>Ownership</span><span>Foreign quota</span><span>Common fee</span><span>฿ 55 / m²</span><span>Parking</span><span>1</span><span>Updated</span><span>2 Oct 2026</span></div></div>
+            <div class="r"><span class="pin">6</span><div class="tabs"><span class="on">Floor plan</span><span>Video tour</span><span>360°</span></div><div class="img" style="min-height:90px;margin-top:6px"><span>floor plan image</span></div></div>
+            <div class="r"><span class="pin">7</span><span class="tb">What's nearby</span><div class="g3" style="margin-top:6px"><div class="t"><b>Transit</b><br><span class="muted">BTS Phrom Phong · 650 m</span></div><div class="t"><b>Shopping</b><br><span class="muted">EmQuartier · 900 m</span></div><div class="t"><b>Schools</b><br><span class="muted">Example only</span></div></div><div class="img" style="min-height:80px;margin-top:8px"><span>map · approx. location</span></div></div>
+            <div class="box r"><span class="pin">8</span><span class="tb">Mortgage calculator</span><div class="row" style="margin-top:6px"><span class="field">Price ฿6,450,000</span><span class="field">Down 20%</span><span class="field">Rate 3.5%</span><span class="field">30 yrs</span></div><div class="t" style="margin-top:6px">≈ <b style="color:var(--gold)">฿ 23,170 / month</b></div></div>
+            <div class="r"><span class="pin">9</span><div class="steps"><div class="t"><b>Video tour</b></div><div class="t"><b>Talk on LINE</b></div><div class="t"><b>Book or pay</b></div></div></div>
+          </div>
+          <div class="box r" style="position:sticky;top:0;display:grid;gap:8px"><span class="pin">10</span>
+            <div class="row"><div class="img" style="width:38px;min-height:38px;border-radius:50%"></div><div><div class="tb">Agent name</div><div class="t muted">Mstar Property</div></div></div>
+            <span class="btn line" style="text-align:center">Chat on LINE</span>
+            <span class="btn" style="text-align:center">Call agent</span>
+            <span class="field">Name</span><span class="field">Phone or LINE ID</span><span class="field">Hi, I'm interested in BK-CD-0142…</span>
+            <div class="row"><span class="chip">Book a viewing</span><span class="chip">Video call</span></div>
+            <span class="btn p" style="text-align:center">Send enquiry</span>
+            <span class="t muted">We reply within 1 hour, 09:00–18:00</span>
+          </div>
+        </div>
+        <div class="r"><span class="pin">11</span><span class="th">Similar properties</span><div class="g4" style="margin-top:8px"><div class="img" style="aspect-ratio:4/3"><span>card</span></div><div class="img" style="aspect-ratio:4/3"><span>card</span></div><div class="img" style="aspect-ratio:4/3"><span>card</span></div><div class="img" style="aspect-ratio:4/3"><span>card</span></div></div></div>
+      </div>
+    </div>
+    <div class="phone">
+      <span class="label">mobile · 390</span>
+      <div class="screen">
+        <div class="img" style="aspect-ratio:4/3;border:0"><span>swipe · 1 / 22</span></div>
+        <div class="body">
+          <div><div class="thx" style="color:var(--gold);font-size:1.25rem">฿ 6,450,000</div><div class="t muted">Sukhumvit 39, Bangkok</div></div>
+          <div class="g3 t" style="text-align:center"><div class="box" style="padding:4px"><b>2</b> bed</div><div class="box" style="padding:4px"><b>2</b> bath</div><div class="box" style="padding:4px"><b>68</b> m²</div></div>
+          <div style="display:grid;gap:4px"><div class="ln"></div><div class="ln" style="width:70%"></div></div>
+          <div>
+            <div class="acc"><span>Details</span><span>+</span></div>
+            <div class="acc"><span>Floor plan & video</span><span>+</span></div>
+            <div class="acc"><span>Nearby & map</span><span>+</span></div>
+            <div class="acc"><span>Mortgage calculator</span><span>+</span></div>
+          </div>
+        </div>
+        <div class="stickybar r"><span class="pin" style="top:-10px;left:auto;right:6px">12</span><span class="btn line">LINE</span><span class="btn">Call</span><span class="btn p">Enquire</span></div>
+      </div>
+    </div>
+  </div>
+  <ol class="notes">
+    <li>Photo grid: one large photo and four small ones. Clicking opens a full-screen gallery with arrows and a counter.</li>
+    <li>Price in gold, with an estimated monthly payment and price per m². Save and Share (LINE, Facebook, copy link).</li>
+    <li>Key facts in one row. The fields change by type: land shows rai/ngan/wah, frontage and zoning colour. Hotels show rooms, occupancy and yearly revenue.</li>
+    <li>Description cut to about 5 lines, with "Read more". Thai and English versions are kept separately.</li>
+    <li>Details table, the same as your old site but without the coloured box.</li>
+    <li>Floor plan, video tour and 360° in tabs, so the page doesn't get too long.</li>
+    <li>Nearby places come from a map service, never typed in by hand. The exact address can stay hidden until a viewing is booked.</li>
+    <li>Mortgage calculator in Thai baht, prefilled from the listing price.</li>
+    <li>The 3-step virtual visit, repeated here.</li>
+    <li>Agent box that follows you down the page: LINE first, then call, then a short form. One clear button.</li>
+    <li>Similar properties: same area, same type, similar price.</li>
+    <li>Phone: one long page with sections that open and close. The LINE / Call / Enquire bar replaces the side box.</li>
+  </ol>
+</section>
+
+<!-- ========== PROJECT ========== -->
+<section>
+  <div class="page-head"><span class="num">PAGE 4</span><h2>New project</h2></div>
+  <p class="page-sub">Job: sell a whole Mstar development, not one unit. Example: Emperor Grand View.</p>
+  <div class="pair">
+    <div class="frame">
+      <div class="chrome"><i></i><i></i><i></i><span class="label">desktop · /projects/emperor-grand-view</span></div>
+      <div class="body">
+        <div class="dark r" style="padding:0"><span class="pin">1</span>
+          <div class="img" style="min-height:170px;border:0;opacity:.85"><span>drone video / render, full width</span></div>
+          <div style="padding:12px;display:grid;gap:6px"><span class="eyebrow">Mstar Property Development</span><span class="thx" style="color:var(--sheet)">Emperor Grand View</span><div class="row"><span class="t" style="opacity:.75">From ฿ 4.9M · Houses · Completion 2027</span><span class="btn" style="border-color:var(--gold);color:var(--gold);margin-left:auto">Register interest</span></div></div>
+        </div>
+        <div class="row r" style="font-size:.66rem;gap:16px;border-bottom:1px solid var(--line);padding-bottom:6px"><span class="pin">2</span><b>Overview</b><span>Unit types</span><span>Master plan</span><span>Facilities</span><span>Progress</span><span>Location</span><span>Brochure</span></div>
+        <div class="r"><span class="pin">3</span><span class="th">Unit types</span>
+          <div class="g3" style="margin-top:8px">
+            <div class="box card"><div class="img" style="min-height:60px"><span>plan</span></div><span class="tb">Type A · 3 bed</span><span class="t muted">178 m² · from ฿ 4.9M</span><span class="t" style="color:var(--gold)">4 of 12 left</span></div>
+            <div class="box card"><div class="img" style="min-height:60px"><span>plan</span></div><span class="tb">Type B · 4 bed</span><span class="t muted">220 m² · from ฿ 6.8M</span><span class="t" style="color:var(--gold)">7 of 10 left</span></div>
+            <div class="box card"><div class="img" style="min-height:60px"><span>plan</span></div><span class="tb">Type C · villa</span><span class="t muted">310 m² · from ฿ 11.5M</span><span class="t muted">Sold out</span></div>
+          </div>
+        </div>
+        <div class="g2">
+          <div class="img r" style="min-height:110px"><span class="pin">4</span><span>master plan · tap a plot</span></div>
+          <div class="r" style="display:grid;gap:6px"><span class="pin">5</span><span class="tb">Facilities</span><div class="g2 t"><span>Clubhouse</span><span>Pool</span><span>Entrance gate</span><span>24h security</span><span>Canal walk</span><span>Garden</span></div></div>
+        </div>
+        <div class="box r"><span class="pin">6</span><span class="tb">Construction progress</span><div style="height:6px;background:var(--fill);margin-top:8px"><div style="width:45%;height:100%;background:var(--gold)"></div></div><div class="row between t muted" style="margin-top:4px"><span>Land prep</span><span>Structure</span><span>Finishing</span><span>Handover</span></div></div>
+        <div class="dark r"><span class="pin">7</span><div class="row between"><span class="th" style="color:var(--sheet)">Get the brochure and price list</span><div class="row"><span class="field" style="background:var(--sheet);min-width:120px">Phone or LINE ID</span><span class="btn" style="background:var(--gold);border-color:var(--gold);color:var(--ink)">Send</span></div></div></div>
+      </div>
+    </div>
+    <div class="phone">
+      <span class="label">mobile · 390</span>
+      <div class="screen">
+        <div class="dark" style="padding:0"><div class="img" style="min-height:120px;border:0"><span>render</span></div><div style="padding:8px"><span class="th" style="color:var(--sheet)">Emperor Grand View</span><div class="t" style="opacity:.75">From ฿ 4.9M · 2027</div></div></div>
+        <div class="body">
+          <div class="row" style="flex-wrap:nowrap;overflow:hidden"><span class="chip on">Overview</span><span class="chip">Units</span><span class="chip">Plan</span><span class="chip">Progress</span></div>
+          <div class="box card"><span class="tb">Type A · 3 bed</span><span class="t muted">178 m² · from ฿ 4.9M</span></div>
+          <div class="box card"><span class="tb">Type B · 4 bed</span><span class="t muted">220 m² · from ฿ 6.8M</span></div>
+          <div class="img" style="min-height:80px"><span>master plan</span></div>
+        </div>
+        <div class="stickybar"><span class="btn line">LINE</span><span class="btn">Call</span><span class="btn p">Register</span></div>
+      </div>
+    </div>
+  </div>
+  <ol class="notes">
+    <li>Full-width black hero with a drone video or render. This is the most "luxury" page on the site.</li>
+    <li>Section menu that stays at the top while you scroll, so buyers can jump around a long page.</li>
+    <li>Unit types with how many are left. Admin updates the stock, and sold-out types stay visible but greyed.</li>
+    <li>Master plan: tap a plot to see its status (available / reserved / sold).</li>
+    <li>Facilities list, taken from the Emperor Grand View specs.</li>
+    <li>Construction progress bar. Admin moves it and can add dated photos.</li>
+    <li>Brochure request: the brochure is sent on LINE after the visitor leaves a contact. This is how leads are collected.</li>
+  </ol>
+</section>
+
+<!-- ========== QUESTIONS ========== -->
+<section>
+  <div class="eyebrow">Before v3</div>
+  <h2 style="margin-top:8px">Questions for you</h2>
+  <ol class="questions">
+    <li><span><b>What did you dislike most about the Codex version?</b> The look (colours, layout), the page structure, or both? The answer decides how far v3 moves from this.</span></li>
+    <li><span><b>Light or dark site?</b> This draft uses white pages with black and gold accents. A fully black luxury site is also possible but harder to read for long listings.</span></li>
+    <li><span><b>Which language opens first:</b> Thai or English? Are most buyers Thai or foreign?</span></li>
+    <li><span><b>Hotels and land:</b> should they sit under "Investment" as shown, or be their own menu items?</span></li>
+    <li><span><b>Exact address:</b> show the pin on the map, or only the general area until a viewing is booked?</span></li>
+    <li><span><b>Any sites you like?</b> Send two or three links and I'll match the feel.</span></li>
+  </ol>
+</section>
+
+</div>
