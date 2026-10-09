@@ -1,5 +1,11 @@
 # Mstar Property project instructions
 
+## Active V5 guide — 2026-10-09
+
+Use `codex-handoff/MSTAR-CODEX-PROMPTS-v5.md` as the active numbered stage guide from now on, replacing V4. Its stage numbering takes precedence over BUILD-SPEC section 16 when referring to steps. Read the updated BUILD-SPEC, wireframe.html and home-page.html before implementing affected UI. Step 3 uses one Realtor-style 3:2 listing card; Step 6 wires its Contact agent dialog; Step 7 adds Homes for you directly below search. Mapping choices follow the owner's free/open-source direction and V5 Step 4. This adoption does not authorize any build step.
+
+Keep the root workbook. The owner deferred tests for now. Port 3000 is currently open for viewing at the owner's explicit request; keep that authorized preview until asked to close it. Future test servers stop afterward unless the owner requests otherwise. Other completion gates and existing Pending tasks remain applicable.
+
 ## Permanent workflow
 
 - Start every Codex task with `$caveman full`. Keep persisted documentation, comments and commits in normal clear English.

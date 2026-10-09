@@ -1,5 +1,9 @@
 # Verification record
 
+## Active V5 guide — 2026-10-09
+
+V5 adopted as the active stage guide. Application tests are deferred at owner request; no Playwright, build or PostgreSQL retest is run in this documentation task. Port 3000 is open for the explicitly requested preview; the frontend was verified HTTP 200 when reopened. No new runtime/DB pass is claimed. Documentation, workbook and safe mirror checks are separate from application testing. Original revised handoff files are preserved byte-for-byte during adoption; earlier hashes describe the preceding revision.
+
 ## Latest foundation evidence — 2026-10-09 — Pending
 
 - PASS: final npm run build compiles production routes and checks TypeScript. Separate typecheck also passed.

@@ -1,5 +1,11 @@
 # Mstar Property
 
+## Active V5 guide — 2026-10-09
+
+Active stage guide: `codex-handoff/MSTAR-CODEX-PROMPTS-v5.md`. Revised V3 BUILD-SPEC, wireframe.html and new home-page.html govern visuals. The Homes for you carousel belongs to Step 7; reusable 3:2 cards belong to Step 3. No new application step is started by adopting the guide.
+
+The owner subsequently requested frontend viewing: port 3000 is open at http://127.0.0.1:3000/en and /th. Tests remain deferred; Step 1 remains Pending. Admin and PostgreSQL configuration remain absent. Earlier closure records describe historical state.
+
 Next.js App Router and TypeScript foundation following Claude's approved V3 wireframe and BUILD-SPEC. Read AGENTS.md before each task.
 
 ## Current state — 2026-10-09

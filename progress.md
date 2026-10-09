@@ -1,5 +1,9 @@
 # Progress
 
+## Active V5 guide — 2026-10-09
+
+The owner adopted `codex-handoff/MSTAR-CODEX-PROMPTS-v5.md` for future stages. Read its full stage guide and updated BUILD-SPEC; preserve the supplied revised source files. Recorded the change in all eight maintained Markdown files and existing task IDs. No application UI/backend code or next build step starts. Step 1 stays Pending for deferred browser tests and real PostgreSQL. Preview port 3000 remains open under the owner's explicit viewing request. Previous foundation commit 604c62e is pushed; adoption commit is identified in the final report. Canonical workbook remains at root with six tabs and stable history.
+
 ## Current status — Step 1 — Pending — 2026-10-09
 
 The owner started the foundation build. Implemented F01 (tokens/fonts/controls), F02 (colours), F04 (header), F05 (phone tabs), F06 (footer), F07 (routing/preferences), B18 (chat buttons only) and B34 (health). F03 awaits the final logo. Existing R01 is retained; no duplicate IDs or Step 2 work were introduced.

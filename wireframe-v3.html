@@ -171,6 +171,47 @@ h1,h2,h3{font-family:var(--f-head);font-weight:600;margin:0;text-wrap:balance;le
 .cmeta{font-size:.8rem;color:var(--muted)}
 .card.hl .ph{outline:3px solid var(--acc);outline-offset:2px}
 
+/* listing card (Realtor-style): used on home, results and saved */
+.lrail{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 36px)/3);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 2px 10px}
+.lrail>*{scroll-snap-align:start}
+.lgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lgrid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.lcard{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;position:relative;transition:box-shadow .15s}
+.lcard:hover{box-shadow:0 8px 24px rgba(31,38,51,.12)}
+.lcard .ph{aspect-ratio:3/2;border-radius:0}
+.lcard .tags{position:absolute;top:12px;left:12px;display:flex;gap:6px;z-index:1}
+.lcard .tags .badge{border-radius:999px;padding:4px 10px;box-shadow:0 1px 4px rgba(31,38,51,.15)}
+.lcard .heart{top:auto;bottom:12px;right:12px;width:42px;height:42px;font-size:1.15rem;background:#fff;box-shadow:0 2px 8px rgba(31,38,51,.2)}
+.lcard .nextph{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center;opacity:0;transition:opacity .15s;z-index:2}
+.lcard:hover .nextph,.lcard:focus-within .nextph{opacity:1}
+.lbody{padding:14px 16px 16px;display:grid;gap:4px;flex:1}
+.lstat{display:flex;align-items:center;gap:7px;font-size:.88rem}
+.lstat i{width:10px;height:10px;border-radius:50%;background:var(--ok)}
+.lstat i.rent{background:#2f7de1}
+.lstat i.inv{background:var(--acc)}
+.lprice{font:600 1.45rem/1.2 var(--f-head);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.lprice small{font:400 .85rem var(--f-body);color:var(--muted)}
+.drop{font:600 .85rem var(--f-body);color:var(--ok)}
+.lfacts{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:.92rem}
+.lfacts b{font-weight:700}
+.lfoot{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap;margin-top:6px}
+.laddr{font-size:.85rem;line-height:1.4;color:var(--ink);min-width:0}
+.contact{height:38px;padding:0 16px;border-radius:999px;border:1px solid #c9ced6;background:#fff;font-weight:600;font-size:.85rem;white-space:nowrap}
+.contact:hover,.lcard:hover .contact{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.lcard.hl{outline:3px solid var(--acc);outline-offset:1px}
+.carr{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;font-size:1.1rem}
+.carr:hover{border-color:var(--ink)}
+.feedtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+
+/* contact agent dialog (from a card) */
+.cmodal{position:fixed;inset:0;z-index:50;background:rgba(31,38,51,.45);display:grid;place-items:center;padding:16px}
+.cmodal[hidden]{display:none}
+.cbox{background:#fff;border-radius:18px;width:min(440px,100%);max-height:calc(100% - 32px);overflow:auto;padding:20px;display:grid;gap:12px;box-shadow:0 20px 60px rgba(31,38,51,.3)}
+.cbox .top{display:flex;justify-content:space-between;align-items:center}
+.cbox .x{width:34px;height:34px;border-radius:50%;font-size:1.1rem}
+.cbox .x:hover{background:var(--soft)}
+.cbox .sumcard .ph{width:72px;height:54px}
+
 .tile{position:relative;aspect-ratio:1/1;border-radius:var(--r);overflow:hidden;cursor:pointer;text-align:left}
 .tile .ph{position:absolute;inset:0;border-radius:0}
 .tile .cap{position:absolute;left:12px;bottom:10px;z-index:1;background:#fff;border-radius:8px;padding:4px 10px;font-size:.85rem}
@@ -346,6 +387,9 @@ h1,h2,h3{font-family:var(--f-head);font-weight:600;margin:0;text-wrap:balance;le
   .grid4,.grid3{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .grid4.rail,.grid3.rail{display:flex;overflow-x:auto;scrollbar-width:none}
   .grid4.rail>*,.grid3.rail>*{flex:0 0 72%}
+  .lrail{grid-auto-columns:86%;gap:12px}
+  .lgrid,.lgrid3{grid-template-columns:1fr}
+  .lprice{font-size:1.3rem}
   .ftr{grid-template-columns:1fr 1fr;padding:20px 16px 90px}
   .fbar{padding:8px 16px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
   .fsearch{flex:0 0 200px}
@@ -478,8 +522,19 @@ tr:last-child td{border-bottom:0}
             </div>
           </div>
 
-          <div class="cats rel">
-            <span class="pin" style="left:6px;top:6px">4</span>
+          <div class="in">
+            <div class="sec rel" style="padding-top:32px">
+              <span class="pin" style="left:-14px;top:28px">4</span>
+              <div class="sec-h"><h3>Homes for you</h3>
+                <div style="display:flex;gap:8px;align-items:center"><button class="link" data-go="results">See all 233</button><button class="carr" data-scroll="-1" aria-label="Previous">‹</button><button class="carr" data-scroll="1" aria-label="Next">›</button></div>
+              </div>
+              <div class="feedtabs seg-auto"><button class="chip on">For sale</button><button class="chip">For rent</button><button class="chip">New listings</button><button class="chip">Price reduced</button><button class="chip">Investment</button></div>
+              <div class="lrail" data-cards="featured"></div>
+            </div>
+          </div>
+
+          <div class="cats rel" style="margin-top:12px;border-top:1px solid var(--line)">
+            <span class="pin" style="left:6px;top:6px">5</span>
             <button class="on" data-go="results" data-q="Condos"><span class="ci"></span>Condo</button>
             <button data-go="results" data-q="Houses"><span class="ci"></span>House</button>
             <button data-go="results" data-q="Townhouses"><span class="ci"></span>Townhouse</button>
@@ -495,19 +550,13 @@ tr:last-child td{border-bottom:0}
 
           <div class="in">
             <div class="sec rel">
-              <span class="pin" style="left:-14px;top:24px">5</span>
+              <span class="pin" style="left:-14px;top:24px">6</span>
               <div class="sec-h"><h3>Continue your search</h3></div>
               <div class="resume">
                 <button data-go="results"><b>Sukhumvit condos</b><span class="muted">฿3M–10M · 2+ bed · <span style="color:var(--acc-ink)">2 new</span></span></button>
                 <button data-go="detail"><b>Viewed: The Lofts 39</b><span class="muted">฿6,450,000 · yesterday</span></button>
                 <button data-go="results"><b>Pattaya land</b><span class="muted">1+ rai · under ฿20M</span></button>
               </div>
-            </div>
-
-            <div class="sec rel">
-              <span class="pin" style="left:-14px;top:24px">6</span>
-              <div class="sec-h"><h3>Featured homes</h3><button class="link" data-go="results">See all 233</button></div>
-              <div class="grid4 rail" data-cards="featured"></div>
             </div>
 
             <div class="sec rel">
@@ -589,7 +638,7 @@ tr:last-child td{border-bottom:0}
               <div class="row" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
                 <button class="chip on">Condo ✕</button><button class="chip on">2+ bed ✕</button><button class="chip">Near BTS</button><button class="chip">Foreign quota</button><button class="chip">Pet friendly</button><button class="chip">Video tour</button>
               </div>
-              <div class="grid2" data-cards="results"></div>
+              <div class="lgrid" data-cards="results"></div>
               <div style="display:flex;justify-content:center;margin-top:20px"><button class="btn out">Show more homes</button></div>
             </div>
             <div class="map rel" id="map">
@@ -779,7 +828,7 @@ tr:last-child td{border-bottom:0}
           <div class="in" style="padding-top:20px;padding-bottom:30px">
             <h2 style="font-size:1.5rem">Saved</h2>
             <div class="stabs2 seg-tabs rel"><span class="pin" style="left:-14px;top:4px">1</span><button class="chip on" data-tab="homes">Homes</button><button class="chip" data-tab="searches">Searches</button><button class="chip" data-tab="viewings">Viewings</button></div>
-            <div data-pane="homes"><div class="grid3" data-cards="saved"></div><p class="muted small" style="margin-top:14px">Not signed in. Saved homes stay on this device. <button class="link">Sign in with LINE</button> to keep them everywhere.</p></div>
+            <div data-pane="homes"><div class="lgrid3" data-cards="saved"></div><p class="muted small" style="margin-top:14px">Not signed in. Saved homes stay on this device. <button class="link">Sign in with LINE</button> to keep them everywhere.</p></div>
             <div data-pane="searches" hidden>
               <div style="display:grid;gap:10px" class="rel">
                 <span class="pin" style="left:-14px;top:12px">2</span>
@@ -792,6 +841,26 @@ tr:last-child td{border-bottom:0}
             </div>
           </div>
         </section>
+
+        <!-- contact modal -->
+        <div class="cmodal" id="cModal" hidden role="dialog" aria-modal="true" aria-labelledby="cTitle">
+          <div class="cbox">
+            <div class="top"><h3 id="cTitle" style="font-size:1.2rem">Contact agent</h3><button class="x" id="cClose" aria-label="Close">✕</button></div>
+            <div class="sumcard"><span class="ph" id="cPh"></span><div><b id="cName">Listing</b><div class="muted small" id="cMeta"></div></div></div>
+            <form class="eform" id="cForm">
+              <label class="fl" for="cFull"><span>Full name *</span><input id="cFull" required></label>
+              <label class="fl" for="cMail"><span>Email *</span><input id="cMail" type="email" required></label>
+              <label class="fl" for="cTel"><span>Phone *</span><input id="cTel" type="tel" required></label>
+              <label class="fl" for="cMsg"><span>How can an agent help?</span><textarea id="cMsg" rows="3"></textarea></label>
+              <button class="btn acc block" type="submit">Email agent</button>
+              <p class="consent">By sending, you agree that Mstar Property may contact you by phone, email, LINE or WhatsApp about this enquiry (PDPA).</p>
+            </form>
+            <div class="sent" id="cSent" hidden><span class="tick">✓</span><b>Message sent</b><span class="muted small">An agent will reply by email or phone, usually within 1 hour (09:00–18:00).</span></div>
+            <div class="orline"><span>or chat now</span></div>
+            <div class="chatbtns"><button class="btn line">Chat on LINE</button><button class="btn wa">Chat on WhatsApp</button></div>
+          </div>
+        </div>
+        <!-- /contact modal -->
 
         <!-- phone bottom tab bar -->
         <nav class="tabsbar rel" id="tabsbar">
@@ -859,22 +928,35 @@ tr:last-child td{border-bottom:0}
 
   /* ---------- sample listings (examples, not real stock) ---------- */
   const L = [
-    {p:'฿6,450,000',t:'2-bed condo · The Lofts 39',m:'2 bd · 2 ba · 68 m² · BTS 650 m',tag:['Price drop','acc'],ph:'',x:45,y:40,s:'฿6.4M'},
-    {p:'฿9,200,000',t:'2-bed condo · Noble Refine',m:'2 bd · 2 ba · 82 m² · BTS 300 m',tag:['New','ok'],ph:'b',x:30,y:28,s:'฿9.2M'},
-    {p:'฿35,000 /mo',t:'1-bed condo · Rhythm 36',m:'1 bd · 1 ba · 45 m² · pet friendly',tag:['Video tour',''],ph:'c',x:62,y:22,s:'฿35k'},
-    {p:'฿12,500,000',t:'Land · Jomtien, Pattaya',m:'2 rai 1 ngan · yellow zone · 40 m road',tag:null,ph:'d',x:70,y:70,s:'฿12.5M'},
-    {p:'฿7,890,000',t:'2-bed condo · Siamese 39',m:'2 bd · 2 ba · 71 m² · foreign quota',tag:null,ph:'b',x:52,y:30,s:'฿7.9M'},
-    {p:'฿4,950,000',t:'House · Emperor Grand View',m:'3 bd · 3 ba · 178 m² · 52 sq. wah',tag:['Mstar project','acc'],ph:'c',x:22,y:66,s:'฿4.9M'},
-    {p:'฿480,000,000',t:'Hotel · 156 rooms, Phuket',m:'156 rooms · 72% occupancy · sea view',tag:['Investment','acc'],ph:'d',x:80,y:50,s:'฿480M'},
-    {p:'฿8,300,000',t:'2-bed condo · Park 24',m:'2 bd · 2 ba · 75 m² · BTS 400 m',tag:null,ph:'',x:38,y:55,s:'฿8.3M'}
+    {st:'Condo for sale',k:'',p:'฿6,450,000',drop:'฿200k',f:[['2','bed'],['2','bath'],['68','m²'],['650 m','to BTS']],a1:'The Lofts 39, Sukhumvit 39',a2:'Watthana, Bangkok 10110',t:'2-bed condo · The Lofts 39',m:'2 bd · 2 ba · 68 m² · BTS 650 m',tag:[['Video tour','']],ph:'',x:45,y:40,s:'฿6.4M'},
+    {st:'Condo for sale',k:'',p:'฿9,200,000',f:[['2','bed'],['2','bath'],['82','m²'],['300 m','to BTS']],a1:'Noble Refine, Sukhumvit 26',a2:'Khlong Toei, Bangkok 10110',t:'2-bed condo · Noble Refine',m:'2 bd · 2 ba · 82 m² · BTS 300 m',tag:[['Featured',''],['New','ok']],ph:'b',x:30,y:28,s:'฿9.2M'},
+    {st:'Condo for rent',k:'rent',p:'฿35,000',per:'/month',f:[['1','bed'],['1','bath'],['45','m²'],['Pet','friendly']],a1:'Rhythm 36, Sukhumvit 36',a2:'Khlong Toei, Bangkok 10110',t:'1-bed condo · Rhythm 36',m:'1 bd · 1 ba · 45 m² · pet friendly',tag:[['New','ok']],ph:'c',x:62,y:22,s:'฿35k'},
+    {st:'Land for sale',k:'',p:'฿12,500,000',f:[['2','rai'],['1','ngan'],['3,600','m²'],['40 m','road']],a1:'Soi Chaiyapruek 2, Jomtien',a2:'Bang Lamung, Chon Buri 20150',t:'Land · Jomtien, Pattaya',m:'2 rai 1 ngan · yellow zone · 40 m road',tag:null,ph:'d',x:70,y:70,s:'฿12.5M'},
+    {st:'Condo for sale',k:'',p:'฿7,890,000',drop:'฿310k',f:[['2','bed'],['2','bath'],['71','m²'],['Foreign','quota']],a1:'Siamese 39, Sukhumvit 39',a2:'Watthana, Bangkok 10110',t:'2-bed condo · Siamese 39',m:'2 bd · 2 ba · 71 m² · foreign quota',tag:null,ph:'b',x:52,y:30,s:'฿7.9M'},
+    {st:'House for sale',k:'',p:'฿4,950,000',f:[['3','bed'],['3','bath'],['178','m²'],['52','sq. wah land']],a1:'Emperor Grand View, Plot A-07',a2:'Example location, Thailand',t:'House · Emperor Grand View',m:'3 bd · 3 ba · 178 m² · 52 sq. wah',tag:[['Mstar project','acc']],ph:'c',x:22,y:66,s:'฿4.9M'},
+    {st:'Hotel for sale',k:'inv',p:'฿480,000,000',f:[['156','rooms'],['72%','occupancy'],['4','rai land']],a1:'Kalim Bay',a2:'Kathu, Phuket 83150',t:'Hotel · 156 rooms, Phuket',m:'156 rooms · 72% occupancy · sea view',tag:[['Investment','acc']],ph:'d',x:80,y:50,s:'฿480M'},
+    {st:'Condo for sale',k:'',p:'฿8,300,000',f:[['2','bed'],['2','bath'],['75','m²'],['400 m','to BTS']],a1:'Park 24, Sukhumvit 24',a2:'Khlong Toei, Bangkok 10110',t:'2-bed condo · Park 24',m:'2 bd · 2 ba · 75 m² · BTS 400 m',tag:null,ph:'',x:38,y:55,s:'฿8.3M'}
   ];
+  /* full listing card: home, results, saved */
+  const lcard = (o,i) => `<article class="lcard" data-go="detail" data-i="${i}" role="link" tabindex="0" aria-label="${o.st}, ${o.p}, ${o.a1}">
+    <span class="ph ${o.ph}">${o.tag?`<span class="tags">${o.tag.map(t=>`<span class="badge ${t[1]}">${t[0]}</span>`).join('')}</span>`:''}
+      <button class="nextph" aria-label="Next photo">›</button>
+      <button class="heart" aria-label="Save">♡</button><span class="dots"><i class="on"></i><i></i><i></i><i></i><i></i></span></span>
+    <div class="lbody">
+      <div class="lstat"><i class="${o.k}"></i>${o.st}</div>
+      <div class="lprice">${o.p}${o.per?`<small>${o.per}</small>`:''}${o.drop?`<span class="drop">↓ ${o.drop}</span>`:''}</div>
+      <div class="lfacts">${o.f.map(x=>`<span><b>${x[0]}</b> ${x[1]}</span>`).join('')}</div>
+      <div class="lfoot"><div class="laddr">${o.a1}<br>${o.a2}</div><button class="contact" data-contact="${i}">Contact agent</button></div>
+    </div></article>`;
+  /* compact card: inside the property page (similar homes, same project) */
   const card = (o,i) => `<div class="card" data-go="detail" data-i="${i}" role="link" tabindex="0">
-    <span class="ph ${o.ph}">${o.tag?`<span class="tags"><span class="badge ${o.tag[1]}">${o.tag[0]}</span></span>`:''}
-      <button class="heart" aria-label="Save">♡</button><span class="dots"><i class="on"></i><i></i><i></i><i></i></span></span>
+    <span class="ph ${o.ph}"><button class="heart" aria-label="Save">♡</button><span class="dots"><i class="on"></i><i></i><i></i><i></i></span></span>
     <span class="price">${o.p}</span><span class="ctitle">${o.t}</span><span class="cmeta">${o.m}</span></div>`;
-  const sets = {featured:[0,3,5,6],results:[0,1,4,7,2,5],project3:[4,1,7],similar:[1,4,7],saved:[0,3]};
+  const sets = {featured:[0,5,3,6,1,2],results:[0,1,4,7,2,5],project3:[4,1,7],similar:[1,4,7],saved:[0,3]};
+  const full = {featured:1,results:1,saved:1};
   document.querySelectorAll('[data-cards]').forEach(el=>{
-    el.innerHTML = sets[el.dataset.cards].map(i=>card(L[i],i)).join('');
+    const f = full[el.dataset.cards] ? lcard : card;
+    el.innerHTML = sets[el.dataset.cards].map(i=>f(L[i],i)).join('');
   });
   const map = document.getElementById('map');
   sets.results.forEach(i=>{ const o=L[i]; map.insertAdjacentHTML('beforeend',`<button class="mpin" data-i="${i}" data-go="detail" style="left:${o.x}%;top:${o.y}%">${o.s}</button>`); });
@@ -909,9 +991,9 @@ tr:last-child td{border-bottom:0}
       ['Bright photo hero with a short promise. One photo, no slider.','Airbnb'],
       ['Search box with Buy / Rent / New projects / Investment tabs. On a phone it shrinks to one "Where?" field. Click Location to see suggestions.','Airbnb, Realtor.com'],
       ['Suggestions: recent searches, areas, BTS/MRT stations and Mstar projects in one list.','Zillow, DDproperty'],
+      ['Homes for you, right under the search box: a carousel of listing cards (3 visible on desktop, 1 and a bit on phone) with arrows and tabs (For sale, For rent, New listings, Price reduced, Investment). Each card: photo with badges, heart and next-photo arrow; status dot and type ("Condo for sale"); price with price drop; key facts in bold; address; Contact agent button that opens a short form. Try it.','Realtor.com'],
       ['Category icons that scroll sideways. One tap opens results with that filter on.','Airbnb'],
       ['Continue your search: saved search with new matches, recently viewed homes.','Realtor.com'],
-      ['Featured cards: swipe photos, tap the heart to save, badges for price drop or video tour. On a phone the row scrolls sideways.','Airbnb, Zillow'],
       ['Location tiles with listing counts.','DDproperty'],
       ['Mstar developments get their own row.','FazWaz'],
       ['Tools that bring visitors back: mortgage calculator, price check for owners, guide for foreigners.','Zillow']]},
@@ -960,6 +1042,7 @@ tr:last-child td{border-bottom:0}
     tabs.querySelectorAll('.tbtn').forEach(b=>b.classList.toggle('on',b.dataset.screenTab===s));
     dev.querySelectorAll('[data-tabfor]').forEach(b=>b.classList.toggle('on',b.dataset.tabfor===s));
     document.getElementById('sugg').hidden=true;
+    document.getElementById('cModal').hidden=true;
     document.getElementById('pricePop').hidden=true;
     document.getElementById('gal').classList.remove('on');
     dev.classList.remove('showmap'); document.getElementById('mapFab').firstChild.textContent='Map ⌖';
@@ -988,6 +1071,13 @@ tr:last-child td{border-bottom:0}
     const swb=t.closest('[data-acc]'); if(swb){applyAcc(swb.dataset.acc);return;}
     if(!dev.contains(t)) return;
 
+    const ct=t.closest('[data-contact]');
+    if(ct){e.stopPropagation();openContact(+ct.dataset.contact);return;}
+    if(t.closest('#cClose')||t.id==='cModal'){document.getElementById('cModal').hidden=true;return;}
+    if(t.closest('#cModal')) return;
+    if(t.closest('.nextph')){const d=t.closest('.ph').querySelectorAll('.dots i');let k=[...d].findIndex(x=>x.classList.contains('on'));d[k].classList.remove('on');d[(k+1)%d.length].classList.add('on');return;}
+    const sc=t.closest('[data-scroll]');
+    if(sc){const r=sc.closest('.sec').querySelector('.lrail');r.scrollBy({left:+sc.dataset.scroll*r.clientWidth,behavior:'smooth'});return;}
     const h=t.closest('.heart'); if(h){e.stopPropagation();h.classList.toggle('on');h.textContent=h.classList.contains('on')?'♥':'♡';return;}
     if(t.closest('#dSave')){const b=document.getElementById('dSave');b.textContent=b.textContent.includes('♥')?'♡ Save':'♥ Saved';return;}
     if(t.closest('#locField')){const s=document.getElementById('sugg');s.hidden=!s.hidden;return;}
@@ -1013,7 +1103,21 @@ tr:last-child td{border-bottom:0}
       go(g.dataset.go,{tab:g.dataset.tab});
     }
   });
-  dev.addEventListener('keydown',e=>{ if(e.key==='Enter'){const c=e.target.closest('.card[data-go]'); if(c) go('detail');} });
+  dev.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){document.getElementById('cModal').hidden=true;return;}
+    if(e.key==='Enter'&&e.target.matches('.card[data-go],.lcard[data-go]')) go('detail');
+  });
+  function openContact(i){
+    const o=L[i];
+    document.getElementById('cName').textContent=o.st+' · '+o.p;
+    document.getElementById('cMeta').textContent=o.a1+', '+o.a2;
+    document.getElementById('cPh').className='ph '+o.ph;
+    document.getElementById('cMsg').value="I'm interested in "+o.a1+" ("+o.st.toLowerCase()+", "+o.p+").";
+    document.getElementById('cForm').hidden=false;document.getElementById('cSent').hidden=true;
+    document.getElementById('cModal').hidden=false;
+    setTimeout(()=>document.getElementById('cFull').focus(),50);
+  }
+  document.getElementById('cForm').addEventListener('submit',e=>{e.preventDefault();e.target.hidden=true;document.getElementById('cSent').hidden=false;});
 
   document.getElementById('eform').addEventListener('submit',e=>{e.preventDefault();e.target.hidden=true;document.getElementById('eSent').hidden=false;});
   document.getElementById('bform').addEventListener('submit',e=>{

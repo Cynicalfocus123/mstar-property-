@@ -1,5 +1,9 @@
 # Database
 
+## Active V5 guide — 2026-10-09
+
+V5 Step 2 remains unstarted. PostgreSQL configuration, schema and persistence remain absent. Step 3 explicitly requires Step 2 Done before DB-backed cards/search. Step 4 follows free/open-source mapping after a concrete owner choice. No database or provider is created by this guide adoption. The preview is open at owner request; that does not establish database readiness.
+
 ## Current state — 2026-10-09
 
 The foundation includes postgres.js, Drizzle ORM and a server-only health probe in lib/db.ts. .env.example lists an empty DATABASE_URL. No credentials, database name or connection configuration were invented. Earlier inventory detected no local PostgreSQL service/executable.

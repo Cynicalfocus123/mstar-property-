@@ -1,5 +1,9 @@
 # Mstar Property — Codex permanent completion rules (V4)
 
+## Active V5 guide — 2026-10-09
+
+Use `codex-handoff/MSTAR-CODEX-PROMPTS-v5.md` for future numbered steps. It supersedes V4 stage prompts, retains the canonical root workbook, adds home-page.html to approved references, and follows the owner's mapping direction. Existing rules below remain applicable except where overridden by newer owner instructions. Tests are deferred for now. The owner explicitly requested the currently open port 3000 preview; do not close that authorized preview merely because V5 says test servers should stop afterward. No new build stage is authorized by guide adoption.
+
 **Mandatory for every coding task, bug fix, UI adjustment, refactor, migration and documentation change.** Every Codex task/prompt starts with `$caveman full`.
 
 

@@ -9,6 +9,7 @@
 | File | What it is |
 |---|---|
 | `wireframe.html` | Clickable wireframe. **This is the visual and interaction reference.** Open it in a browser and click through every screen on Desktop and Phone (toolbar at the top). The numbered purple dots match the notes panel on the right. |
+| `home-page.html` | The home page alone, full length, desktop and phone side by side. Same design as `wireframe.html`, easier to read. |
 | `BUILD-SPEC.md` | This file: what to build, how it behaves, and what counts as done. |
 
 What the wireframe is **not**:
@@ -107,16 +108,21 @@ Other accent options the owner can still choose (swap the four `--acc*` values o
 - Sticky at the bottom with safe-area padding: Explore · Search · Saved · LINE chat · Account.
 - Hidden on the property page, where the property action bar takes its place.
 
-### 4.3 Listing card
-- 4:3 photo, swipeable on touch with arrows on desktop hover, dot indicator, max 5 photos in the card.
-- Heart (save) at top-right of the photo. Toggles without opening the listing.
-- Badges at top-left: `Price drop`, `New`, `Video tour`, `Mstar project`, `Investment`.
-- Price, title (one line, ellipsis) and a facts line. **The facts line depends on the property type:**
-  - Condo / house / townhouse: `2 bd · 2 ba · 68 m² · BTS 650 m`
-  - Land: `2 rai 1 ngan · yellow zone · 40 m road`
-  - Hotel: `156 rooms · 72% occupancy · sea view`
-  - Rent: price shown as `฿35,000 /mo`
-- The whole card links to the property page. Keyboard: focusable, Enter opens it.
+### 4.3 Listing card (Realtor.com style)
+Used on the home page carousel, search results and Saved. One component everywhere.
+- White card, 1px `--line` border, 16px radius, light shadow on hover. The whole card links to the property page; keyboard-focusable, Enter opens it.
+- **Photo** 3:2, up to 5 photos: next-photo arrow appears on hover (swipe on touch), dot indicator at the bottom.
+- **Badges** top-left on the photo, pill-shaped: `Featured`, `New`, `Video tour`, `Mstar project`, `Investment`.
+- **Heart** (save): white 42px circle at the **bottom-right of the photo**. Toggles without opening the listing.
+- **Status line:** coloured dot + type and intent, e.g. "● Condo for sale", "● Land for sale", "● Hotel for sale", "● Condo for rent". Dot: green for sale, blue for rent, accent for investment.
+- **Price:** large (about 1.45rem, `--f-head` 600). Rent shows `฿35,000 /month`. If the price dropped, show a green `↓ ฿200k` next to it.
+- **Facts row**, numbers in bold, depends on type:
+  - Condo / house / townhouse: **2** bed **2** bath **68** m² **650 m** to BTS (house adds **52** sq. wah land)
+  - Land: **2** rai **1** ngan **3,600** m² **40 m** road
+  - Hotel: **156** rooms **72%** occupancy **4** rai land
+- **Address:** two lines (project/street, then district, province, postcode).
+- **Contact agent** button bottom-right: pill with border; turns accent-filled when the card is hovered. It opens the **contact dialog** (same fields as the property page form, §5.3 item 13), with the message prefilled for that listing. It must not open the listing.
+- Smaller "compact" cards (photo, price, one-line title, one-line facts, no Contact button) are used only inside the property page for "More units" and "Similar homes".
 
 ### 4.4 Buttons
 `acc` (filled accent) · `out` (white with border) · `line` (LINE green, white text) · `wa` (WhatsApp green, white text). 40px tall.
@@ -139,9 +145,13 @@ In order:
 2. **Search box:** tabs Buy / Rent / New projects / Investment. Fields: Location · Type · Price · Beds · search button. On phone it collapses to one "Where?" field plus the button; tapping it opens a full-screen search sheet.
    - Location suggestions (dropdown) are grouped as Recent searches (from this device), Areas & stations (areas and BTS/MRT/ARL stations), and Projects (with an "Mstar" badge for Mstar developments).
    - The Investment tab switches the types to Hotel / Land / Commercial and shows budget instead of price.
-3. **Category row:** icons that scroll sideways: Condo, House, Townhouse, Pool villa, Land, Hotel, Beachfront, Near BTS/MRT, New build, Pet friendly, Commercial. Each one opens results with that filter on.
-4. **Continue your search:** only shown when this device has a recent or saved search or a viewed listing. Saved searches show the count of new matches.
-5. **Featured homes:** 4 cards picked by admin. A sideways-scrolling row on phone.
+3. **Homes for you: listing carousel, directly under the search box.** This is the first thing after the hero.
+   - Heading "Homes for you", "See all" link, and ‹ › arrows on the right.
+   - Tabs under the heading: For sale / For rent / New listings / Price reduced / Investment. Switching a tab reloads the carousel.
+   - Uses the listing card from §4.3. 3 cards visible on desktop (narrow desktop: 2), about 1.1 on phone so the next card peeks in. Scroll-snap, swipe on touch.
+   - Content: admin-picked featured listings first, then newest active listings, up to 12 per tab.
+4. **Category row:** icons that scroll sideways: Condo, House, Townhouse, Pool villa, Land, Hotel, Beachfront, Near BTS/MRT, New build, Pet friendly, Commercial. Each one opens results with that filter on.
+5. **Continue your search:** only shown when this device has a recent or saved search or a viewed listing. Saved searches show the count of new matches.
 6. **Explore by location:** Bangkok, Pattaya, Phuket, Rayong with live listing counts. Locations are managed by admin.
 7. **New projects by Mstar:** 3 project cards with a status badge (Selling now / Coming soon / Ready to move in).
 8. **Tools:** Mortgage calculator, What is my home worth? (owner lead form), Buying guide for foreigners.
@@ -156,7 +166,7 @@ In order:
   - **All filter state is in the URL** (§7), so a search can be shared on LINE.
 - **Heading:** a readable title such as "Condos for sale in Sukhumvit", the result count and sort (Newest, Price low–high, Price high–low, Size, Nearest BTS).
 - **Quick chips:** active filters with ✕, plus suggestions (Near BTS, Foreign quota, Pet friendly, Video tour).
-- **List + map** on desktop: list on the left (2-column cards), map on the right (sticky) with price pins.
+- **List + map** on desktop: list on the left (2-column listing cards from §4.3), map on the right (sticky) with price pins.
   - Hovering a card highlights its pin, and hovering a pin highlights its card.
   - "Search as I move the map" (on by default) and "Draw area".
   - "Show more homes" button (load more), not page numbers. Keep the URL in sync for back/forward.

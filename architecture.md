@@ -1,5 +1,9 @@
 # Architecture
 
+## Active V5 guide — 2026-10-09
+
+V5 is the active stage guide. Existing Next.js, routes, dependencies and application source are unchanged. Reuse one listing card and one contact form/action when their stages are authorized. The current preview stays open on port 3000 because the owner explicitly requested viewing. Tests are deferred; no automatic test server is started.
+
 ## Current implementation — 2026-10-09
 
 One Next.js 16.4.0 App Router application uses React 19.3.0 and TypeScript 7.0.2. Existing system Node.js/npm run the project. Exact dependency versions and lockfile are committed. There is no separate backend service.

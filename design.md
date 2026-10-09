@@ -1,5 +1,9 @@
 # Design direction
 
+## Active V5 guide — 2026-10-09
+
+V5 replaces V4 for numbered stages. Owner-supplied updated V3 references introduce Realtor-style 3:2 listing cards, a Contact agent dialog, and Homes for you immediately below homepage search. Follow BUILD-SPEC section 4.3 and home-page.html; reuse one card across home/results/Saved. Step 3 builds cards, Step 6 wires contact, Step 7 builds the homepage carousel. No UI is changed in this adoption. Updated HTML still requires thorough source/rendered review during affected implementation; no new rendered-design check is claimed.
+
 ## Approved reference — 2026-10-09
 
 Use `codex-handoff/wireframe.html` for visuals/interactions and BUILD-SPEC for requirements. The complete CSS, markup and JavaScript were reviewed. The source contains six screens: Home, Search results, Property, New project, Book site visit and Saved.
