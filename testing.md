@@ -1,5 +1,19 @@
 # Verification record
 
+## Step 2 verification — 2026-10-09
+
+The latest task explicitly authorizes tests. PASS: production build and TypeScript. PASS: 16/16 Playwright checks against the real app at 390, 768, 1024 and 1440px in Thai/English. The previously deferred preference/search fixes now pass. Eight shell screenshots are captured; representative phone/desktop screenshots are reviewed. No UI is changed, and no pixel comparison with the original policy-blocked local prototype is claimed.
+
+PASS: 12/12 groups against actual PostgreSQL 18.6 in the dedicated `mstar_property_step2_test` database: restricted migration role; migration application/rerun; seed/rerun and demo exclusion; multi-table joins; invalid field/status/locale/FK/unique rejection; location/plot hierarchy; typed admin filters and scope; parameterized enquiry insertion/readback with consent; fixture transaction rollback; public price/location privacy; index catalog and EXPLAIN plans; read-only runtime permissions; real pg_dump, committed initial rollback, pg_restore and migration rerun. The index plan checks disable sequential scans for tiny seed data; they prove usable indexes, not production speed.
+
+The fixture enquiry is read back from PostgreSQL with its listing join, consent version, language and safely stored injection-shaped message, then rolled back. There are no implemented frontend enquiry forms in Step 2, so no form submission or notification-delivery claim is made. The 14-listing development seed remains fictional. Test evidence is in ignored `.local/step2-db-results.json`; the test backup is `.local/backups/step2-test.dump`.
+
+PASS: real frontend `/en` and `/th` return HTTP 200 at `http://127.0.0.1:3000`. `/api/health` returns HTTP 200, database `ok`, ready true. Stopping PostgreSQL changes health to HTTP 503, database `unavailable`, ready false; restarting restores HTTP 200. Admin/auth/submission endpoints are absent. Both test servers stop after verification, per the current prompt; links are verified during the test run, not left running.
+
+PASS: `npm run db:generate` detects no schema drift. Full dependency audit reports zero vulnerabilities after overriding the newly added tooling's old esbuild dependency. New dependencies are exact-pinned. Credentials are ignored, locally access-restricted, and excluded from Git/live; no shared PostgreSQL admin account is changed. An initial local bootstrap URL-encoding error is fixed, and the isolated cluster's generated credentials were rotated before successful tests.
+
+Final completion checks cover all eight maintained documents, immutable baseline hashes, all six tracker sheets, 81 permanent IDs, synchronized category/status records, preserved history, cached counts, tables/freeze panes and intended Git/live SHA-256. Commit/push and final hash counts are recorded in progress.md and the final response. Older results below are historical.
+
 ## Active V5 guide — 2026-10-09
 
 V5 adopted as the active stage guide. Application tests are deferred at owner request; no Playwright, build or PostgreSQL retest is run in this documentation task. Port 3000 is open for the explicitly requested preview; the frontend was verified HTTP 200 when reopened. No new runtime/DB pass is claimed. Documentation, workbook and safe mirror checks are separate from application testing. Original revised handoff files are preserved byte-for-byte during adoption; earlier hashes describe the preceding revision.

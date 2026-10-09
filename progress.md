@@ -1,5 +1,19 @@
 # Progress
 
+## Step 2 — 2026-10-09
+
+B01–B04 implement the PostgreSQL/Drizzle foundation: 18 tables, two migrations, relational/type/publish/locale constraints, typed future admin filters, search/bounds/text indexes, repeatable fictional seed and guarded initial rollback. B34 now verifies a real application schema through the public view. Only this stage is implemented. No listing cards, homepage sections, forms, notifications, authentication or admin UI are built.
+
+PostgreSQL 18.6 runs in an isolated local cluster at `.local/postgres-data` using the existing Node interpreter and project stack. Separate development and disposable test databases have non-superuser migration and read-only runtime roles. Runtime secrets are ignored and excluded from live. The seed has 14 fictional listings across all seven types and both intents; demo stock is excluded from the public projection.
+
+Tests pass: production build, TypeScript, 16/16 real browser/API checks at all four required widths and both languages, 12/12 real PostgreSQL groups, committed rollback/backup/restore, idempotency, constraints/joins/index plans, insert/readback and least-privilege denial. Actual health passes with PostgreSQL, degrades to 503 when stopped, and recovers after restart. Original prototype browser rendering remains policy-blocked, while full source review is complete. No real form submission is claimed because forms do not exist yet.
+
+All eight maintained Markdown files and the same six-tab root workbook are updated. B01–B04 move from Not started to Done and B34 from Pending to Done once final commit/push/sync checks pass. The other stages are not claimed complete. R01 remains Pending for its separate V5 Step 0 tracker-utility/rendered-reference closeout; existing owner decisions remain accurately recorded. Tracker totals become 81 IDs: 5 Done, 16 Pending, 60 Not started. Prior history is preserved.
+
+The real Git root is `D:/mstar companies/mstar property/mstar property new site`; `live/` is its local mirror, not a deployment. Baseline was 44 matching files on pushed commit `6e3d7d9`. Compare all baseline files before syncing; preserve secrets/runtime files and refuse conflicts. Final commit/push verification and matching file count are supplied in the final response. Approved handoff and historical source hashes stay unchanged. Servers used for verification stop afterward. Verified links are `http://127.0.0.1:3000/en`, `/th` and `/api/health`; admin is absent.
+
+Stop here. Step 3 requires the next explicit owner prompt. Earlier current-state paragraphs below are historical.
+
 ## Active V5 guide — 2026-10-09
 
 The owner adopted `codex-handoff/MSTAR-CODEX-PROMPTS-v5.md` for future stages. Read its full stage guide and updated BUILD-SPEC; preserve the supplied revised source files. Recorded the change in all eight maintained Markdown files and existing task IDs. No application UI/backend code or next build step starts. Step 1 stays Pending for deferred browser tests and real PostgreSQL. Preview port 3000 remains open under the owner's explicit viewing request. Previous foundation commit 604c62e is pushed; adoption commit is identified in the final report. Canonical workbook remains at root with six tabs and stable history.

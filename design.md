@@ -1,5 +1,13 @@
 # Design direction
 
+## Current Step 2 design review — 2026-10-09
+
+The complete updated approved V3 wireframe and home-page.html CSS, desktop/phone markup and JavaScript are reviewed for this database task. No UI changes are made. Production screenshots from both locales at 390/768/1024/1440px confirm the existing shell; they are not a rendered comparison with the policy-blocked original local HTML.
+
+Database content supports both Thai and English, seven property types, THB base prices and an explicit required public/contact-gated choice per listing/project. No default price-visibility policy or authentication provider is guessed. Demo titles/names are marked `[FICTIONAL DEMO]` and Thai equivalents. Invented prices, availability, agents and nearby distances are test data only; the public view excludes demo stock. Real mapping/rates/contacts remain unresolved. The header logo remains deferred.
+
+All 16 existing browser/API checks now pass. Step 2 adds schema/seed only; cards remain Step 3, the shared enquiry submit remains Step 6, and Homes for you remains Step 7. Local test servers stop after this task. Previous implementation/status paragraphs below describe historical state.
+
 ## Active V5 guide — 2026-10-09
 
 V5 replaces V4 for numbered stages. Owner-supplied updated V3 references introduce Realtor-style 3:2 listing cards, a Contact agent dialog, and Homes for you immediately below homepage search. Follow BUILD-SPEC section 4.3 and home-page.html; reuse one card across home/results/Saved. Step 3 builds cards, Step 6 wires contact, Step 7 builds the homepage carousel. No UI is changed in this adoption. Updated HTML still requires thorough source/rendered review during affected implementation; no new rendered-design check is claimed.

@@ -1,5 +1,17 @@
 # Architecture
 
+## Current Step 2 architecture — 2026-10-09
+
+One existing Next.js App Router service on 127.0.0.1:3000 still hosts frontend and API. No separate backend/admin server is introduced. Existing system Node 24.19.0 and npm run the project; package.json now uses ES modules for TypeScript CLI scripts. Drizzle schema is `db/schema.ts`. Generated migration `0000_foundation.sql` defines 18 tables and 19 enums; custom `0001_integrity.sql` adds relational triggers, updated-at handling and a privacy-safe public listing projection. Committed snapshots/journal keep future generation repeatable.
+
+The dependency direction is UI/server route to `lib/db.ts` to schema/PostgreSQL. `lib/db.ts` is fenced by `server-only`, exports a lazy bounded runtime pool and a short-lived health probe. Database URLs are never NEXT_PUBLIC values. The app role is read-only and cannot create objects or access Drizzle's ledger; migration scripts use a separate non-superuser owner. Future authenticated writes require narrow grants and server authorization in their own steps. No customer/admin endpoints expose PII, credentials or raw database errors now.
+
+Typed filter definitions/options/values use safe metadata keys, enums, composite foreign keys, kind checks, scope checks and single-selection enforcement. Definitions contain no SQL expressions. Public listing projection excludes fictional/unpublished inventory, hides gated current/previous prices and exact coordinates/addresses when requested. Public project queries in later steps must also enforce demo/publish/price visibility; no project API is implemented here.
+
+CLI migration and seed scripts share environment loading, URL validation and explicit failure for missing configuration. Seed is restricted to named local development/test databases and never overwrites genuine rows. Real test DB backup/rollback/restore is isolated from the development database. Migrations never run automatically during web requests or app startup.
+
+The test cluster is isolated at `.local/postgres-data`; runtime/tool binaries, credentials, backups, dependencies and build/test caches are excluded from Git/live. Existing UI/design and source references are unchanged. Build/TypeScript, 16 real app tests and 12 PostgreSQL groups pass; servers stop after this task. Older sections below are historical.
+
 ## Active V5 guide — 2026-10-09
 
 V5 is the active stage guide. Existing Next.js, routes, dependencies and application source are unchanged. Reuse one listing card and one contact form/action when their stages are authorized. The current preview stays open on port 3000 because the owner explicitly requested viewing. Tests are deferred; no automatic test server is started.

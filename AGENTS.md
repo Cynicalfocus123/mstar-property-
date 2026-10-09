@@ -1,5 +1,15 @@
 # Mstar Property project instructions
 
+## Current Step 2 workflow and state — 2026-10-09
+
+The owner explicitly authorized Step 2 and its real application/PostgreSQL tests. That authorization supersedes earlier test deferral for this task. Implement only Step 2; do not start Step 3. Run `.mjs` files through Node, never through Windows file associations. Do not rotate a shared PostgreSQL admin password; change only Mstar roles when required. The cluster created for this task is isolated at `.local/postgres-data` and does not belong to other projects.
+
+Step 2 now has 18 Drizzle tables, two committed migrations, an initial test-only rollback, and 14 clearly fictional listings. B01–B04 and B34 have passed implementation tests; the final Git/tracker/synchronization report closes their gates. Preserve server-only access and read-only runtime credentials. Use a separate migration role and dedicated test database. Seed only the named local development/test databases; demo data must never become genuine inventory. Public listing projection excludes demo records, gated prices and hidden exact location data. Future forms/auth/admin require their authorized stages and least-privilege write grants.
+
+Stop servers used for this task after verification, as the current Step 2 prompt requests. Local URLs remain the configured port 3000 links; label them verified during testing and stopped afterward. Earlier preview/open-port and test-deferral paragraphs below are historical. No admin exists.
+
+All eight maintained Markdown files are updated for this task. Immutable exceptions are `codex-handoff/BUILD-SPEC.md`, `CODEX-PROMPT.md`, `MSTAR-CODEX-PROMPTS-v5.md`, approved HTML files and historical `WIREFRAME.md`/prototype copies. Verify their baseline hashes rather than rewriting them.
+
 ## Active V5 guide — 2026-10-09
 
 Use `codex-handoff/MSTAR-CODEX-PROMPTS-v5.md` as the active numbered stage guide from now on, replacing V4. Its stage numbering takes precedence over BUILD-SPEC section 16 when referring to steps. Read the updated BUILD-SPEC, wireframe.html and home-page.html before implementing affected UI. Step 3 uses one Realtor-style 3:2 listing card; Step 6 wires its Contact agent dialog; Step 7 adds Homes for you directly below search. Mapping choices follow the owner's free/open-source direction and V5 Step 4. This adoption does not authorize any build step.

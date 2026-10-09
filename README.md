@@ -1,5 +1,19 @@
 # Mstar Property
 
+## Current state — Step 2 — 2026-10-09
+
+The Next.js/TypeScript frontend foundation now connects to real PostgreSQL 18.6 through server-only Drizzle access. Step 2 adds 18 tables, two migrations, type/publish/locale constraints, typed future admin filter metadata, search indexes and 14 clearly fictional seed listings. Public stock excludes demo data. UI remains the approved partial foundation; listing cards are Step 3 and Homes for you is Step 7. Forms, account login and admin are absent.
+
+Use the existing Git root `D:/mstar companies/mstar property/mstar property new site`, branch main, origin `https://github.com/Cynicalfocus123/mstar-property-.git`. `live/` is the safely hash-verified local source mirror. The canonical six-tab workbook stays at root. Approved handoff files and historical prototypes are preserved unchanged; all eight maintained documents are updated.
+
+Commands: `npm ci`, `npm run db:migrate`, `npm run db:seed`, `npm run db:test`, `npm run typecheck`, `npm run build`. The DB scripts use ignored local settings or explicit environment variables; see database.md for setup, permissions and rollback. New tools drizzle-kit 0.31.11 and tsx 4.23.15 are exact-pinned. `.mjs` files must be run with Node, never opened directly through Windows.
+
+Verification passes: build/TypeScript, 16 browser/API tests at 390/768/1024/1440px, 12 real PostgreSQL test groups, rollback/backup/restore and zero dependency audit findings. B01–B04 and B34 close only after final docs/workbook/Git/live/push verification. Other stages and unresolved owner choices are not claimed complete.
+
+Verified during this run: [English](http://127.0.0.1:3000/en), [Thai](http://127.0.0.1:3000/th), and [health](http://127.0.0.1:3000/api/health). Health returns database ok/ready true while PostgreSQL runs. Test servers stop afterward under the current request; these links are then stopped, not left open. Admin has no URL because it does not exist. To reopen when the owner requests it, start the local cluster as documented, then `npm run start` after a successful build. `npm test` expects an already running app and never starts one automatically.
+
+Earlier state/port/test paragraphs below are historical. This task stops after Step 2.
+
 ## Active V5 guide — 2026-10-09
 
 Active stage guide: `codex-handoff/MSTAR-CODEX-PROMPTS-v5.md`. Revised V3 BUILD-SPEC, wireframe.html and new home-page.html govern visuals. The Homes for you carousel belongs to Step 7; reusable 3:2 cards belong to Step 3. No new application step is started by adopting the guide.

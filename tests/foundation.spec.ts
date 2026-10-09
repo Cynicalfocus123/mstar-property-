@@ -82,7 +82,7 @@ test('preferences persist and retain route/query; search works on phone and desk
 test('health reports actual DB state; language fallback and input validation', async ({ request }) => {
   const health = await request.get('/api/health');
   expect(health.status()).toBe(200);
-  expect(await health.json()).toMatchObject({ status: 'ok', database: 'not_configured', ready: false });
+  expect(await health.json()).toMatchObject({ status: 'ok', database: 'ok', ready: true });
   const firstVisit = await request.get('/', { headers: { 'Accept-Language': 'en-US;q=0.8,th;q=0.9' }, maxRedirects: 0 });
   expect(firstVisit.headers().location).toContain('/th');
   const english = await request.get('/buy?loc=Bangkok', { headers: { 'Accept-Language': 'en-US' }, maxRedirects: 0 });
