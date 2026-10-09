@@ -1,157 +1,77 @@
 # Mstar Property — Claude project handoff
 
-Updated: 2026-10-09, Asia/Bangkok. This is a maintained project briefing for Claude to review and help Codex. It contains no credentials. Verify current files and Git status before making changes; this is a snapshot, not authorization to implement additional stages.
+Updated: 2026-10-09, Asia/Bangkok. Maintained briefing for Claude to review and help Codex. No credentials. Inspect current files and Git status before edits; this snapshot does not authorize additional stages.
 
-## Current request and scope
+## Current scope and verified status
 
-The owner asked for this Markdown project handoff after receiving the recreated Excel tracker. Step 3 was explicitly authorized earlier, but no Step 3 implementation has begun. This handoff task changes documentation and tracking only. Help with the authorized stage when requested; do not advance to Step 4 or redesign approved screens.
+Step 3 is complete for F08–F13, B05–B07 and R02 only. R02 records contact-dialog autofocus and swipe/keyboard regression fixes linked to F01/F08. The overall project and the independent Step 0/1 blockers remain Pending. Stop before Step 4.
 
-## Real project locations
+Final validation: production build and TypeScript passed; 36/36 real Chromium browser tests passed in Thai/English at 390, 768, 1024 and 1440px; 12/12 real application/PostgreSQL search groups and 12/12 isolated PostgreSQL regression groups passed. Backup, all three migration apply/rerun, repeatable seed, joins, constraints, indexes, permissions and actual dump/rollback/restore were tested. Frontend, listings API and health returned HTTP 200 with the database ready. After stopping PostgreSQL, health and listings returned HTTP 503 without database details. Ports 3000 and 5432 are stopped after testing. Admin and real enquiry submission do not exist.
 
-| Item | Actual location |
-| --- | --- |
-| Git working directory | `D:/mstar companies/mstar property/mstar property new site` |
-| Local source mirror | `D:/mstar companies/mstar property/mstar property new site/live` |
-| Git remote | `https://github.com/Cynicalfocus123/mstar-property-.git` |
-| Branch | `main` |
-| Canonical tracker | `Mstar-Property-Task-Tracker.xlsx` in the Git root |
-| Approved source folder | `codex-handoff/` in the Git root |
+All nine maintained Markdown files are updated: AGENTS.md, README.md, design.md, architecture.md, database.md, testing.md, progress.md, MSTAR-CODEX-RULES.md and CLAUDE.md. Approved codex-handoff Markdown/HTML and historical sources remain immutable; their baseline hashes are verified instead. The same root workbook retains all prior IDs/history and adds R02: 82 IDs, 15 Done, 16 Pending, 51 Not started. All six views are regenerated and checked; Pending is yellow, Done light green and Not started red. The 59-file Git/live baseline is compared before copying intended source/config/docs/tracker, excluding secrets, dependencies, cluster, backups and caches. Final matching hashes and commit/push to origin/main are checked at closeout; the final report supplies the exact commit. If a final gate fails, affected tasks must revert to Pending.
 
-`live/` is an ignored local source mirror, not a production deployment. Do not initialize another repository or create another canonical tracker. Before this handoff, the latest pushed commit is `899a97c` (tracker colours); database implementation is `7015d73`. Run `git log -3 --oneline` for the current head after this document is committed.
+Verified during testing, now stopped: http://127.0.0.1:3000/en/buy, http://127.0.0.1:3000/th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health on the same host/port. No admin URL. Existing owner choices remain unchanged. Older dated sections below are historical and do not override this section.
 
-## Read these sources first
+Step 0 preparation and Step 1 foundation remain Pending for their independent prior blockers. Step 2 is Done (B01–B04/B34). Step 3 is Done after its completion gates. Step 4 and later are not implemented. Homepage currently contains the foundation header/hero/search/footer; Homes for you is V5 Step 7. Card detail links lead to an explicit unfinished Step 5 destination. Device save hearts work; authenticated Saved/search workflows are Step 9. Contact dialogs open; real submission is Step 6. No production auth, admin, maps, notifications or bookings exist.
 
-Read all maintained project Markdown before each task: `AGENTS.md`, `MSTAR-CODEX-RULES.md`, `README.md`, `design.md`, `architecture.md`, `database.md`, `testing.md`, `progress.md`, and this file.
+## Real locations and required reading
 
-Read these approved handoff sources completely before implementation:
+Git root: D:/mstar companies/mstar property/mstar property new site. Local mirror: the live/ directory inside that root, not deployment. Remote: https://github.com/Cynicalfocus123/mstar-property-.git, branch main. Canonical workbook: root Mstar-Property-Task-Tracker.xlsx. Preceding pushed handoff commit: 9327797; use git log for current Step 3 head.
 
-1. `codex-handoff/MSTAR-CODEX-PROMPTS-v5.md`: active numbered stage guide. V5 stage numbers take precedence over the older build-order numbering in BUILD-SPEC §16.
-2. `codex-handoff/BUILD-SPEC.md`: functionality, design tokens, data and testing requirements.
-3. `codex-handoff/CODEX-PROMPT.md`: companion build instructions.
-4. `codex-handoff/wireframe.html`: approved Claude V3 desktop/phone design and interactions.
-5. `codex-handoff/home-page.html`: full homepage reference, including the Homes for you carousel.
+Read all nine maintained Markdown listed above. Read the complete codex-handoff/MSTAR-CODEX-PROMPTS-v5.md (active stage numbering), BUILD-SPEC.md, CODEX-PROMPT.md, wireframe.html and home-page.html. Approved Claude V3 is the visual source of truth; preserve these sources and historical WIREFRAME.md/wireframe-v* files. Forest-green V1 is superseded. Original HTML browser review remains policy-blocked; do not claim a rendered-prototype comparison or bypass that restriction. Persisted docs/code/commits use normal English; chat uses $caveman full.
 
-Preserve these approved source files unchanged. Preserve `WIREFRAME.md` and historical `wireframe-v*.html` as history; their forest-green design is superseded. Existing maintained documents contain older dated sections about absent databases, failed tests, or open ports. Their newest dated sections and verified source state take precedence; do not treat historical statements as current.
+## Source map and runtime
 
-The original local HTML browser review was blocked by browser policy. Source review and real application screenshots are separate evidence. Do not claim a completed rendered-prototype comparison or bypass the browser restriction.
+- Existing Next.js App Router/TypeScript/PostgreSQL/Drizzle stack; one application serves frontend/API. Node D:/codex system/tools/nodejs/node.exe 24.19.0, npm 11.17.0. Locked packages remain unchanged: Next 16.4.0, React 19.3.0, TypeScript 7.0.2, Drizzle 0.45.4, postgres 3.4.9, drizzle-kit 0.31.11, tsx 4.23.15, Playwright 1.64.0.
+- app/[lang]/buy, rent, invest/page.tsx and components/results-page.tsx provide localized server-rendered results; app/api/listings/route.ts provides safe GET search.
+- lib/search-state.ts validates/serializes shared URL state; lib/listing-search.ts is server-only and parameterized; listing-types.ts/search-copy.ts provide safe DTOs and bilingual copy.
+- components/listing-card.tsx and search-results.tsx implement approved cards, local saves, native swipe, dialogs and URL filters. components/search-field.tsx reuses shared homepage search serialization. components/ui.tsx preserves native dialog focus.
+- app/globals.css uses approved white surfaces/tokens/fonts and 720/1000px breakpoints. Existing shell/preferences/locale files remain the foundation.
+- db/schema.ts and db/migrations/ contain 18 tables and three migrations; latest is additive 0002_station_search_slug.sql. Prior applied migrations/snapshots are unchanged.
+- scripts/seed-search.ts adds guarded fictional preview; scripts/test-search.ts tests actual app/DB; scripts/test-db.ts performs isolated regression/rollback/restore; tests/search.spec.ts and foundation.spec.ts test real browser behavior.
 
-## Implemented status
+Reuse package configuration and interpreter. Keep scans focused. Never launch Serena dashboard. Run .mjs with Node, never Windows file associations. Do not start unrelated repositories or overwrite divergent live work.
 
-| Stage | Honest status |
-| --- | --- |
-| Step 0 preparation | Pending: V5 tracker-update utility is not in the project; original rendered-reference review remains unverified. |
-| Step 1 foundation | Implemented partial shell; closure remains Pending. The latest 16 foundation browser/API checks passed during Step 2. Final logo/contact details and original visual-reference comparison remain unresolved. |
-| Step 2 database | Done: B01, B02, B03, B04 and B34; implementation, real tests, documentation, tracker, safe mirror and push verified. |
-| Step 3 cards/results/URL filters | Authorized, not implemented. |
-| Step 4 and later | Not implemented; do not start under Step 3 authorization. |
+## Database and search security
 
-The homepage currently has the header, hero/search foundation, and footer. Missing listing sections are expected at this stage. The reusable listing card/results belong to V5 Step 3; the homepage Homes for you carousel belongs to V5 Step 7. Do not claim the full homepage is complete.
+PostgreSQL 18.6 is isolated in ignored .local/postgres-data; binaries are D:/dev/tmp/mstar-step2/runtime/pgsql/bin. Named development database is mstar_property_dev; destructive regression uses mstar_property_step2_test only. mstar_owner handles migrations; mstar_app is non-superuser and read-only. Ignored .env.local/.local/database.env hold secrets; never print, commit or mirror them. Never change the shared postgres admin password. .env.example documents variable names.
 
-No production authentication, admin UI, working enquiry submission, notifications, maps, property details, saved-item workflows or project bookings exist. Navigation destinations currently use explicit unfinished pages.
+The original seed remains 14 fictional listings in regression; development search fixtures contain 16 listings with five local SVG illustrations each. Agents, prices, locations and distances are visibly fictional. public.public_listings excludes all demo stock. Local preview requires MSTAR_DEMO_MODE=1, trusted localhost/127 Host and a named local database; default is 0. Demo metadata is activated only in this partition, never as genuine public configuration. Real stock is not seeded.
 
-## Existing application and source map
+Queries validate active typed filter definitions/options and property scope. No metadata SQL interpolation. DTOs omit gated prices, hidden exact address/coordinates, contacts and hotel revenue. Price predicates/sort/histogram do not reveal gated prices. Bbox excludes hidden positions. Five photos maximum; six homes per cumulative page, capped at 50 pages/300 homes. Applied changes use router.push to retain back/forward; popup drafts do not alter URLs. New station slugs are unique/non-null; validated legacy station:UUID remains supported. No exchange rate or map provider is invented.
 
-Use the existing Next.js App Router, TypeScript, PostgreSQL and Drizzle project. Frontend and API share one application; there is no separate backend server.
+Before the new migration, a development dump was taken at ignored .local/backups/step3-before-station.dump. Three-migration rerun and isolated dump/committed initial rollback/restore passed. Never rewrite migration history or run destructive tests against development. Production recovery requires the verified pre-change backup and post-restore validation. Future writes require narrow grants, validation and stage authorization.
 
-- Node: `D:/codex system/tools/nodejs/node.exe`, version 24.19.0; npm 11.17.0.
-- Exact locked dependencies: Next.js 16.4.0, React 19.3.0, TypeScript 7.0.2, Drizzle ORM 0.45.4, postgres 3.4.9, drizzle-kit 0.31.11, tsx 4.23.15 and Playwright 1.64.0.
-- `app/[lang]/layout.tsx`: bilingual shell; `app/[lang]/page.tsx`: partial homepage.
-- `app/[lang]/[...path]/page.tsx`: explicit unfinished destinations including buy/rent/invest; no data-backed results yet.
-- `components/site-shell.tsx`, `footer.tsx`, `search-field.tsx`, `chat-buttons.tsx`, `ui.tsx`: foundation components.
-- `app/globals.css`: approved tokens and responsive styling; `lib/i18n.ts`: Thai/English copy.
-- `proxy.ts` and `app/api/preferences/route.ts`: locale/preferences routing and cookies.
-- `app/api/health/route.ts`, `lib/db.ts`: real database readiness and server-only access.
-- `db/schema.ts`, `db/migrations/`, `db/rollback-initial.sql`: database schema and migrations.
-- `scripts/migrate.ts`, `seed.ts`, `test-db.ts`, `db-env.ts`, `local-postgres.ps1`, `provision-db.ts`: guarded database tooling.
-- `tests/foundation.spec.ts`, `playwright.config.ts`: existing real-app foundation checks.
+## Owner decisions and design
 
-Reuse `package.json`, `package-lock.json`, interpreter and configuration. Use focused scans and small changes; never launch the Serena dashboard. Run `.mjs` files with Node, never through Windows file associations.
+Use approved wireframe gold/colours. Final header logo arrives later. Enquiry inbox-versus-agent routing remains unresolved. LINE/WhatsApp buttons precede integration; contacts/company-versus-agent routing are unresolved. Sign-in providers remain unresolved. Support USD and THB, storing THB; conversion is unavailable until a source is chosen. Admin chooses public/contact-gated prices. Mapping must be free/open-source; concrete provider/library is unresolved. See design.md for the eight BUILD-SPEC §12 questions and permanent IDs. New UI without an approved wireframe needs owner approval first.
 
-## Database and security contracts
+## Tests and server commands
 
-PostgreSQL 18.6 uses an isolated cluster at `.local/postgres-data`. Portable binaries are at `D:/dev/tmp/mstar-step2/runtime/pgsql/bin`. Databases are `mstar_property_dev` and the separate destructive-test database `mstar_property_step2_test`.
+Final build/TypeScript and schema-drift checks passed. 36/36 Chromium tests cover both languages, all four widths, card/save/photos/native phone swipe, contact focus/keyboard, real filter option Apply, counts/histogram, sorting, pagination and URL refresh/back/forward. 12/12 actual app/PG search groups verify counts, privacy, input rejection, typed metadata and raw untrusted-Host rejection. 12/12 PostgreSQL groups verify migrations/seed/constraints/joins/indexes/permissions/rollback/restore. Evidence is ignored .local/step3-search-results.json and .local/step2-db-results.json. No frontend form submission is claimed.
 
-The 18 application tables are agents, locations, stations, projects, unit_types, plots, listings, listing_media, listing_nearby, listing_stations, enquiries, chat_clicks, users, saved_listings, saved_searches, filter_definitions, filter_options and listing_filter_values. There are two migrations: `0000_foundation.sql` and `0001_integrity.sql`. Type-specific constraints, publication states, bilingual content, keys/indexes, hierarchy and typed filter constraints exist.
-
-`mstar_owner` runs migrations; `mstar_app` is a non-superuser, read-only runtime role. The app role currently has SELECT on application tables: server-only access and safe projections remain essential. Do not expose raw table data or privileged credentials to browsers. Future writes need narrow grants and server authorization in their approved stage.
-
-Ignored `.env.local` holds runtime settings; ignored `.local/database.env` holds migration/test settings. Read variable names from `.env.example` and setup details from `database.md`. Never print, include in this handoff, commit or mirror secret values. Do not change a shared main `postgres` administrator password. Only change `mstar_owner`/`mstar_app` passwords if required and authorized within the task.
-
-The repeatable development seed contains 14 CLEARLY FICTIONAL listings, seven property types and both sale/rent intents. Names, prices, distances and agents are examples, not real inventory. The `public.public_listings` view excludes demo records and hides gated prices and hidden exact addresses/coordinates. Consequently the existing seed does not yield genuine public inventory. Step 3 must explicitly solve demo preview/testing without silently making demo stock public or weakening visibility rules. Existing demo media includes an invalid example domain; do not represent it as a working property photo. Seed filter definitions/options are inactive demo metadata, not a published real filter catalogue.
-
-Never rewrite applied migrations. Use reviewed additive migrations, appropriate backups and isolated rollback testing. Do not touch unrelated projects or run destructive tests against the development database.
-
-## Next authorized development work: Step 3
-
-Implement only `/[locale]/buy`, `/rent`, `/invest`, one reusable listing card, and database-backed search/filter URL behavior. Follow BUILD-SPEC §4.3, §5.2 and §7, plus approved card markup/CSS in both HTML references.
-
-The approved card has a white bordered body, 3:2 photo, up to five photos with arrow/swipe/dots, top-left pill badges and a white save-heart circle at the bottom-right of the photo. Saving must not open the card. Show a status dot and property type/intent, large price, rent `/month`, honest price-drop amount, bold type-specific facts, two-line address and Contact agent pill. The contact dialog opens in Step 3; real validated/persisted submission belongs to Step 6. Do not show a fake successful submission.
-
-Results need two listing columns on desktop and one on phone. Reserve the map column without fake map content; mapping is Step 4. Add real database location/type/intent/price/beds/amenities search, safe metadata-managed filters, sorting, query-derived price histogram, popovers/phone sheets, active chips, Clear all, readable headings, empty state and Show more homes. Buy must not use rent-only prices. Preserve refresh, back and forward, shareable URL state and accessibility.
-
-Use shared parameter names from §7 (`loc`, `type`, `min`, `max`, `beds`, `near`, `fq`, `pet`, `sort`, `page`, `bbox` where applicable). Validate all inputs and parameterize queries. Never turn filter metadata into executable SQL. Keep gated prices and hidden exact locations private in result payloads, filters, sorting and histograms. Do not fabricate exchange rates, provider distances, property photographs or agent contacts.
-
-## Design and owner decisions
-
-Use Claude's approved V3 design; do not redesign it. Use BUILD-SPEC §2 CSS variables, white surfaces, Prompt and Noto Sans Thai, a sticky 64px header, rectangular single-line Sign in, and the 720px/1000px breakpoints. New UI without an approved reference needs a wireframe and owner approval first, including authentication/admin screens.
-
-| BUILD-SPEC §12 item | Current owner direction / remaining decision |
-| --- | --- |
-| 1. Accent (F02) | Use approved wireframe colours/default gold. |
-| 2. Logo (F03) | Final header logo supplied later; approved temporary crest exists. |
-| 3. Enquiry routing (B17) | Shared inbox versus listing agent remains unresolved. |
-| 4. Chat routing (B18) | Build LINE/WhatsApp buttons first; real IDs/numbers and company/per-agent routing remain unresolved. Existing buttons are disabled. |
-| 5. Sign-in providers (B23) | LINE only versus LINE + Google + email remains unresolved. |
-| 6. Currencies (B28) | USD and THB; store THB. Exchange-rate source/conversion is not implemented. |
-| 7. Price visibility (B29) | Admin chooses public versus contact-gated per listing/project; schema supports both. |
-| 8. Mapping (B09) | Free/open-source for now; concrete library, tile/nearby provider and usage policy remain unresolved. |
-
-Do not guess unresolved choices. `design.md` is the maintained decision register. Do not confuse the owner's earlier informal answer numbering with the actual eight questions in BUILD-SPEC §12.
-
-## Tests, server policy and actual URLs
-
-Previously verified in Step 2: production build and TypeScript; 16/16 real Playwright browser/API checks in Thai/English at 390, 768, 1024 and 1440px; 12/12 real PostgreSQL groups including migration/seed reruns, inserts/readback, joins, constraints, indexes, privacy/permissions and actual dump/rollback/restore. Health returned 200/ready true, 503 with the database stopped, then 200 after recovery. These are prior test results, not new runs for this documentation task.
-
-No listeners on ports 3000 or 5432 were found during this handoff inspection. Do not open localhost for a documentation task. Start servers only under owner preview authorization or the explicit test permission in the authorized development prompt; stop them after tests unless the owner requests otherwise.
-
-- English frontend: `http://127.0.0.1:3000/en` — configured, currently stopped.
-- Thai frontend: `http://127.0.0.1:3000/th` — configured, currently stopped.
-- Backend health: `http://127.0.0.1:3000/api/health` — same application, currently stopped.
-- Admin: absent; no admin URL.
-
-From the project root, only when server opening/testing is authorized:
+Servers are stopped. Only open them under the owner's preview or explicit stage-test authorization:
 
 ```powershell
 $env:MSTAR_PG_BIN = 'D:/dev/tmp/mstar-step2/runtime/pgsql/bin'
 ./scripts/local-postgres.ps1 -Action start
+npm run db:migrate
+npm run db:seed:search
 npm run typecheck
 npm run build
 npm run start
-# Run app tests in a second terminal after the app is ready:
+# Second terminal, with app ready:
 $env:PLAYWRIGHT_BROWSERS_PATH = 'D:/dev/playwright'
 npm test
-# Stop the app process, then stop this isolated database:
+npm run test:search
+# Stop app process, then isolated database:
 ./scripts/local-postgres.ps1 -Action stop
 ```
 
-`npm test` never starts a server automatically. Database migration/seed/test commands are documented in `database.md`; `npm run db:test` uses the dedicated test database. Do not claim a form works until its actual submitted row is verified in PostgreSQL.
+npm test does not start a server. Backend shares port 3000; admin is absent. Clearly label provided links as verified during tests and stopped afterward.
 
-## Tracker and completion requirements
+## Tracker and collaboration
 
-The same root workbook has six tabs: Frontend, Backend, Emails, Done, Pending, Not started. There are 81 permanent task IDs: F01–F38, B01–B34, E01–E08 and R01. Totals are 5 Done, 16 Pending, 60 Not started. The Done IDs are B01–B04 and B34. Preserve descriptions, dates, tests, blockers, next actions and append-only history; update existing IDs rather than creating duplicates.
+The same six-tab workbook has 82 permanent IDs: F01–F38, B01–B34, E01–E08, R01/R02. Totals: 15 Done, 16 Pending, 51 Not started. Done IDs: B01–B07/B34, F08–F13, R02. Each ID belongs to exactly one status sheet; category sheets show synchronized open tasks. Preserve yellow Pending, light green Done, red Not started, dates, tables, validation, formulas, frozen headers and append-only history. R01 remains Pending for its separate tracker-utility/rendered-reference blockers.
 
-Each ID must appear exactly once among the three status sheets. Category sheets are synchronized open-task views; completed tasks appear only in Done. Preserve yellow Pending (#FFF2CC), light green Done (#C6EFCE), red Not started (#FF6666), tables, formulas, validation and frozen headers. R01 tracks preparation/documentation history and remains Pending for its separate Step 0 blockers.
-
-Before claiming a development task Done:
-
-1. Update every maintained Markdown file accurately, including this handoff; preserve approved immutable sources.
-2. Update and verify the same six-tab workbook and permanent task history.
-3. Compare Git/live baseline hashes before copying; refuse divergent work. Sync intended source/config/docs/tracker only, excluding `.git`, secrets, dependencies and caches. Verify matching hashes, commit and push the configured remote without force.
-4. Run relevant tests against the real app/PostgreSQL, including applicable desktop/phone checks and persisted form proof.
-5. Report actual verified frontend/API links and admin only when implemented, including whether test servers were stopped.
-
-If a required gate fails, mark the affected task Pending with the exact blocker and next action. For this documentation-only handoff, runtime/browser/DB retests are not applicable and no new runtime pass is claimed. Do not upgrade the overall project or unresolved task statuses merely because this file exists.
-
-## How Claude can help
-
-Review the approved sources and current code, then identify concrete corrections or implementation guidance for the requested stage. Cite repository-relative files and relevant BUILD-SPEC sections. Distinguish verified behavior, prior test evidence, recommendations and unresolved owner choices. If editing the shared checkout, coordinate file ownership with Codex before overlapping edits and inspect `git diff` to preserve existing work. Do not publish, deploy, message others, or implement later stages from this briefing alone.
+Review only the authorized stage. Cite concrete files and BUILD-SPEC sections when proposing corrections. Inspect shared changes before edits and coordinate file ownership. Do not publish, deploy, message others or begin later stages from this briefing alone. Every development task requires all maintained Markdown, verified Excel, safe Git/live hashes, relevant actual tests, verified URLs and commit/push. Failure of any gate means Pending. Stop after Step 3; await the next owner prompt.

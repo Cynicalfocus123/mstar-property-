@@ -46,7 +46,7 @@ export const locations = pgTable('locations', {
   check('locations_not_own_parent', sql`${t.parentId} IS NULL OR ${t.parentId} <> ${t.id}`)]);
 
 export const stations = pgTable('stations', {
-  id: id(), line: stationLine('line').notNull(), ...names(), ...coordinate(), isDemo: demo(), ...audit(),
+  id: id(), slug: text('slug').notNull().unique().default(sql`'station-' || gen_random_uuid()`), line: stationLine('line').notNull(), ...names(), ...coordinate(), isDemo: demo(), ...audit(),
 }, t => [nonemptyNames('stations_names', t), coordinates('stations_coordinates', t), unique('stations_line_name_unique').on(t.line, t.nameEn)]);
 
 export const projects = pgTable('projects', {

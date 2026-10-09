@@ -16,6 +16,7 @@ const bin = process.env.MSTAR_PG_BIN;
 if (!bin) throw new Error('Set MSTAR_PG_BIN for real pg_dump/pg_restore rollback verification.');
 const client = postgres(url, { max: 1, onnotice: () => {} });
 const passed: string[] = [];
+const migrationCount = JSON.parse(await readFile('db/migrations/meta/_journal.json','utf8')).entries.length;
 async function test(name: string, work: () => Promise<unknown>) {
   await work(); passed.push(name); console.log(`PASS ${name}`);
 }
@@ -32,7 +33,7 @@ try {
   await test('migrations apply and rerun without duplication', async () => {
     await applyMigrations(url); await applyMigrations(url);
     const [result] = await client`select count(*)::int as count from drizzle.__drizzle_migrations`;
-    assert.equal(result.count, 2);
+    assert.equal(result.count, migrationCount);
     const [tables] = await client`select count(*)::int as count from information_schema.tables where table_schema='public' and table_type='BASE TABLE'`;
     assert.equal(tables.count, 18);
   });
@@ -153,7 +154,7 @@ try {
     execFileSync(join(bin, 'pg_restore.exe'), [...args, '--exit-on-error', '--no-owner', '--no-privileges', file], options);
     await applyMigrations(url); await seedDemo(url);
     assert.equal((await client`select count(*)::int as count from listings`)[0].count, 14);
-    assert.equal((await client`select count(*)::int as count from drizzle.__drizzle_migrations`)[0].count, 2);
+    assert.equal((await client`select count(*)::int as count from drizzle.__drizzle_migrations`)[0].count, migrationCount);
   });
   await writeFile('.local/step2-db-results.json', JSON.stringify({ date: new Date().toISOString(), passed, database: 'mstar_property_step2_test', demoListings: 14, appTables: 18 }, null, 2));
   console.log(`${passed.length}/${passed.length} PostgreSQL groups passed. Evidence: .local/step2-db-results.json`);

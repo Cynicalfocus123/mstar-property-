@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useRef, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode } from 'react';
+import { useEffect, useId, useRef, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type CSSProperties } from 'react';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'acc' | 'out' | 'line' | 'wa' };
 export function Button({ variant='out', className='', ...props }: ButtonProps) {
@@ -9,7 +9,7 @@ export function Button({ variant='out', className='', ...props }: ButtonProps) {
 export function Input({ label, className='', ...props }: InputHTMLAttributes<HTMLInputElement> & { label: string }) {
   const generated = useId();
   const id=props.id ?? generated;
-  return <label className={`field ${className}`} htmlFor={id}><span>{label}</span><input {...props} id={id} /></label>;
+  return <label className={`field ${className}`} htmlFor={id}><span>{label}</span><input {...props} id={id} autoFocus={false} data-initial-focus={props.autoFocus?'true':undefined} /></label>;
 }
 export function Chip({ active=false, ...props }: ButtonHTMLAttributes<HTMLButtonElement> & { active?: boolean }) {
   return <button type="button" {...props} aria-pressed={active} className={`chip${active?' on':''}`} />;
@@ -31,7 +31,7 @@ export function Tabs({ items, value, onChange, label }: { items: {value:string;l
       }}>{item.label}</button>)}
   </div>;
 }
-export function Modal({ open, title, closeLabel, onClose, children, sheet=false }: {open:boolean;title:string;closeLabel:string;onClose:()=>void;children:ReactNode;sheet?:boolean}) {
+export function Modal({ open, title, closeLabel, onClose, children, sheet=false, className='', style }: {open:boolean;title:string;closeLabel:string;onClose:()=>void;children:ReactNode;sheet?:boolean;className?:string;style?:CSSProperties}) {
   const ref=useRef<HTMLDialogElement>(null);
   const titleId=useId();
   useEffect(()=>{
@@ -41,10 +41,11 @@ export function Modal({ open, title, closeLabel, onClose, children, sheet=false 
     const previous=document.activeElement as HTMLElement | null;
     const overflow=document.body.style.overflow;
     dialog.showModal(); document.body.style.overflow='hidden';
+    dialog.querySelector<HTMLElement>('[data-initial-focus]')?.focus();
     return ()=>{dialog.close();document.body.style.overflow=overflow;previous?.focus();};
   },[open]);
   if(!open)return null;
-  return <dialog ref={ref} className={`modal${sheet?' sheet':''}`} aria-labelledby={titleId}
+  return <dialog ref={ref} className={`modal${sheet?' sheet':''} ${className}`} style={style} aria-labelledby={titleId}
     onKeyDown={event=>{
       if(event.key!=='Tab')return;
       const focusable=event.currentTarget.querySelectorAll<HTMLElement>('button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),a[href],[tabindex="0"]');

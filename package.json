@@ -17,7 +17,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/migrate.ts",
     "db:seed": "tsx scripts/seed.ts",
-    "db:test": "tsx scripts/test-db.ts"
+    "db:seed:search": "tsx scripts/seed-search.ts",
+    "db:test": "tsx scripts/test-db.ts",
+    "test:search": "tsx scripts/test-search.ts"
   },
   "dependencies": {
     "@fontsource/noto-sans-thai": "5.3.0",

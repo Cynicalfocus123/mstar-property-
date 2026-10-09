@@ -1,5 +1,18 @@
 # Mstar Property project instructions
 
+## Current Step 3 — 2026-10-09
+
+Use the active V5 stage guide. Step 3 now implements approved reusable cards, results and safe shared URL state. Applied filters use router.push to preserve meaningful browser history; popup drafts do not change URLs. Preserve the public-price and hidden-location protections in lib/listing-search.ts. Demo preview requires an explicit local flag, trusted local Host and named local development/test database; never expose fictional stock as genuine inventory. Server opening is permitted only for explicit owner preview or tests expressly authorized in the current task. Stop test servers afterward.
+
+Step 3 is complete for F08–F13, B05–B07 and R02 only. R02 records contact-dialog autofocus and swipe/keyboard regression fixes linked to F01/F08. The overall project and the independent Step 0/1 blockers remain Pending. Stop before Step 4.
+
+Final validation: production build and TypeScript passed; 36/36 real Chromium browser tests passed in Thai/English at 390, 768, 1024 and 1440px; 12/12 real application/PostgreSQL search groups and 12/12 isolated PostgreSQL regression groups passed. Backup, all three migration apply/rerun, repeatable seed, joins, constraints, indexes, permissions and actual dump/rollback/restore were tested. Frontend, listings API and health returned HTTP 200 with the database ready. After stopping PostgreSQL, health and listings returned HTTP 503 without database details. Ports 3000 and 5432 are stopped after testing. Admin and real enquiry submission do not exist.
+
+All nine maintained Markdown files are updated: AGENTS.md, README.md, design.md, architecture.md, database.md, testing.md, progress.md, MSTAR-CODEX-RULES.md and CLAUDE.md. Approved codex-handoff Markdown/HTML and historical sources remain immutable; their baseline hashes are verified instead. The same root workbook retains all prior IDs/history and adds R02: 82 IDs, 15 Done, 16 Pending, 51 Not started. All six views are regenerated and checked; Pending is yellow, Done light green and Not started red. The 59-file Git/live baseline is compared before copying intended source/config/docs/tracker, excluding secrets, dependencies, cluster, backups and caches. Final matching hashes and commit/push to origin/main are checked at closeout; the final report supplies the exact commit. If a final gate fails, affected tasks must revert to Pending.
+
+Verified during testing, now stopped: http://127.0.0.1:3000/en/buy, http://127.0.0.1:3000/th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health on the same host/port. No admin URL. Existing owner choices remain unchanged. Older dated sections below are historical and do not override this section.
+
+
 ## Claude project handoff — 2026-10-09
 
 Read [CLAUDE.md](CLAUDE.md) for the consolidated current project briefing: actual Git/live paths, approved V3/V5 references, implemented source, Step 2 proof, unimplemented Step 3, owner decisions, database/security contracts, server policy, tracker and completion gates. The owner requested this document so Claude can read and help Codex. This documentation-only task does not change application code, UI, migrations, seed or owner choices. Older dated sections below remain historical; this briefing identifies their current replacements. R01 receives an append-only tracker history entry, with all 81 IDs and statuses retained. Only documentation/workbook/mirror checks apply; no new app/browser/database test or working localhost claim is made. Ports 3000 and 5432 were found stopped during inspection; no admin exists. Approved handoff and historical files remain unchanged. Git/live synchronization and commit/push are verified at finalization.
@@ -38,8 +51,8 @@ Keep the root workbook. The owner deferred tests for now. Port 3000 is currently
 - Use exact V3 design tokens and Prompt/Noto Sans Thai fonts. Use 720px and 1000px breakpoints and validate 390px, 768px, 1024px and 1440px.
 - Keep scans, diffs, logs and tests focused. Avoid unrelated work and redundant scans. Never launch Serena dashboard unless explicitly required.
 - Use existing project configuration and interpreter. At Step 0 there is no application configuration or package manifest to reuse; document chosen settings when the build is authorized.
-- Implement only the requested step. The owner started Step 1 on 2026-10-09. Never begin Step 2 under Step 1 authorization.
-- Keep localhost closed unless explicitly requested open. The owner requested port 3000 closed during Step 1. Never start a server, preview or test-managed server automatically. Provide configured local links every task and state availability. Completion gates do not authorize reopening ports.
+- Implement only the currently authorized step. Step 3 is the latest authorized stage; never begin Step 4 without its prompt.
+- Keep localhost closed unless explicitly requested open. The owner requested port 3000 closed during Step 1. Start servers only under explicit owner preview or test authorization in the current task; the Step 3 prompt authorizes its tests and requires shutdown afterward. Provide configured local links every task and state availability. Completion gates alone do not authorize reopening ports.
 - Do not guess any of BUILD-SPEC section 12's eight owner decisions. See `design.md` for existing tracker IDs.
 
 ## Repository and live mirror

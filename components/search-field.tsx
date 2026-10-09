@@ -4,12 +4,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { copy, type Language } from '@/lib/i18n';
 import { Button, Input, Modal, Tabs } from './ui';
+import { parseSearch, searchHref, type SearchRoute } from '@/lib/search-state';
 
 export function SearchField({language}:{language:Language}){
   const t=copy[language]; const router=useRouter();
   const [intent,setIntent]=useState('buy'); const [location,setLocation]=useState(''); const [sheet,setSheet]=useState(false);
   const items=[{value:'buy',label:t.buy},{value:'rent',label:t.rent},{value:'projects',label:t.projects},{value:'invest',label:t.invest}];
-  function search(){const params=new URLSearchParams();if(location.trim())params.set('loc',location.trim());router.push(`/${language}/${intent}${params.size?'?'+params.toString():''}`);setSheet(false);}
+  function search(){const params=new URLSearchParams();if(location.trim())params.set('loc',location.trim());router.push(intent==='projects'?`/${language}/projects${params.size?'?'+params.toString():''}`:searchHref(language,parseSearch(params,intent as SearchRoute)));setSheet(false);}
   return <div className="search-box">
     <Tabs items={items} value={intent} onChange={setIntent} label={t.search}/>
     <form className="search-fields" onSubmit={event=>{event.preventDefault();search();}}>
