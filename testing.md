@@ -8,6 +8,8 @@
 - PASS: original handoff hashes recorded before changes and verified unchanged afterward.
 - PASS: canonical tracker preserves existing IDs, uses six required sheets and keeps category/status records synchronized. Dates/test/Git/live/history columns extend the existing headings.
 - PASS: intended preparation files are mirrored to live and compared with SHA-256. There is no deployable application yet.
+- PASS: all 79 original tracker IDs remain; 81 total IDs have 0 Done, 11 Pending and 70 Not started. Exported XLSX records, count caches, tables, headings and freeze panes were checked independently after rendering all six sheets.
+- PASS: preparation commit `cd897da` was pushed to origin/main. Approved sources preserve their original line endings and file hashes.
 - NOT RUN: real application tests, PostgreSQL integration or persisted form submissions. No application/database configuration exists.
 - NOT RUN: rendered frontend tests at 390px, 768px, 1024px and 1440px. No frontend exists in Step 0.
 - BLOCKED: browser inspection of local wireframe was rejected because the browser permits only HTTP/HTTPS navigation. No alternate surface or workaround was used.

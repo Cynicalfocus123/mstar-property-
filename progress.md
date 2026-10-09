@@ -14,7 +14,7 @@ The original 79 tracker IDs are preserved. R01 records preparation. B34 records 
 
 - G1: maintained documents updated. Approved handoff and historical files remain unchanged.
 - G2: root tracker updated and synchronized; all six sheets and stable IDs verified.
-- G3: local Git origin established and preparation mirror verified. Commit/push results are recorded below after verification. No deployable application exists yet.
+- G3: local Git origin established and all 17 preparation files match live by SHA-256. Preparation commit `cd897da` was pushed to origin/main. No deployable application exists yet.
 - G4: preparation checks pass. Real application/DB and rendered viewport tests are not run because components do not exist. Browser local-file review is policy-blocked.
 - G5: frontend, backend health/API and admin are absent. No verified localhost links exist.
 
@@ -22,4 +22,6 @@ Overall status remains Pending. The next actor is the owner to start Step 1 and 
 
 ## Git record
 
-Preparation commit/push verification is pending until files and tracker checks finish. Never interpret the local live mirror as a published site.
+Preparation commit `cd897da` was pushed successfully to origin/main on 2026-10-09. This verification update records that preceding commit; the final report identifies the latest pushed verification commit. Push authentication worked. Never interpret the local live mirror as a published site.
+
+Tracker verification confirms 81 unique canonical IDs: all 79 original IDs plus R01 and B34. Recalculated counts are 0 Done, 11 Pending and 70 Not started. All six sheets were rendered and reviewed. Git preserves the original line endings of immutable handoff/historical files; CRLF is not a reason to rewrite approved sources.
