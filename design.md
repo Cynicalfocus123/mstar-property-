@@ -14,8 +14,8 @@ Browser visual/interaction review remains unverified: browser policy rejects loc
 
 ## Owner decision register — updated 2026-10-09
 
-1. F02: use the approved wireframe colours and its default gold accent. Decision recorded; implementation has not started.
-2. F03: header logo will be supplied later. Final asset/version remains deferred; use the approved temporary crest only when the foundation build starts.
+1. F02: use the approved wireframe colours and its default gold accent. Exact section 2 tokens are implemented in the foundation.
+2. F03: header logo will be supplied later. Final asset/version remains deferred; the foundation uses the approved temporary SVG crest extracted from the handoff.
 3. B17: enquiry email — shared inbox or listing agent.
 4. B18: create the approved LINE/WhatsApp buttons before integration. Company versus per-agent routing and actual contacts remain unresolved. Do not invent phone numbers or chat destinations.
 5. B23: sign-in providers — LINE only or LINE + Google + email.
@@ -25,6 +25,10 @@ Browser visual/interaction review remains unverified: browser policy rejects loc
 
 The owner has answered colour, supported currencies and price-visibility policy, and set the chat-button priority and map-cost direction. Enquiry routing, chat contacts/routing and sign-in providers remain unresolved; the logo is deferred. Decision rows remain Pending under the project's completion gates, with the resolved choices stated explicitly rather than treated as unanswered. Account/admin UI require separate wireframe approval (F32/F34).
 
-## Upcoming foundation
+## Foundation implementation — 2026-10-09
 
-The owner's advance Step 1 scope covers global tokens/fonts, header, footer, phone tabs, reusable controls, /th and /en routing with preference cookies, and /api/health. Implement it only after the build starts. No Step 2 schema or seed work is authorized in Step 1.
+The owner started Step 1. Global tokens/fonts, header, footer, five phone tabs, shared controls, /th and /en preference routing and health are implemented. The preview is a partial shell, not the full approved homepage. Content, listings and data-backed filters await later steps. No Step 2 work is included.
+
+Eight Thai/English shell tests passed at 390px, 768px, 1024px and 1440px. Screenshots were captured and reviewed. Phone search containment was tightened after review and requires retesting. Chat buttons use approved green/white styling and remain disabled until real contacts arrive; active contact-button contrast needs review before integration. No admin/account UI or paid provider was selected.
+
+The owner requested port 3000 closed. Four preference/search flows need retesting after the compiled origin-validation fix. Original wireframe browser review remains unverified; application screenshots are separate evidence.

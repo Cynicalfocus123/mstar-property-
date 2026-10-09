@@ -1,5 +1,18 @@
 # Verification record
 
+## Latest foundation evidence — 2026-10-09 — Pending
+
+- PASS: final npm run build compiles production routes and checks TypeScript. Separate typecheck also passed.
+- PASS before closure: eight real Chromium shell tests in Thai/English at 390px, 768px, 1024px and 1440px. Checked white background/exact gold, loaded fonts/crest, 64px sticky header, page overflow, mobile tabs, modal focus/Escape and disabled chat buttons. Screenshots were captured in ignored test-results/ and reviewed.
+- PASS before closure: four real HTTP API/routing checks: health, Accept-Language priority, query-preserving redirects, invalid preferences, cross-origin rejection and noindex not-found content. Next's streamed not-found content can return HTTP 200; the test checks error content and noindex.
+- FAILED before closure: four preference/search flows. Origin comparison rejected 127.0.0.1 because Next's internal address was localhost. Host-based validation is fixed and compiled; browser retesting has not run.
+- NOT RETESTED: final phone search containment adjustment and approved green/white chat styling. Contact routing and active contact-button accessibility remain pending.
+- VERIFIED before closure: /th, /en and /api/health at 127.0.0.1:3000. Health returned HTTP 200, status ok, database not_configured, ready false.
+- CLOSED: owner requested port 3000 closed. Listening-port inventory confirmed closure. Tests no longer start a server automatically. Do not reopen without an explicit opening instruction.
+- NOT RUN: real PostgreSQL, persisted submissions, authentication and admin. Configuration/components do not exist. No DB readiness is claimed.
+
+PASS: all six tracker sheets rendered/reviewed; 81 stable IDs, complete category/status synchronization, preserved prior histories and untouched records, count caches, tables and freeze panes independently verified. PASS: 42 intended source/configuration/doc/tracker files match live by SHA-256 after baseline divergence checks. Three original handoff hashes remain unchanged. Application screenshots are review evidence, not a pixel regression baseline against the policy-blocked original HTML. Records below are historical.
+
 ## Step 0 — 2026-10-09 — R01 Pending
 
 - PASS: inventory and full review of all original project Markdown plus approved wireframe CSS/markup/JavaScript.

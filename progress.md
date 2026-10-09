@@ -1,5 +1,17 @@
 # Progress
 
+## Current status — Step 1 — Pending — 2026-10-09
+
+The owner started the foundation build. Implemented F01 (tokens/fonts/controls), F02 (colours), F04 (header), F05 (phone tabs), F06 (footer), F07 (routing/preferences), B18 (chat buttons only) and B34 (health). F03 awaits the final logo. Existing R01 is retained; no duplicate IDs or Step 2 work were introduced.
+
+Production build and TypeScript pass. Before closure, 12 of 16 actual Playwright tests passed: eight Thai/English shell tests and four HTTP API/routing checks. Four preference/search flows failed because Origin used the browser address while Next used an internal address. The Host-based fix and phone search containment fix compile but need browser retesting. Modal focus wrapping was fixed and passed before closure.
+
+Port 3000 is closed on owner request. Frontend paths /th and /en and health /api/health use http://127.0.0.1:3000. Previously available links are currently unavailable. Admin is absent. PostgreSQL is unconfigured; no database/submission pass is claimed.
+
+G1/G2 maintained docs and six-tab tracker record evidence. Six sheets, 81 IDs, synchronized complete records, original histories, formulas, tables and freeze panes pass independent verification. G3 synchronization passed for 42 intended Git/live files by SHA-256; no divergent files or secrets were copied. Commit/push is checked at finalization. G4 remains Pending for preference/search retesting and PostgreSQL. G5 remains Pending while localhost is closed; never reopen it automatically. Tracker totals: 81 IDs, 0 Done, 17 Pending, 64 Not started.
+
+Preceding commit: 3f56908. Final response identifies this task's pushed commit. Next action is retesting when the owner opens localhost and verifying PostgreSQL when configured. Stop before Step 2. Records below are historical.
+
 ## 2026-10-09 — R01 — Step 0 preparation — Pending
 
 Reviewed all original Markdown and the approved V3 wireframe source. Inspected project/parent inventory, tools, repository accessibility and the supplied tracker. The existing project had no application, Git metadata, live folder or PostgreSQL configuration. The remote repository was empty.

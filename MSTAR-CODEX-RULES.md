@@ -2,6 +2,13 @@
 
 **Mandatory for every coding task, bug fix, UI adjustment, refactor, migration and documentation change.** Every Codex task/prompt starts with `$caveman full`.
 
+
+## Owner overrides and current state — 2026-10-09
+
+The canonical tracker is in the project root, per the owner's latest instruction; this overrides the older project-management/ path below. Step 1 foundation compiles but remains Pending for browser preference/search retesting and PostgreSQL. Step 2 is unstarted. See testing.md.
+
+The owner requested port 3000 closed and controls reopening. Keep servers/previews closed until asked. Provide configured local links every task with availability and identify missing admin components. Do not automatically open a server to satisfy completion gates; leave those gates Pending. This overrides the server-start requirement below. Other permanent rules remain applicable.
+
 ## Before any work
 1. Read all maintained project `.md` files, plus `codex-handoff/BUILD-SPEC.md`, `codex-handoff/CODEX-PROMPT.md`, the complete `codex-handoff/wireframe.html`, and this rules file. Inspect the actual project tree and Git/live layout. Follow the **approved V3** UI (not the old forest-green V1). Review desktop and phone behavior before implementing changed UI.
 2. Confirm the existing Git working folder, configured remote and `live/` folder. Do not invent paths, create a new repository, overwrite divergent work, move production files, or change live services without the user's approval.

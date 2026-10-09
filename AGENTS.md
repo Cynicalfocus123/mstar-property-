@@ -12,7 +12,8 @@
 - Use exact V3 design tokens and Prompt/Noto Sans Thai fonts. Use 720px and 1000px breakpoints and validate 390px, 768px, 1024px and 1440px.
 - Keep scans, diffs, logs and tests focused. Avoid unrelated work and redundant scans. Never launch Serena dashboard unless explicitly required.
 - Use existing project configuration and interpreter. At Step 0 there is no application configuration or package manifest to reuse; document chosen settings when the build is authorized.
-- Implement only the requested step. Step 1 instructions received on 2026-10-09 are advance instructions; stop after Step 0 until the owner starts the build. Never begin Step 2 under Step 1 authorization.
+- Implement only the requested step. The owner started Step 1 on 2026-10-09. Never begin Step 2 under Step 1 authorization.
+- Keep localhost closed unless explicitly requested open. The owner requested port 3000 closed during Step 1. Never start a server, preview or test-managed server automatically. Provide configured local links every task and state availability. Completion gates do not authorize reopening ports.
 - Do not guess any of BUILD-SPEC section 12's eight owner decisions. See `design.md` for existing tracker IDs.
 
 ## Repository and live mirror
@@ -51,4 +52,8 @@ R01 records preparation as Pending because no application, project PostgreSQL co
 
 ## Owner choices — 2026-10-09
 
-Use the approved wireframe colours/default gold. The header logo is deferred. Support USD and THB, with THB as the stored base. Allow an admin to choose public or contact-gated prices per listing/project. Prioritize approved LINE/WhatsApp buttons before integration; do not invent contacts. Mapping must be free and open-source for now; the concrete provider/library is still undecided. These choices update `design.md` without rewriting the immutable handoff. No full Step 1 or Step 2 implementation starts in this decision-recording task.
+Use the approved wireframe colours/default gold. The header logo is deferred. Support USD and THB, with THB as the stored base. Allow an admin to choose public or contact-gated prices per listing/project. Prioritize approved LINE/WhatsApp buttons before integration; do not invent contacts. Mapping must be free and open-source for now; the concrete provider/library is still undecided. These choices update `design.md` without rewriting the immutable handoff. That decision-recording task preceded the authorized foundation build.
+
+## Current implementation — 2026-10-09
+
+Step 1 foundation compiles. F01/F04/F05/F06/F07/B34 and R01 remain Pending for browser preference/search retesting, real PostgreSQL and closed localhost. No Step 2 schema, seed, admin or authentication exists. See testing.md. Earlier Step 0 descriptions are historical.

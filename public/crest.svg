@@ -1,0 +1,7 @@
+<svg width="40" height="44" viewBox="0 0 40 44" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="20,2 38,16 35,16 35,32 20,41 5,32 5,16 2,16" fill="#141210" stroke="#d4b04c" stroke-width="2" stroke-linejoin="miter"/>
+              <rect x="27" y="4" width="4" height="8" fill="#d4b04c"/>
+              <g fill="#d4b04c"><rect x="17.6" y="9" width="2" height="2"/><rect x="20.4" y="9" width="2" height="2"/><rect x="17.6" y="11.8" width="2" height="2"/><rect x="20.4" y="11.8" width="2" height="2"/></g>
+              <text x="20" y="29" text-anchor="middle" font-family="Bodoni Moda, Didot, Georgia, serif" font-size="12" font-weight="700" fill="#ffffff">MP</text>
+              <path d="M14 32.5 q6 -2.5 12 0" fill="none" stroke="#d4b04c" stroke-width="1.4"/>
+            </svg>

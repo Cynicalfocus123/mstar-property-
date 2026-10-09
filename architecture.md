@@ -1,25 +1,23 @@
 # Architecture
 
-## Current state — 2026-10-09
+## Current implementation — 2026-10-09
 
-There is no application source, package.json, lockfile, Next.js configuration, TypeScript configuration, environment configuration, Drizzle configuration or application server in this workspace. The original files consist of handoff/prototypes, permanent rules and the supplied tracker. No existing MVP was found in the Mstar Property parent tree.
+One Next.js 16.4.0 App Router application uses React 19.3.0 and TypeScript 7.0.2. Existing system Node.js/npm run the project. Exact dependency versions and lockfile are committed. There is no separate backend service.
 
-The supplied GitHub repository returned no refs and no history. Git has been initialized in the existing project root with origin set to that repository. Existing files were preserved. The owner authorized creation of missing project folders.
+app/[lang]/layout.tsx supplies the shell, correct document language and self-hosted fonts. Pages have localized metadata/canonical/hreflang links. Future navigation pages are explicitly unfinished and noindex. proxy.ts uses explicit language cookies, then weighted Accept-Language, then Thai. Explicit routes remain authoritative; query strings survive switching.
 
-## Required future stack
+POST /api/preferences validates th/en and THB/USD, checks Origin against the request Host including port, and sets year-long HTTP-only SameSite=Lax cookies. HTTPS cookies are Secure. Currency conversion and a rate provider are not implemented.
 
-Use one deployable Next.js App Router application with TypeScript, PostgreSQL and Drizzle ORM. Thai/English routes use /th and /en. Accept-Language selects the first-visit language; a preference cookie remembers the explicit choice. Store THB values and bilingual content as BUILD-SPEC describes.
+GET /api/health distinguishes application availability from database readiness. lib/db.ts uses postgres.js and Drizzle ORM 0.45.4 for real select 1 when DATABASE_URL exists, then closes the connection. Missing configuration does not claim readiness. No database schema, migrations, seed or admin UI exists.
 
-Do not create a second backend application merely for /api/health. That endpoint belongs to the Next.js application and must distinguish application availability from database readiness. B34 records this future task.
+Client components provide dialogs, keyboard tabs, phone search sheets, buttons, inputs, chips and skeletons. Dialogs lock background scrolling, explicitly wrap Tab focus and restore focus. No animation library exists. Search currently navigates to preparation pages, without fabricated results.
 
-No package versions, application ports or database credentials are selected in Step 0. Use established configuration if one is supplied before building. No production service has been changed.
+## Runtime and synchronization
 
-## File synchronization
+Configured localhost is 127.0.0.1:3000. The owner requested closure during Step 1. Opening requires explicit owner instruction. Tests do not automatically start a server.
 
-The project root is the Git working folder. `live/` is the local preparation/deployment mirror and is excluded from Git to avoid duplicate source history. Explicit allowlisting and SHA-256 checks prevent copying secrets, dependencies, .git or build caches. No deployable code exists yet; matching preparation files do not prove an operational deployment.
+The existing workspace is Git root. live/ is an ignored source mirror. Compare baseline hashes before copying source/configuration/docs/tracker. Never mirror secrets, .git, dependencies, caches or build output. Runtime configuration and installation remain separate; matching source does not establish deployment.
 
-The canonical tracker remains at the project root under the latest user instruction. Its copy in live is a mirror, not a second editable source.
+## Remaining scope
 
-## Decision update — 2026-10-09
-
-The future application supports THB and approximate USD display, per-record admin price visibility and free open-source mapping. Specific exchange-rate and mapping providers remain undecided. LINE/WhatsApp buttons precede integration. No dependencies, package versions, code, ports or services changed in this documentation task.
+Four preference/search flows require retesting after compiled origin and phone-containment fixes. PostgreSQL is unconfigured. Step 2, functional search, accounts, saved data and admin remain unstarted. Account/admin UI requires approved separate wireframes.
