@@ -1,5 +1,11 @@
 # Design direction
 
+## Tracker colours — 2026-10-09
+
+The owner requested the recreated Excel before Step 3 implementation. The canonical root workbook now uses yellow Pending (#FFF2CC), light green Done (#C6EFCE), and red Not started (#FF6666), including full task rows, status tabs, and conditional rules. All six sheets, 81 permanent IDs, prior task records/history, formulas, tables, validations, and frozen headers are preserved. Status totals remain 5 Done, 16 Pending, and 60 Not started; R01 receives an append-only formatting history entry.
+
+Workbook export checks and visual review of all six sheets passed. This changes workbook formatting and documentation only; application code, schema, migrations, seed, and approved UI are unchanged. Approved handoff and historical sources remain immutable. Git/live files are compared against the 58-file matching baseline before safe synchronization, then hashes and commit/push are verified during finalization. Step 3 is authorized and remains unimplemented; this Excel delivery does not claim Step 3 completion. Application/browser/PostgreSQL retests are not applicable to this formatting-only delivery and were not rerun. Frontend http://127.0.0.1:3000/en and health http://127.0.0.1:3000/api/health remain stopped, as previously requested; no admin exists.
+
 ## Current Step 2 design review — 2026-10-09
 
 The complete updated approved V3 wireframe and home-page.html CSS, desktop/phone markup and JavaScript are reviewed for this database task. No UI changes are made. Production screenshots from both locales at 390/768/1024/1440px confirm the existing shell; they are not a rendered comparison with the policy-blocked original local HTML.
