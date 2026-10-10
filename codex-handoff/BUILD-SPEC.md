@@ -79,6 +79,16 @@ Other accent options the owner can still choose (swap the four `--acc*` values o
 - Radius: cards and photos 12px, buttons 10px, inputs 10px, chips and the search bar 999px (pill). **The Sign in button is a rectangle with 8px radius and must never wrap to two lines.**
 - Shadows only on floating things: search box, popovers, sticky contact box, project info card.
 
+### Motion (owner rule, 10 Oct 2026, applies to every page)
+One shared motion system, used everywhere something slides, changes photo or reacts to the pointer. Build it once (shared helper + CSS tokens) and reuse it; never a plain instant jump.
+- **Rows and carousels with ‹ › arrows** (home listing rows, category row, project rows, any future carousel): animate with requestAnimationFrame over about 450 ms, ease-out (fast start, soft stop); move by whole visible cards so a row always lands on a card edge; scroll-snap off during the animation and back on after; repeated clicks continue smoothly; arrows fade (150 ms) and disable at the ends; Left/Right keys work when the row has focus; trackpad, shift + wheel and touch swipe stay natural and snap to card edges.
+- **Photo changes inside a card** (results cards, small cards if they get photo arrows, saved page): the next/previous photo slides in over about 300 ms ease-out, following the swipe direction; dots move with it.
+- **Galleries and lightboxes** (property page, project page): same slide motion as card photos; opening fades and scales in over 200 ms.
+- **Hover (desktop only):** card photo scales to 1.03 over 250 ms; card shadow rises over 150 ms; buttons and chips change colour over 150 ms.
+- **Popovers, sheets and dialogs** (filters, contact form): fade + small rise over 200 ms; phone sheets slide up over 250 ms.
+- Tokens: `--ease-out: cubic-bezier(.22,.61,.36,1)`, `--dur-fast:150ms`, `--dur-med:250ms`, `--dur-slide:450ms`.
+- `prefers-reduced-motion`: no animation anywhere, changes happen instantly.
+
 ---
 
 ## 3. Breakpoints and layout

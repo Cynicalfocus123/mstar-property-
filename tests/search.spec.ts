@@ -6,7 +6,7 @@ for(const language of ['en','th'] as const){
   await expect(page.locator('.lcard')).toHaveCount(8);await expect(page.locator('.demo-notice')).toBeVisible();await page.evaluate(()=>document.fonts.ready);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   const columns=await page.locator('.listing-grid').evaluate(el=>getComputedStyle(el).gridTemplateColumns.split(' ').length);expect(columns).toBe(page.viewportSize()!.width<=720?1:page.viewportSize()!.width<=1000?2:3);
-  const card=page.locator('.lcard').first(),image=card.locator('img');await expect(image).toHaveJSProperty('complete',true);expect(await image.evaluate(el=>(el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  const card=page.locator('.lcard').first(),image=card.locator('.photo-current img');await expect(image).toHaveJSProperty('complete',true);expect(await image.evaluate(el=>(el as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   const geometry=await card.locator('.listing-photo').evaluate(el=>{const r=el.getBoundingClientRect();return r.width/r.height;});expect(geometry).toBeCloseTo(1.5,1);
   const before=await image.getAttribute('src');await card.hover();await card.getByRole('button',{name:labels.next,exact:true}).click();await expect(image).not.toHaveAttribute('src',before!);await expect(page).toHaveURL(`/${language}/buy`);
   await card.getByRole('button',{name:labels.save,exact:true}).click();await expect(card.locator('.heart')).toHaveAttribute('aria-pressed','true');await page.reload();await expect(page.locator('.lcard').first().locator('.heart')).toHaveAttribute('aria-pressed','true');await expect(page).toHaveURL(`/${language}/buy`);
@@ -28,7 +28,7 @@ for(const language of ['en','th'] as const){
  });
 }
 test('phone swipe changes photo without navigation; card keyboard link reaches explicit Step 5 placeholder',async({page})=>{
- await page.goto('/en/buy');const card=page.locator('.lcard').first();const img=card.locator('img'),before=await img.getAttribute('src');
+ await page.goto('/en/buy');const card=page.locator('.lcard').first();const img=card.locator('.photo-current img'),before=await img.getAttribute('src');
  if(page.viewportSize()!.width===390){await expect(card).toBeVisible();const rect=await card.locator('.listing-photo').boundingBox();const session=await page.context().newCDPSession(page);await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:rect!.x+200,y:rect!.y+130}]});await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:rect!.x+100,y:rect!.y+130}]});await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await expect(img).not.toHaveAttribute('src',before!);await expect(page).toHaveURL('/en/buy');await session.detach();}
  await expect(card.locator('.lcard-link')).toBeVisible();await card.locator('.lcard-link').focus();await expect(card.locator('.lcard-link')).toBeFocused();await page.keyboard.press('Enter');await expect(page).toHaveURL(/\/en\/property\/FICTIONAL-CONDO-SALE-/);await expect(page.getByRole('heading',{name:'Property details'})).toBeVisible();
 });

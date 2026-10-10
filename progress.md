@@ -1,5 +1,18 @@
 # Progress
 
+## Current Step 3C — F39 — 2026-10-10
+
+F39 changes from Not started to Done only after the Step 3C closeout gates. All other R05-audited statuses remain unchanged: the overall project remains Pending. This implementation-stage wheel fix stays within F39 rather than duplicating its task ID. Stop before Step 4.
+
+The owner supplied revised BUILD-SPEC Motion and V5 guidance before this task. Approved handoff Markdown/HTML, historical references and applied migrations are preserved byte-for-byte against the current input hashes; they are immutable exceptions to maintained-document updates. The prior R05 commit 44f405a and its workbook history are preserved. The real Git root is D:/mstar companies/mstar property/mstar property new site; live/ is its local deployable mirror, not a deployed website. All 91 baseline live files are compared before synchronizing intended code/configuration, these nine documents and the same canonical workbook; secrets, runtime state, dependencies and caches are excluded. Final matching hashes and safe origin/main commit/push are verified at closeout; the exact hash is in the final report. Older dated sections below are historical.
+
+
+Final verification: 36/36 motion browser checks and 91 existing development regression checks passed; five redundant boundary runs were intentionally skipped. Twelve production browser checks passed with samples hidden despite MSTAR_DEMO_MODE=1. Real application/PostgreSQL checks passed: 12 search groups, five development sample groups and six production sample groups. Production build and TypeScript passed. Both languages and 390/768/1024/1280/1440/1600px were covered; screenshots were visually reviewed on phone and desktop. An exit test originally checked after a protocol delay longer than the sheet animation; first-frame browser inspection now verifies inert retained content, duration and eventual removal deterministically. Admin and real enquiry submission remain absent.
+
+The same six-tab workbook retains 86 permanent IDs and all prior history. Only F39 moves from Not started to Done: 21 Done, 23 Pending, 42 Not started. Frontend/Backend/Emails open views are 31/26/8; Done/Pending/Not started contain every ID exactly once. Yellow Pending, light-green Done, red Not started, visible borders, gridlines, formulas, tables, dates, validation and frozen headers are preserved. No separate fix ID duplicates this implementation task. All nine maintained documents are updated. The 94 intended source/config/document/tracker Git/live SHA-256 pairs and origin/main push are verified at final closeout. Unrelated project blockers remain Pending.
+
+Verified HTTP 200 during actual testing: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health (database ready). Test servers on ports 3000 and 5432 are stopped afterward; these links are not currently running. No admin URL exists. Preview remains owner-controlled; an explicitly authorized preview uses the existing local-postgres.ps1 start command and npm run dev. No deployment or migration is performed.
+
 ## Tracker status and grid correction — R05 — 2026-10-10
 
 Status correction is R05. F39 records planned Step 3C. This does not revoke the completed scoped Step 3B implementation record R04; later motion requirements belong to the separate unstarted task. Overall project remains Pending. No new build stage starts.

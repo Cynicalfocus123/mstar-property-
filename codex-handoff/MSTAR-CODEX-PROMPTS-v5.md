@@ -5,7 +5,7 @@
 **Source of truth:** `codex-handoff/BUILD-SPEC.md`, `codex-handoff/wireframe.html` and `codex-handoff/home-page.html` (approved V3; updated 9 Oct 2026 with Realtor-style results cards, and 10 Oct 2026 with 3 cards per row on results and Airbnb-style listing rows on the home page); companion `MSTAR-CODEX-RULES.md` in the project root.
 **Tracker:** `Mstar-Property-Task-Tracker.xlsx` in the project root (the one Codex already uses; don't create a second copy).
 
-**10 Oct 2026:** added Step 3B (results 3 per row, card fixes, Airbnb-style home listing rows) before Step 4, and rewrote Steps 4–12 to match: map is opt-in (Show map), small cards reused on the property and project pages, one shared contact form for every Contact agent button, home rows managed in admin.
+**10 Oct 2026:** added Step 3C (one smooth motion system for every page) and Step 3B (results 3 per row, card fixes, Airbnb-style home listing rows) before Step 4, and rewrote Steps 4–12 to match: map is opt-in (Show map), small cards reused on the property and project pages, one shared contact form for every Contact agent button, home rows managed in admin.
 
 **Changes from V4:** fixed file paths; Step 3 uses the new Realtor-style listing card (BUILD-SPEC §4.3); Step 4 follows the owner's choice of free open-source mapping; Step 6 adds the Contact agent dialog on cards; Step 7 adds the "Homes for you" carousel directly under the search box and removes "no invented carousel"; footer is light grey; dev servers are not left running.
 
@@ -140,6 +140,40 @@ Tests: results show 3 cards per row at 1600/1440/1024px, 2 at 768px, 1 at 390px;
 
 ---
 
+## Step 3C — Site-wide smooth motion (owner change 10 Oct 2026)
+
+Run after Step 3B and before Step 4.
+
+Copy the entire block below into Codex:
+
+```text
+$caveman full — Mstar Property | Step 3C: Site-wide smooth motion
+
+PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, the new "Motion" section in codex-handoff/BUILD-SPEC.md §2, §5.1 item 3 and §5.2, and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Small diffs, capped logs, no Serena dashboard. Do only this step.
+
+Build ONE shared motion system (helper + CSS tokens from BUILD-SPEC §2 Motion) and apply it to everything that exists today, so every page moves the same way. Future steps must reuse it.
+1. Home listing rows ‹ › arrows (components/home-listing-rows.tsx): smooth requestAnimationFrame scroll over about 450 ms with ease-out; move by whole visible cards so rows always land on a card edge, never a half card at the left; scroll-snap off during the animation and back on after; repeated clicks continue smoothly; arrows fade and disable at the ends; Left/Right keys when the row has focus; trackpad, shift + wheel and touch swipe stay natural and snap to card edges. The current code uses behavior:'auto' (instant jump) and scrolls by clientWidth — replace both.
+2. Results pages /buy, /rent, /invest — big listing cards (components/listing-card.tsx): the › photo arrow, dots and touch swipe slide the photo over about 300 ms ease-out in the swipe direction instead of swapping instantly. Hover: photo scale 1.03 over 250 ms, card shadow rises over 150 ms, Contact agent button colour change over 150 ms.
+3. Small home cards: same hover motion.
+4. Filter popovers, phone filter sheet and the contact dialog: fade + small rise over 200 ms; phone sheets slide up over 250 ms.
+5. Chips, buttons, tabs: colour transitions over 150 ms.
+6. prefers-reduced-motion: no animation anywhere, instant changes.
+Write the motion rule into design.md and MSTAR-CODEX-RULES.md so Steps 4–12 (map split view, property gallery, project rows, saved page) use the same helper.
+
+Tests: at 1600/1440/1280/1024px click next/previous quickly on home rows → land on card edges, no half card, arrows fade at the ends; keyboard arrows; results card photo arrow and dots slide; phone 390px swipe on rows and card photos; popover/sheet/dialog open and close; reduced-motion makes all of it instant; no layout shift or sideways page scroll; both languages.
+
+### Mandatory completion contract — do this at the end of THIS prompt
+- **All maintained `.md` files:** read first, then update `AGENTS.md`, `README.md`, `design.md`, `architecture.md`, `database.md`, `testing.md`, `progress.md`, `MSTAR-CODEX-RULES.md`, `CLAUDE.md` and any other maintained project Markdown. Leave approved immutable handoff source unchanged, but document that exception. **No MD verification = NOT DONE.**
+- **Six-tab Excel:** update the SAME root `Mstar-Property-Task-Tracker.xlsx`; update permanent task IDs, new fix IDs if needed, work/test evidence and blockers; regenerate `Frontend`, `Backend`, `Emails`, `Done`, `Pending`, `Not started` with accurate counts, each ID exactly once among status sheets. **No Excel update = NOT DONE.**
+- **Git and live:** synchronize all relevant code, configs, docs and tracker between the real Git working tree and `live/` without overwriting conflicts or copying secrets; verify diffs/hashes. Commit and push via existing remote when possible. **No verified sync/push = Pending, not Done.**
+- **Tests:** test this step on actual running frontend/backend and PostgreSQL, desktop + phone when applicable. Record exact outcomes and DB proof for forms. **Untested = NOT DONE.**
+- **Dev server:** start it only to run this step's tests and stop it afterwards. Don't leave it running unless I ask.
+- **Localhost URLs:** provide the **verified working** frontend URL, backend API/health URL and admin URL only if admin really exists. Use actual configured ports, no invented links. If inaccessible from this environment, explain the blocker and reproducible command, and mark the gate Pending.
+- Finish with task IDs, modifications, all MD files, all six Excel sheets/status changes, tests, Git commit/push/sync, URLs, and one explicit status: `Done` only if EVERY gate passed, otherwise `Pending` with next action. Stop—do not begin the next step.
+```
+
+---
+
 ## Step 4 — Interactive map and nearby data integration
 
 Copy the entire block below into Codex:
@@ -149,7 +183,7 @@ $caveman full — Mstar Property | Step 4: Interactive map and nearby data integ
 
 PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, and the complete codex-handoff/BUILD-SPEC.md, codex-handoff/CODEX-PROMPT.md, MSTAR-CODEX-RULES.md (project root), codex-handoff/wireframe.html and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Follow the approved V3 design, no invented UI. Token saving: small diffs, capped logs, no Serena dashboard, reuse existing project config. Do only this step.
 
-Requires Step 3B Done. The owner chose free, open-source mapping (design.md B09). FIRST propose 2–3 concrete free options (for example a MapLibre-based map with an OpenStreetMap-based tile source, and a free source for nearby places) with each one's usage limits, cost risk and attribution rules, then STOP and wait for the owner to pick one. No paid provider and no invented provider.
+Requires Step 3C Done. Use the shared motion system from Step 3C for the map split view and Map/List toggle. The owner chose free, open-source mapping (design.md B09). FIRST propose 2–3 concrete free options (for example a MapLibre-based map with an OpenStreetMap-based tile source, and a free source for nearby places) with each one's usage limits, cost risk and attribution rules, then STOP and wait for the owner to pick one. No paid provider and no invented provider.
 
 After the owner picks: add the map as an opt-in view on /buy, /rent and /invest (BUILD-SPEC §5.2). A "Show map" button at the right end of the filter bar opens a split view: listing cards 2 per row on the left, sticky map with price pins on the right; the button then reads "Hide map". Store it in the URL as map=1. The default view stays the full-width 3-per-row card grid from Step 3B. In map view: hover/focus card↔pin highlight both ways, map bounds in the URL (bbox), "Search as I move the map" (on by default) and "Draw area" when the library supports it. Phone: a floating Map / List pill switches between a full-screen map and the list. Build the geo-indexed bounds query. Listings with hide_exact_location show an area circle, never an exact pin, and their exact point is never sent to the browser. Nearby places (Transit / Schools / Shopping / Hospitals) come only from the chosen provider, stored in listing_nearby with source and fetch date and refreshed every 90 days; show "Distances are approximate". If the provider needs keys that aren't available, build the database/API contract, report the exact blocker and show no map — never fake maps, pins or distances. Sample listings stay development-only.
 
@@ -176,7 +210,7 @@ $caveman full — Mstar Property | Step 5: Property details, gallery, facts and 
 
 PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, and the complete codex-handoff/BUILD-SPEC.md, codex-handoff/CODEX-PROMPT.md, MSTAR-CODEX-RULES.md (project root), codex-handoff/wireframe.html and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Follow the approved V3 design, no invented UI. Token saving: small diffs, capped logs, no Serena dashboard, reuse existing project config. Do only this step.
 
-Requires Step 4 Done. Build /[locale]/property/[id]-[slug] per BUILD-SPEC §5.3 and the Property screen in wireframe.html:
+Requires Step 4 Done. Use the shared motion system from Step 3C for the gallery, lightbox, photo swipe and tabs. Build /[locale]/property/[id]-[slug] per BUILD-SPEC §5.3 and the Property screen in wireframe.html:
 - Top row: ← Back to results (returns to the same search URL), Share (LINE, Facebook, WhatsApp, copy link), Save (same device storage as the card hearts).
 - Desktop photo grid: 1 large + 4 small, "Show all N photos" opens a full-screen gallery (grid + lightbox with arrows and counter, "Email agent" button in its header). Phone: one swipeable photo with a counter.
 - Badges, title, full address (unless hidden), listing ID and the key-facts row by type (condo / house / land / hotel as in §5.3 item 3).
@@ -241,7 +275,7 @@ $caveman full — Mstar Property | Step 7: Complete the home page
 
 PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, and the complete codex-handoff/BUILD-SPEC.md, codex-handoff/CODEX-PROMPT.md, MSTAR-CODEX-RULES.md (project root), codex-handoff/wireframe.html and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Follow the approved V3 design, no invented UI. Token saving: small diffs, capped logs, no Serena dashboard, reuse existing project config. Do only this step.
 
-Requires Step 6 Done. Complete the home page (BUILD-SPEC §5.1 and codex-handoff/home-page.html). Keep the hero, search box and the Airbnb-style listing rows from Step 3B as they are. Add the remaining sections in this order under the listing rows:
+Requires Step 6 Done. Use the shared motion system from Step 3C for the category row and any new rows. Complete the home page (BUILD-SPEC §5.1 and codex-handoff/home-page.html). Keep the hero, search box and the Airbnb-style listing rows from Step 3B as they are. Add the remaining sections in this order under the listing rows:
 1. Category icon row that scrolls sideways (Condo, House, Townhouse, Pool villa, Land, Hotel, Beachfront, Near BTS/MRT, New build, Pet friendly, Commercial); each opens results with that filter.
 2. "Continue your search": only when this device has a recent search, saved search or viewed listing.
 3. "Explore by location" tiles (Bangkok, Pattaya, Phuket, Rayong) with real listing counts.
@@ -274,7 +308,7 @@ $caveman full — Mstar Property | Step 8: Projects, clickable SVG site plan, si
 
 PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, and the complete codex-handoff/BUILD-SPEC.md, codex-handoff/CODEX-PROMPT.md, MSTAR-CODEX-RULES.md (project root), codex-handoff/wireframe.html and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Follow the approved V3 design, no invented UI. Token saving: small diffs, capped logs, no Serena dashboard, reuse existing project config. Do only this step.
 
-Requires Step 7 Done. Build /[locale]/projects and /[locale]/projects/[slug] plus plot booking (BUILD-SPEC §§5.4–5.5, New project and Book site visit screens in wireframe.html):
+Requires Step 7 Done. Use the shared motion system from Step 3C for rows, galleries and the site plan. Build /[locale]/projects and /[locale]/projects/[slug] plus plot booking (BUILD-SPEC §§5.4–5.5, New project and Book site visit screens in wireframe.html):
 - Rounded hero (drone video or render) with an overlapping white info card: status badge, name, location, "from ฿" (respect the owner's per-project price visibility), number of homes, completion year, LINE and "Get price list" buttons. No black sections.
 - Section tabs that stay at the top: Overview, Home types, Site plan, Facilities, Progress, Location.
 - Home types with plan image, beds, m², price from and an availability bar ("4 of 12 available"); sold-out types stay visible, faded, with "Join waitlist".

@@ -1,5 +1,18 @@
 # Mstar Property project instructions
 
+## Current Step 3C — F39 — 2026-10-10
+
+Step 3C is the current authorized scope. Reuse lib/motion.ts and the CSS motion tokens for all future map split views, galleries, project rails and Saved pages in Steps 4–12. Do not begin Step 4 without its prompt. F39 records this implementation; development-only samples and existing privacy protections are unchanged.
+
+The owner supplied revised BUILD-SPEC Motion and V5 guidance before this task. Approved handoff Markdown/HTML, historical references and applied migrations are preserved byte-for-byte against the current input hashes; they are immutable exceptions to maintained-document updates. The prior R05 commit 44f405a and its workbook history are preserved. The real Git root is D:/mstar companies/mstar property/mstar property new site; live/ is its local deployable mirror, not a deployed website. All 91 baseline live files are compared before synchronizing intended code/configuration, these nine documents and the same canonical workbook; secrets, runtime state, dependencies and caches are excluded. Final matching hashes and safe origin/main commit/push are verified at closeout; the exact hash is in the final report. Older dated sections below are historical.
+
+
+Final verification: 36/36 motion browser checks and 91 existing development regression checks passed; five redundant boundary runs were intentionally skipped. Twelve production browser checks passed with samples hidden despite MSTAR_DEMO_MODE=1. Real application/PostgreSQL checks passed: 12 search groups, five development sample groups and six production sample groups. Production build and TypeScript passed. Both languages and 390/768/1024/1280/1440/1600px were covered; screenshots were visually reviewed on phone and desktop. An exit test originally checked after a protocol delay longer than the sheet animation; first-frame browser inspection now verifies inert retained content, duration and eventual removal deterministically. Admin and real enquiry submission remain absent.
+
+The same six-tab workbook retains 86 permanent IDs and all prior history. Only F39 moves from Not started to Done: 21 Done, 23 Pending, 42 Not started. Frontend/Backend/Emails open views are 31/26/8; Done/Pending/Not started contain every ID exactly once. Yellow Pending, light-green Done, red Not started, visible borders, gridlines, formulas, tables, dates, validation and frozen headers are preserved. No separate fix ID duplicates this implementation task. All nine maintained documents are updated. The 94 intended source/config/document/tracker Git/live SHA-256 pairs and origin/main push are verified at final closeout. Unrelated project blockers remain Pending.
+
+Verified HTTP 200 during actual testing: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health (database ready). Test servers on ports 3000 and 5432 are stopped afterward; these links are not currently running. No admin URL exists. Preview remains owner-controlled; an explicitly authorized preview uses the existing local-postgres.ps1 start command and npm run dev. No deployment or migration is performed.
+
 ## Tracker status and grid correction — R05 — 2026-10-10
 
 Apply these status definitions on every future tracker update. Never keep a resolved owner decision Pending because a separate later feature is unfinished. Never call a partly implemented broad task Not started. Preserve past history under the dated-history label and keep borders visible on coloured rows.
@@ -92,7 +105,7 @@ Keep the root workbook. The owner deferred tests for now. Port 3000 is currently
 - Use exact V3 design tokens and Prompt/Noto Sans Thai fonts. Use 720px and 1000px breakpoints and validate 390px, 768px, 1024px and 1440px.
 - Keep scans, diffs, logs and tests focused. Avoid unrelated work and redundant scans. Never launch Serena dashboard unless explicitly required.
 - Use existing project configuration and interpreter. At Step 0 there is no application configuration or package manifest to reuse; document chosen settings when the build is authorized.
-- Implement only the currently authorized step. Step 3B is the latest authorized stage; never begin Step 4 without its prompt.
+- Implement only the currently authorized step. Step 3C is the latest authorized stage; never begin Step 4 without its prompt.
 - Keep localhost closed unless explicitly requested open. The owner requested port 3000 closed during Step 1. Start servers only under explicit owner preview or test authorization in the current task; the Step 3 prompt authorizes its tests and requires shutdown afterward. Provide configured local links every task and state availability. Completion gates alone do not authorize reopening ports.
 - Do not guess any of BUILD-SPEC section 12's eight owner decisions. See `design.md` for existing tracker IDs.
 
