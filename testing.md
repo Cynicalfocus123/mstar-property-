@@ -1,5 +1,16 @@
 # Verification record
 
+## Development-only samples — R03 — 2026-10-10
+
+R03 validation against the actual app and PostgreSQL passed. Development: 42/44 initial Chromium tests passed; two first homepage loads hit the 30-second timeout during cold compilation. Both failed checks passed in a focused warm 2/2 rerun. All 44 checks are therefore covered, including eight new sample tests in Thai/English at 390/768/1024/1440px, each card's Sample badge and no horizontal overflow. Existing 12 real search groups passed; five new development API/DB checks prove the 16 samples remain seeded.
+
+Production: next build and TypeScript passed. Actual next start ran with NODE_ENV=production and MSTAR_DEMO_MODE=1. All eight production Chromium checks passed in 10.6 seconds across both languages/four widths: no sample cards, notice, API DTOs or demo filter metadata; demo=1 and public Host cannot override this. Six production API/DB checks passed, including genuine-count reconciliation, public-view exclusion, forced internal sample query/metadata denial and a configured public SITE_URL denial even with a development environment. The server-only probe initially failed through the spawning tsx CLI; using Node --conditions=react-server --import tsx fixed the test harness without changing the module fence.
+
+Evidence: ignored .local/sample-development-results.json, sample-production-results.json and step3-search-results.json; reproducible sources are scripts/test-sample-visibility.ts and tests/sample-visibility.spec.ts. Development and production screenshots were reviewed. Build log and browser logs are in D:/dev/tmp/mstar-sample-visibility. No migration/rollback rerun or persisted frontend form is claimed in this correction because neither changed/existed. Frontend /en/buy, /th/buy, /en/rent and /en/invest, listings API and health all returned HTTP 200; health was ready. Both servers are now stopped.
+
+This owner-requested correction is R03, linked to F08/B06; it does not start Step 4. All nine maintained Markdown and the same six-tab root tracker are updated. Approved handoff Markdown/HTML and historical files remain immutable and hash-verified. Tracker totals are 83 permanent IDs: 16 Done, 16 Pending, 51 Not started; prior IDs/history/statuses are preserved. Git/live starts from 80 matching files; intended source/config/docs/tracker are compared, safely mirrored and hash-verified at finalization, then committed/pushed. Secrets, runtime state, dependencies and caches are excluded. Final report supplies the exact commit. Ports 3000/5432 are stopped after tests; admin remains absent. Older dated records below are historical and do not override this correction.
+
+
 ## Current Step 3 — 2026-10-09
 
 Final Step 3 browser run: 36 passed in 42.7 seconds (16 foundation checks and 20 results checks). Coverage includes both languages and all four widths; one/two columns, 3:2 loaded illustrations, no horizontal overflow, photo arrows, native Chromium phone swipe, device-save reload without navigation, contact autofocus/Tab/Escape/restoration, actual metadata option Apply, live count, histogram, price/type filters, sorting, clear/empty, sale/rent/invest isolation, pagination and refresh/back/forward. Final screenshots reviewed for desktop/phone and filter sheets. Source review does not imply a rendered-original-prototype pixel comparison.

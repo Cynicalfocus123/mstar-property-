@@ -1,5 +1,12 @@
 # Architecture
 
+## Development-only samples — R03 — 2026-10-10
+
+localDemoEnabled now requires NODE_ENV exactly development plus the existing explicit flag/local DB checks, a strictly loopback Host and loopback HTTP(S) SITE_URL. listingSearch and searchMetadata enforce the guard again so internal demo=true cannot bypass production. Public routes/API use the same server-only policy; no client query parameter can enable samples. Production selects genuine inventory and metadata. A configured public SITE_URL is denied even in development. No data projection, price/location privacy or SQL filter semantics is weakened.
+
+This owner-requested correction is R03, linked to F08/B06; it does not start Step 4. All nine maintained Markdown and the same six-tab root tracker are updated. Approved handoff Markdown/HTML and historical files remain immutable and hash-verified. Tracker totals are 83 permanent IDs: 16 Done, 16 Pending, 51 Not started; prior IDs/history/statuses are preserved. Git/live starts from 80 matching files; intended source/config/docs/tracker are compared, safely mirrored and hash-verified at finalization, then committed/pushed. Secrets, runtime state, dependencies and caches are excluded. Final report supplies the exact commit. Ports 3000/5432 are stopped after tests; admin remains absent. Older dated records below are historical and do not override this correction.
+
+
 ## Current Step 3 — 2026-10-09
 
 New listing-search.ts is server-only and executes bounded, parameterized Drizzle SQL. Results-page renders shared route data; search-results manages accessible filter drafts and applies shared validated URL state through Next navigation. listing-card handles local device saves and photo gestures. search-state provides the common parser/serializer for homepage, results and API. The listings API returns generic 400/503 errors and private, no-store responses.

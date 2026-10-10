@@ -6,14 +6,19 @@ import type {Choice,FilterDefinition,SearchMetadata,SearchResults,ListingCardDat
 import type {Language} from './i18n';
 
 export function localDemoEnabled(host:string):boolean {
-  if(process.env.MSTAR_DEMO_MODE!=='1')return false;
-  try {const database=new URL(process.env.DATABASE_URL||'');return ['127.0.0.1','localhost'].includes(host.split(':')[0])&&['127.0.0.1','localhost'].includes(database.hostname)&&['/mstar_property_dev','/mstar_property_step2_test'].includes(database.pathname);}catch{return false;}
+  if(process.env.NODE_ENV!=='development'||process.env.MSTAR_DEMO_MODE!=='1'||!/^(localhost|127\.0\.0\.1)(:\d{1,5})?$/.test(host))return false;
+  try {
+    const database=new URL(process.env.DATABASE_URL||''),site=new URL(process.env.SITE_URL||'');
+    return ['http:','https:'].includes(site.protocol)&&['127.0.0.1','localhost'].includes(site.hostname)&&['127.0.0.1','localhost'].includes(database.hostname)&&['/mstar_property_dev','/mstar_property_step2_test'].includes(database.pathname);
+  }catch{return false;}
 }
 async function query<T>(statement:SQL):Promise<T[]> {return await getDatabase().execute(statement) as unknown as T[];}
 const name=(row:Choice,language:Language)=>language==='th'?row.nameTh||row.nameEn:row.nameEn||row.nameTh;
 const number=(value:unknown)=>value===null||value===undefined?null:Number(value);
 function safePhoto(url:string):boolean {return /^\/(?!\/)[a-zA-Z0-9_./-]+$/.test(url)||/^https:\/\//.test(url)&&!url.includes('.invalid');}
 export async function searchMetadata(demo:boolean):Promise<SearchMetadata>{
+  // Never expose sample metadata from a production build, even to an internal caller.
+  demo=demo&&localDemoEnabled('localhost');
   const [locations,stations,projects,definitions,options]=await Promise.all([
     query<Choice>(sql`select slug as value,name_th as "nameTh",name_en as "nameEn" from locations where is_demo=${demo} order by level,slug limit 500`),
     query<Choice>(sql`select slug as value,name_th as "nameTh",name_en as "nameEn" from stations where is_demo=${demo} order by line,name_en limit 500`),
@@ -62,6 +67,8 @@ function conditions(state:SearchState,demo:boolean,metadata:SearchMetadata,omitP
   return sql.join(parts,sql` and `);
 }
 export async function listingSearch(state:SearchState,language:Language,demo:boolean):Promise<SearchResults>{
+  // The query boundary enforces the same environment guard as public entry points.
+  demo=demo&&localDemoEnabled('localhost');
   const metadata=await searchMetadata(demo),where=conditions(state,demo,metadata);
   const nearest=sql`(select min(ls.distance_m) from listing_stations ls join stations st on st.id=ls.station_id where ls.listing_id=l.id and ls.is_demo=${demo} and st.is_demo=${demo} and st.line='BTS')`;
   const visiblePrice=sql`case when l.price_visibility='public' then l.price else null end`;

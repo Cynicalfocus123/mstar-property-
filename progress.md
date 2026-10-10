@@ -1,5 +1,14 @@
 # Progress
 
+## Development-only samples — R03 — 2026-10-10
+
+R03 closes the owner-requested development-only sample correction. F08/B06 retain their IDs/Done status with current test dates/evidence and append-only history; R03 is the new Done fix ID. Prior counts/status/history are preserved: Frontend 32, Backend 27 and Emails 8 open tasks; Done 16, Pending 16, Not started 51, for 83 unique canonical IDs. Pending is yellow, Done light green and Not started red. Step 0/1 independent blockers remain Pending; Step 4 is unstarted.
+
+Implemented hard environment/site/Host/query guards and the Sample badge. Validated all 44 development browser checks after two cold-load retries, eight production browser checks, five development/six production actual API/DB checks and 12 existing search groups; build/TypeScript pass. Production proof keeps the sample flag enabled and the 16 fictional rows in PostgreSQL. No schema change or new stage is built. Previous pushed commit is c7ca2f8; final closeout verifies nine Markdown, six Excel views, safe Git/live hashes, commit/push and closed ports.
+
+This owner-requested correction is R03, linked to F08/B06; it does not start Step 4. All nine maintained Markdown and the same six-tab root tracker are updated. Approved handoff Markdown/HTML and historical files remain immutable and hash-verified. Tracker totals are 83 permanent IDs: 16 Done, 16 Pending, 51 Not started; prior IDs/history/statuses are preserved. Git/live starts from 80 matching files; intended source/config/docs/tracker are compared, safely mirrored and hash-verified at finalization, then committed/pushed. Secrets, runtime state, dependencies and caches are excluded. Final report supplies the exact commit. Ports 3000/5432 are stopped after tests; admin remains absent. Older dated records below are historical and do not override this correction.
+
+
 ## Current Step 3 — 2026-10-09
 
 Completed only authorized V5 Step 3. F08 card, F09 results, F10 URL state, F11 desktop filters, F12 phone filters, F13 actual histogram; B05 typed metadata query integration, B06 search API and B07 shared validation/migration integration move from Not started to Done. New R02 is Done and preserves the discovered bug history. B01–B04/B34 retain Done. Other task statuses remain unchanged; R01 receives only append-only current evidence. Previous pushed handoff commit is 9327797.

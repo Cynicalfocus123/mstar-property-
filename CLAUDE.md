@@ -1,6 +1,15 @@
 # Mstar Property — Claude project handoff
 
-Updated: 2026-10-09, Asia/Bangkok. Maintained briefing for Claude to review and help Codex. No credentials. Inspect current files and Git status before edits; this snapshot does not authorize additional stages.
+## Development-only samples — R03 — 2026-10-10
+
+Latest owner request: development-only fictional listings, each card visibly marked Sample; they must never appear in production or a configured live site. R03 implements this correction to existing Step 3 and links F08/B06. localDemoEnabled and both listing query/metadata boundaries require NODE_ENV=development, flag=1, loopback SITE_URL/Host and named local DB. Production ignores the flag and returns genuine-only inventory/metadata; the fixture rows are unchanged. Use npm run dev for sample review. Older npm run start examples below are production commands and cannot display samples.
+
+Current checks: all 44 development browser checks covered after two initial cold-load retries; eight production checks passed with the flag still enabled; five development/six production actual API/PG checks and 12 search groups passed; build/TypeScript pass. The internal demo=true query/metadata attempt and configured-public-site guard are tested. No new schema or later stage is added. Tracker now has 83 IDs: 16 Done, 16 Pending, 51 Not started, including new Done R03. Servers are stopped; actual URLs remain port 3000, verified during tests. No admin exists. See testing.md/progress.md for precise evidence and current closeout rules.
+
+This owner-requested correction is R03, linked to F08/B06; it does not start Step 4. All nine maintained Markdown and the same six-tab root tracker are updated. Approved handoff Markdown/HTML and historical files remain immutable and hash-verified. Tracker totals are 83 permanent IDs: 16 Done, 16 Pending, 51 Not started; prior IDs/history/statuses are preserved. Git/live starts from 80 matching files; intended source/config/docs/tracker are compared, safely mirrored and hash-verified at finalization, then committed/pushed. Secrets, runtime state, dependencies and caches are excluded. Final report supplies the exact commit. Ports 3000/5432 are stopped after tests; admin remains absent. Older dated records below are historical and do not override this correction.
+
+
+Updated: 2026-10-10, Asia/Bangkok. Maintained briefing for Claude to review and help Codex. No credentials. Inspect current files and Git status before edits; this snapshot does not authorize additional stages.
 
 ## Current scope and verified status
 

@@ -1,5 +1,14 @@
 # Database
 
+## Development-only samples — R03 — 2026-10-10
+
+No schema/migration/seed/password changes are made. All 16 published fictional development listings remain is_demo=true. The public_listings view still excludes them. Actual API counts match the appropriate demo/genuine PostgreSQL partition in both app modes; the current genuine result count is zero. The production test forces internal demo=true and still receives genuine-only results/metadata. Existing ignored settings and the isolated cluster are preserved; no shared postgres account is changed. No form submission is implemented.
+
+Use the existing setup below, then npm run dev for authorized sample review. Production next start cannot show samples. New npm run test:samples uses the existing Node/tsx runtime with the react-server export condition so the server-only query probe runs without weakening its module fence. Set MSTAR_TEST_MODE to the actual app mode; production proof also requires NODE_ENV=production and the sample flag set to 1 in the test terminal.
+
+This owner-requested correction is R03, linked to F08/B06; it does not start Step 4. All nine maintained Markdown and the same six-tab root tracker are updated. Approved handoff Markdown/HTML and historical files remain immutable and hash-verified. Tracker totals are 83 permanent IDs: 16 Done, 16 Pending, 51 Not started; prior IDs/history/statuses are preserved. Git/live starts from 80 matching files; intended source/config/docs/tracker are compared, safely mirrored and hash-verified at finalization, then committed/pushed. Secrets, runtime state, dependencies and caches are excluded. Final report supplies the exact commit. Ports 3000/5432 are stopped after tests; admin remains absent. Older dated records below are historical and do not override this correction.
+
+
 ## Current Step 3 — 2026-10-09
 
 Added reviewed additive migration 0002_station_search_slug.sql: stations.slug is non-null and unique with a safe generated default. The journal now has three migrations; previously applied 0000/0001 and their snapshots are unchanged. Health checks both public_listings and the current station slug column. A development pg_dump backup was taken before migration at ignored .local/backups/step3-before-station.dump. Never rewrite applied migrations or rotate the shared postgres admin password.

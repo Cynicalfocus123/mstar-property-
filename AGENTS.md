@@ -1,5 +1,12 @@
 # Mstar Property project instructions
 
+## Development-only samples — R03 — 2026-10-10
+
+Samples must never be shown in production or a configured live site. Require NODE_ENV=development, MSTAR_DEMO_MODE=1, loopback Host and SITE_URL, and the named local development/test database. Enforce this at public entry points AND listing query/metadata boundaries, including internal callers requesting demo=true. Production ignores the flag. Each fictional card shows a visible Sample pill; retain the fictional-data notice. Use npm run dev for sample review. Tests use actual development and production servers separately and stop afterward. Next agentRules is disabled to prevent automatic rewriting of owner-maintained instructions.
+
+This owner-requested correction is R03, linked to F08/B06; it does not start Step 4. All nine maintained Markdown and the same six-tab root tracker are updated. Approved handoff Markdown/HTML and historical files remain immutable and hash-verified. Tracker totals are 83 permanent IDs: 16 Done, 16 Pending, 51 Not started; prior IDs/history/statuses are preserved. Git/live starts from 80 matching files; intended source/config/docs/tracker are compared, safely mirrored and hash-verified at finalization, then committed/pushed. Secrets, runtime state, dependencies and caches are excluded. Final report supplies the exact commit. Ports 3000/5432 are stopped after tests; admin remains absent. Older dated records below are historical and do not override this correction.
+
+
 ## Current Step 3 — 2026-10-09
 
 Use the active V5 stage guide. Step 3 now implements approved reusable cards, results and safe shared URL state. Applied filters use router.push to preserve meaningful browser history; popup drafts do not change URLs. Preserve the public-price and hidden-location protections in lib/listing-search.ts. Demo preview requires an explicit local flag, trusted local Host and named local development/test database; never expose fictional stock as genuine inventory. Server opening is permitted only for explicit owner preview or tests expressly authorized in the current task. Stop test servers afterward.

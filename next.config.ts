@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next';
 
 const config: NextConfig = {
+  // Keep the project's maintained instructions under owner control.
+  agentRules: false,
   poweredByHeader: false,
   devIndicators: false,
   async headers() {

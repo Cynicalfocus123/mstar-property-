@@ -1,5 +1,12 @@
 # Design direction
 
+## Development-only samples — R03 — 2026-10-10
+
+The owner explicitly requested the text Sample on every fictional listing card. The existing approved top-left pill is reused with no layout/token redesign; the English Sample label appears in both Thai/English previews. The fictional-data notice and illustration labels remain. Badge and card visibility were checked on desktop/phone at 390/768/1024/1440px. Production pages show no fictional cards or notices. No map, logo, genuine photographs or later-stage UI is added.
+
+This owner-requested correction is R03, linked to F08/B06; it does not start Step 4. All nine maintained Markdown and the same six-tab root tracker are updated. Approved handoff Markdown/HTML and historical files remain immutable and hash-verified. Tracker totals are 83 permanent IDs: 16 Done, 16 Pending, 51 Not started; prior IDs/history/statuses are preserved. Git/live starts from 80 matching files; intended source/config/docs/tracker are compared, safely mirrored and hash-verified at finalization, then committed/pushed. Secrets, runtime state, dependencies and caches are excluded. Final report supplies the exact commit. Ports 3000/5432 are stopped after tests; admin remains absent. Older dated records below are historical and do not override this correction.
+
+
 ## Current Step 3 — 2026-10-09
 
 Approved V3 card structure is reused across all results: white border, 3:2 media, up to five photos, badges, bottom-right white heart, honest type/intent status, price/drop, type-specific facts, two-line address and contact pill. Phone has one card column; desktop has two, with blank map space above 1000px. Filters use desktop popovers and phone full-screen sheets at the existing 720px breakpoint. R02 restores native dialog focus and keyboard activation after swipe.

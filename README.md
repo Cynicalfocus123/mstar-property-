@@ -1,5 +1,14 @@
 # Mstar Property
 
+## Development-only samples — R03 — 2026-10-10
+
+Review seeded fictional cards with npm run dev only, when opening localhost is authorized. Ignored local config already opts in with MSTAR_DEMO_MODE=1 and a loopback SITE_URL. Every sample card has a Sample badge and the page explains that inventory, prices, agents, photos and distances are fictional. npm run build / npm run start are production commands: samples and their filter metadata are always excluded, even with the flag still enabled. A configured public SITE_URL or public Host also denies samples. Homepage carousel remains Step 7.
+
+New reproducible check: with the appropriate app mode already running, set MSTAR_TEST_MODE=development (or production) in the test terminal and run npm run test:samples. For production also set NODE_ENV=production and MSTAR_DEMO_MODE=1 in that terminal; the script tests actual API/DB state and attempts a forced internal sample query. Production browser proof: MSTAR_TEST_MODE=production and npm test -- tests/sample-visibility.spec.ts. Commands do not start servers. See testing.md for exact outcomes.
+
+This owner-requested correction is R03, linked to F08/B06; it does not start Step 4. All nine maintained Markdown and the same six-tab root tracker are updated. Approved handoff Markdown/HTML and historical files remain immutable and hash-verified. Tracker totals are 83 permanent IDs: 16 Done, 16 Pending, 51 Not started; prior IDs/history/statuses are preserved. Git/live starts from 80 matching files; intended source/config/docs/tracker are compared, safely mirrored and hash-verified at finalization, then committed/pushed. Secrets, runtime state, dependencies and caches are excluded. Final report supplies the exact commit. Ports 3000/5432 are stopped after tests; admin remains absent. Older dated records below are historical and do not override this correction.
+
+
 ## Current Step 3 — 2026-10-09
 
 Implemented: /[lang]/buy, rent and invest; GET /api/listings; V3 cards, native phone swipe, five-photo controls, persistent device hearts, contact dialog, typed database filters, actual price histogram, sorting, chips, empty state and Show more homes. Desktop reserves an empty map column. Contact submission is Step 6, detail page Step 5, homepage carousel Step 7 and authenticated Saved/search flows Step 9. No later stage is implemented.
