@@ -185,8 +185,9 @@ h1,h2,h3{font-family:var(--f-head);font-weight:600;margin:0;text-wrap:balance;le
 .railhead .go{width:30px;height:30px;border-radius:50%;background:var(--soft);display:grid;place-items:center;font-size:.95rem;flex:none}
 .railhead .rt:hover .go{background:var(--soft2)}
 .railhead .arrows{display:flex;gap:8px}
-.mrail{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 6*16px)/7);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.mrail{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 3*16px)/4);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
 .mrail>*{scroll-snap-align:start}
+.mrail>.lcard{height:100%}
 .mcard{display:grid;gap:3px;text-align:left;cursor:pointer;position:relative;min-width:0}
 .mcard .ph{aspect-ratio:20/19;border-radius:16px}
 .mcard .tags{position:absolute;top:10px;left:10px;z-index:1}
@@ -388,9 +389,8 @@ h1,h2,h3{font-family:var(--f-head);font-weight:600;margin:0;text-wrap:balance;le
 .viewing .ph{width:110px;height:80px;flex:none}
 
 /* ---------- home rails: cards per row by width ---------- */
-@container dev (max-width:1250px){.mrail{grid-auto-columns:calc((100% - 5*16px)/6)}}
-@container dev (max-width:1080px){.mrail{grid-auto-columns:calc((100% - 4*16px)/5)}}
-@container dev (max-width:900px){.mrail{grid-auto-columns:calc((100% - 3*16px)/4)}}
+@container dev (max-width:1280px){.mrail{grid-auto-columns:calc((100% - 2*16px)/3)}}
+@container dev (max-width:1000px){.mrail{grid-auto-columns:calc((100% - 16px)/2)}}
 
 /* ---------- narrow desktop: keep the header on one line ---------- */
 @container dev (max-width:1000px){
@@ -416,7 +416,7 @@ h1,h2,h3{font-family:var(--f-head);font-weight:600;margin:0;text-wrap:balance;le
   .grid4.rail,.grid3.rail{display:flex;overflow-x:auto;scrollbar-width:none}
   .grid4.rail>*,.grid3.rail>*{flex:0 0 72%}
   .lrail{grid-auto-columns:86%;gap:12px}
-  .mrail{grid-auto-columns:42%;gap:12px}
+  .mrail{grid-auto-columns:86%;gap:12px}
   .railhead .arrows{display:none}
   .railhead h3{font-size:1.1rem}
   .lgrid,.lgrid3{grid-template-columns:1fr}
@@ -491,7 +491,7 @@ tr:last-child td{border-bottom:0}
   <p class="muted" style="max-width:70ch;margin:6px 0 0">Every section of the home page on desktop and phone. Build to BUILD-SPEC.md section 5.1. Photos, listings and prices are placeholders.
   <label class="tcheck" style="display:inline-flex;margin-left:8px"><input type="checkbox" id="pinsToggle" checked> Show notes</label></p>
 </div>
-<div class="notes-wide"><b>Sections, top to bottom</b><ol><li><span class="n">H</span><span>Header: logo only (no text). Buy · Rent · New projects · Investment · Services on one line. Language/currency, Saved, List your property, Sign in (rectangle).</span></li><li><span class="n">1</span><span>Hero: one large real photo, heading and one line of text. No slider.</span></li><li><span class="n">2</span><span>Search box: Buy / Rent / New projects / Investment tabs; Location · Type · Price · Beds · search. Phone: one "Where?" field and the button.</span></li><li><span class="n">3</span><span>Location suggestions (click Location): recent searches, areas and BTS/MRT, projects.</span></li><li><span class="n">4</span><span><b>Listing rows right under the search box (Airbnb style).</b> One topic per row: Popular homes for sale in Bangkok, Condos for rent in Bangkok, Homes in Pattaya and Jomtien, Investment: hotels and land. Each row: title with round → (opens full results), ‹ › arrows, small cards (square photo, badge, heart, one-line title, price · key facts). 7 per row on a wide screen, fewer on smaller screens, about 2.3 on phone with swipe. Admin chooses the rows.</span></li><li><span class="n">5</span><span>Category icons that scroll sideways. Each opens results with that filter on.</span></li><li><span class="n">6</span><span>Continue your search: shown only when this device has a recent or saved search or a viewed listing.</span></li><li><span class="n">7</span><span>Explore by location: Bangkok, Pattaya, Phuket, Rayong with live listing counts.</span></li><li><span class="n">8</span><span>New projects by Mstar: 3 project cards with a status badge. Phone: sideways carousel.</span></li><li><span class="n">9</span><span>Tools: mortgage calculator, what is my home worth, buying guide for foreigners.</span></li><li><span class="n">–</span><span>Services for owners: management, cleaning, contractor, home decor. Then the light grey footer.</span></li><li><span class="n">T</span><span>Phone only: bottom tab bar Explore · Search · Saved · LINE chat · Account.</span></li></ol></div>
+<div class="notes-wide"><b>Sections, top to bottom</b><ol><li><span class="n">H</span><span>Header: logo only (no text). Buy · Rent · New projects · Investment · Services on one line. Language/currency, Saved, List your property, Sign in (rectangle).</span></li><li><span class="n">1</span><span>Hero: one large real photo, heading and one line of text. No slider.</span></li><li><span class="n">2</span><span>Search box: Buy / Rent / New projects / Investment tabs; Location · Type · Price · Beds · search. Phone: one "Where?" field and the button.</span></li><li><span class="n">3</span><span>Location suggestions (click Location): recent searches, areas and BTS/MRT, projects.</span></li><li><span class="n">4</span><span><b>Listing rows right under the search box.</b> One topic per row (Bangkok sale, Bangkok rent, Pattaya and Jomtien, Investment). Each row: title with round → (opens full results), ‹ › arrows, and the SAME big card as the results pages: status, price with drop, bold facts (bed, bath, floor, sq ft), address, Contact agent. 4 per row on a wide screen, 3 on a laptop, 2 on tablet, about 1.15 on phone with swipe. Admin chooses the rows.</span></li><li><span class="n">5</span><span>Category icons that scroll sideways. Each opens results with that filter on.</span></li><li><span class="n">6</span><span>Continue your search: shown only when this device has a recent or saved search or a viewed listing.</span></li><li><span class="n">7</span><span>Explore by location: Bangkok, Pattaya, Phuket, Rayong with live listing counts.</span></li><li><span class="n">8</span><span>New projects by Mstar: 3 project cards with a status badge. Phone: sideways carousel.</span></li><li><span class="n">9</span><span>Tools: mortgage calculator, what is my home worth, buying guide for foreigners.</span></li><li><span class="n">–</span><span>Services for owners: management, cleaning, contractor, home decor. Then the light grey footer.</span></li><li><span class="n">T</span><span>Phone only: bottom tab bar Explore · Search · Saved · LINE chat · Account.</span></li></ol></div>
 <div class="frames">
   <div><div class="flabel">Desktop</div><div class="device desk"><!-- shared header -->
         <header class="hdr rel">
@@ -793,7 +793,7 @@ tr:last-child td{border-bottom:0}
           <button><span class="ico"></span>LINE chat</button>
           <button><span class="ico"></span>Account</button>
         </nav></div></div>
-    <div class="muted small" style="padding-top:28px;max-width:46ch">On phone: the search box shrinks to one field, the listing rows become swipe rows (about 2 cards visible), and the nav moves to the bottom tab bar.</div></div>
+    <div class="muted small" style="padding-top:28px;max-width:46ch">On phone: the search box shrinks to one field, the listing rows become swipe rows (one card plus the edge of the next), and the nav moves to the bottom tab bar.</div></div>
 </div>
 <!-- contact modal -->
         <div class="cmodal" id="cModal" hidden role="dialog" aria-modal="true" aria-labelledby="cTitle">
@@ -848,6 +848,7 @@ tr:last-child td{border-bottom:0}
     pty:[['Condo in Jomtien','฿3,900,000','1 bd · 40 m²','b',['Sea view','']],['Pool villa in Huai Yai','฿14,500,000','4 bd · 320 m²','c',['Featured','']],['Land in Bang Lamung','฿12,500,000','2 rai 1 ngan','d',null],['Condo in Wong Amat','฿6,900,000','2 bd · 66 m²','',['New','ok']],['House in East Pattaya','฿5,450,000','3 bd · 180 m²','b',null],['Condo in Pratumnak','฿4,750,000','1 bd · 52 m²','c',['Price drop','acc']],['Condo in Na Jomtien','฿8,200,000','2 bd · 88 m²','d',null],['Townhouse in Nong Prue','฿2,990,000','3 bd · 120 m²','',null]],
     inv:[['Hotel in Kathu, Phuket','฿480,000,000','156 rooms · 72% occ.','d',['Investment','acc']],['Land in Ban Chang, Rayong','฿18,000,000','6 rai · road 40 m','c',null],['Hotel in Jomtien','฿210,000,000','88 rooms · 65% occ.','b',['Investment','acc']],['Resort on Koh Phi Phi','฿350,000,000','42 villas · beachfront','',['Featured','']],['Land in Huai Yai','฿9,800,000','3 rai 2 ngan','d',null],['Building on Sukhumvit','฿95,000,000','5 floors · 1,200 m²','c',null],['Hotel in Patong','฿260,000,000','120 rooms · 70% occ.','b',null],['Land in Rayong','฿6,400,000','4 rai','',null]]
   };
+  const RAILSETS = {bkk:[0,1,4,7,5,0,1], rent:[2,7,0,4,1], pty:[3,5,4,1,0], inv:[6,3,5]};
   const mcard = (r,i) => `<div class="mcard" data-go="detail" role="link" tabindex="0" aria-label="${r[0]}, ${r[1]}">
     <span class="ph ${r[3]}">${r[4]?`<span class="tags"><span class="badge ${r[4][1]}">${r[4][0]}</span></span>`:''}<button class="heart" aria-label="Save">♡</button></span>
     <span class="mt">${r[0]}</span><span class="ms"><b>${r[1]}</b> · ${r[2]}</span></div>`;
@@ -855,7 +856,7 @@ tr:last-child td{border-bottom:0}
     el.className='railsec';
     el.innerHTML = `<div class="railhead"><button class="rt" data-go="results" data-q="${el.dataset.q}"><h3>${el.dataset.title}</h3><span class="go" aria-hidden="true">→</span></button>
       <div class="arrows"><button class="carr" data-scroll="-1" aria-label="Previous">‹</button><button class="carr" data-scroll="1" aria-label="Next">›</button></div></div>
-      <div class="mrail">${RAILS[el.dataset.rail].map(mcard).join('')}</div>`;
+      <div class="mrail">${RAILSETS[el.dataset.rail].map(i=>lcard(L[i],i)).join('')}</div>`;
   });
 
   document.querySelectorAll('[data-cards="featured"]').forEach(function(el){el.innerHTML=[0,5,3,6,1,2].map(function(i){return lcard(L[i],i);}).join('');});

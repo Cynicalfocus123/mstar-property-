@@ -10,7 +10,7 @@ for(const language of ['en','th'] as const){
   else{await expect(hero.locator('.phone-location')).toBeVisible();await expect(hero.locator('.desktop-location')).toBeHidden();await expect(hero.locator('[role=tab]').first()).toBeInViewport();}
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:info.outputPath(`${language}-centred-hero.png`),fullPage:true});
  });
- test(`${language}: all property facts, units and address station on big/small cards`,async({page,request},info)=>{
+ test(`${language}: all property facts, units and address station on results/home cards`,async({page,request},info)=>{
   const english=language==='en',response=await request.get(`/api/listings?route=buy&lang=${language}`);expect(response.status()).toBe(200);const data=await response.json();expect(data.items.length).toBe(8);
   await page.goto(`/${language}/buy`);await expect(page.locator('.lcard')).toHaveCount(8);await page.evaluate(()=>document.fonts.ready);
   for(const item of data.items){
@@ -29,10 +29,11 @@ for(const language of ['en','th'] as const){
   const before=await page.locator('.lcard').first().boundingBox();await page.locator('.lcard').first().hover();await page.waitForTimeout(300);const after=await page.locator('.lcard').first().boundingBox();expect(after!.height).toBeCloseTo(before!.height,1);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:info.outputPath(`${language}-fuller-results.png`),fullPage:true});
   await page.goto(`/${language}`);await expect(page.locator('.home-listing-row')).toHaveCount(4);
-  for(const item of data.items){const meta=page.locator(`.home-listing-row`).first().locator(`.small-listing-card[data-listing-id="${item.id}"] .small-card-meta`);await expect(meta).toBeAttached();const content=await meta.textContent();
-   if(['condo','house','townhouse','pool_villa'].includes(item.type))expect(content).toContain(english?' · 2 bd · 2 ba · 1,076 sq ft':' · 2 ห้องนอน · 2 ห้องน้ำ · 100 ตร.ม.');
-   if(item.type==='land')expect(content).toContain(english?' · 50 sq. wah':' · 50 ตร.ว.');if(item.type==='hotel')expect(content).toContain(english?' · 20 rooms':' · 20 ห้อง');if(item.type==='commercial')expect(content).toContain(english?' · 1,076 sq ft':' · 100 ตร.ม.');
-   expect(content).not.toContain('m²');expect(await meta.evaluate(el=>getComputedStyle(el).whiteSpace)).toBe('nowrap');
+  for(const item of data.items){const facts=page.locator('.home-listing-row').first().locator(`.lcard[data-listing-id="${item.id}"] .lfacts`);await expect(facts).toBeAttached();
+   expect(await facts.textContent()).not.toContain('m²');await expect(facts.locator('b').first()).toBeAttached();
+   if(item.type==='condo')await expect(facts).toContainText(english?'18th floor':'18 ชั้น');
+   if(item.type==='land')await expect(facts).toContainText(english?'50 sq. wah':'50 ตร.ว.');
+   if(item.type==='hotel')await expect(facts).toContainText(english?'20 rooms':'20 ห้อง');
   }
   await page.goto(`/${language}/rent`);await expect(page.locator('.lcard').first().locator('.lfacts')).toContainText(english?'18th floor':'18 ชั้น');
  });

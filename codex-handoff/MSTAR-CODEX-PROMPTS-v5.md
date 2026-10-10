@@ -5,7 +5,7 @@
 **Source of truth:** `codex-handoff/BUILD-SPEC.md`, `codex-handoff/wireframe.html` and `codex-handoff/home-page.html` (approved V3; updated 9 Oct 2026 with Realtor-style results cards, and 10 Oct 2026 with 3 cards per row on results and Airbnb-style listing rows on the home page); companion `MSTAR-CODEX-RULES.md` in the project root.
 **Tracker:** `Mstar-Property-Task-Tracker.xlsx` in the project root (the one Codex already uses; don't create a second copy).
 
-**10 Oct 2026:** added Step 3D (centred hero search, Realtor-style card facts with floor and sq ft), Step 3C (one smooth motion system for every page) and Step 3B (results 3 per row, card fixes, Airbnb-style home listing rows) before Step 4, and rewrote Steps 4–12 to match: map is opt-in (Show map), small cards reused on the property and project pages, one shared contact form for every Contact agent button, home rows managed in admin.
+**10 Oct 2026:** added Step 3E (one listing card for home and results), Step 3D (centred hero search, Realtor-style card facts with floor and sq ft), Step 3C (one smooth motion system for every page) and Step 3B (results 3 per row, card fixes, Airbnb-style home listing rows) before Step 4, and rewrote Steps 4–12 to match: map is opt-in (Show map), one listing card reused on every page, one shared contact form for every Contact agent button, home rows managed in admin.
 
 **Changes from V4:** fixed file paths; Step 3 uses the new Realtor-style listing card (BUILD-SPEC §4.3); Step 4 follows the owner's choice of free open-source mapping; Step 6 adds the Contact agent dialog on cards; Step 7 adds the "Homes for you" carousel directly under the search box and removes "no invented carousel"; footer is light grey; dev servers are not left running.
 
@@ -215,6 +215,37 @@ Tests: hero centred at 1600/1440/1024/768/390 in both languages; every property 
 
 ---
 
+## Step 3E — One listing card everywhere (owner change 10 Oct 2026)
+
+Run after Step 3D and before Step 4.
+
+Copy the entire block below into Codex:
+
+```text
+$caveman full — Mstar Property | Step 3E: One listing card everywhere
+
+PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, the updated codex-handoff/BUILD-SPEC.md §4.3 and §5.1 item 3, and codex-handoff/home-page.html and wireframe.html. Inspect the actual Git and live/ directories. Small diffs, capped logs, no Serena dashboard. Do only this step.
+
+The owner wants the home page cards to look exactly like the results page cards.
+1. Home listing rows (components/home-listing-rows.tsx): replace SmallListingCard with the existing big ListingCard (components/listing-card.tsx) used on /buy, /rent, /invest. Same status dot and type, price and price drop, bold facts (bed, bath, floor, sq ft; land rai/ngan/sq. wah; hotel rooms/floors/land), two-line address with station, photo arrows and dots, heart, Contact agent with its dialog. No separate home card design.
+2. Row layout: 4 cards per row above 1280px, 3 at 1001–1280px, 2 at 721–1000px; phone shows one card plus the edge of the next (about 1.15) with swipe and scroll-snap, arrows hidden. All cards in a row have the same height. Keep the row title, round → link, ‹ › arrows and the shared Step 3C motion (move by whole cards).
+3. Make ListingCard the only listing card component in use. Stop using SmallListingCard. Do NOT delete components/small-listing-card.tsx or its CSS: list them in your final report as unused and ask the owner whether to delete them. Steps 5, 8 and 9 will reuse ListingCard for More units, Similar homes, project listings and Saved.
+4. Check the dev-only console error "This library called use() to suspend in a previous render but did not call use() when it finished" (comes from Next's InnerLayoutRouter during client navigation). Confirm whether it comes from our code or Next itself; fix it if it is ours, and confirm it never appears in the production build.
+
+Tests: home rows show the same card as /buy at 1600/1440/1280/1024/768/390 in both languages; cards per row and equal heights; arrows move by whole cards; phone swipe; heart does not open the card; Contact agent dialog opens from a home card; no console errors in production; no sideways page scroll.
+
+### Mandatory completion contract — do this at the end of THIS prompt
+- **All maintained `.md` files:** read first, then update `AGENTS.md`, `README.md`, `design.md`, `architecture.md`, `database.md`, `testing.md`, `progress.md`, `MSTAR-CODEX-RULES.md`, `CLAUDE.md` and any other maintained project Markdown. Leave approved immutable handoff source unchanged, but document that exception. **No MD verification = NOT DONE.**
+- **Six-tab Excel:** update the SAME root `Mstar-Property-Task-Tracker.xlsx`; update permanent task IDs, new fix IDs if needed, work/test evidence and blockers; regenerate `Frontend`, `Backend`, `Emails`, `Done`, `Pending`, `Not started` with accurate counts, each ID exactly once among status sheets. **No Excel update = NOT DONE.**
+- **Git and live:** synchronize all relevant code, configs, docs and tracker between the real Git working tree and `live/` without overwriting conflicts or copying secrets; verify diffs/hashes. Commit and push via existing remote when possible. **No verified sync/push = Pending, not Done.**
+- **Tests:** test this step on actual running frontend/backend and PostgreSQL, desktop + phone when applicable. Record exact outcomes and DB proof for forms. **Untested = NOT DONE.**
+- **Dev server:** start it only to run this step's tests and stop it afterwards. Don't leave it running unless I ask.
+- **Localhost URLs:** provide the **verified working** frontend URL, backend API/health URL and admin URL only if admin really exists. Use actual configured ports, no invented links. If inaccessible from this environment, explain the blocker and reproducible command, and mark the gate Pending.
+- Finish with task IDs, modifications, all MD files, all six Excel sheets/status changes, tests, Git commit/push/sync, URLs, and one explicit status: `Done` only if EVERY gate passed, otherwise `Pending` with next action. Stop—do not begin the next step.
+```
+
+---
+
 ## Step 4 — Interactive map and nearby data integration
 
 Copy the entire block below into Codex:
@@ -224,7 +255,7 @@ $caveman full — Mstar Property | Step 4: Interactive map and nearby data integ
 
 PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, and the complete codex-handoff/BUILD-SPEC.md, codex-handoff/CODEX-PROMPT.md, MSTAR-CODEX-RULES.md (project root), codex-handoff/wireframe.html and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Follow the approved V3 design, no invented UI. Token saving: small diffs, capped logs, no Serena dashboard, reuse existing project config. Do only this step.
 
-Requires Step 3D Done. Use the shared motion system from Step 3C for the map split view and Map/List toggle. The owner chose free, open-source mapping (design.md B09). FIRST propose 2–3 concrete free options (for example a MapLibre-based map with an OpenStreetMap-based tile source, and a free source for nearby places) with each one's usage limits, cost risk and attribution rules, then STOP and wait for the owner to pick one. No paid provider and no invented provider.
+Requires Step 3E Done. Use the shared motion system from Step 3C for the map split view and Map/List toggle. The owner chose free, open-source mapping (design.md B09). FIRST propose 2–3 concrete free options (for example a MapLibre-based map with an OpenStreetMap-based tile source, and a free source for nearby places) with each one's usage limits, cost risk and attribution rules, then STOP and wait for the owner to pick one. No paid provider and no invented provider.
 
 After the owner picks: add the map as an opt-in view on /buy, /rent and /invest (BUILD-SPEC §5.2). A "Show map" button at the right end of the filter bar opens a split view: listing cards 2 per row on the left, sticky map with price pins on the right; the button then reads "Hide map". Store it in the URL as map=1. The default view stays the full-width 3-per-row card grid from Step 3B. In map view: hover/focus card↔pin highlight both ways, map bounds in the URL (bbox), "Search as I move the map" (on by default) and "Draw area" when the library supports it. Phone: a floating Map / List pill switches between a full-screen map and the list. Build the geo-indexed bounds query. Listings with hide_exact_location show an area circle, never an exact pin, and their exact point is never sent to the browser. Nearby places (Transit / Schools / Shopping / Hospitals) come only from the chosen provider, stored in listing_nearby with source and fetch date and refreshed every 90 days; show "Distances are approximate". If the provider needs keys that aren't available, build the database/API contract, report the exact blocker and show no map — never fake maps, pins or distances. Sample listings stay development-only.
 
@@ -261,7 +292,7 @@ Requires Step 4 Done. Use the shared motion system from Step 3C for the gallery,
 - Facts and features table; Floor plan / Video tour / 360° tabs only when that content exists.
 - Nearby with the Step 4 provider data and map.
 - Monthly cost sliders with the exact §10 formula plus the common fee line.
-- "More units in this project" and "Similar homes nearby" (same area, type and sale/rent, price within ±25%, fall back to the same city if fewer than 3) using the SMALL card from Step 3B.
+- "More units in this project" and "Similar homes nearby" (same area, type and sale/rent, price within ±25%, fall back to the same city if fewer than 3) using the same ListingCard as everywhere else.
 - Contact box on desktop (right column, sticky) and phone bottom bar (price + monthly estimate, LINE, WhatsApp, Email agent) laid out exactly as §5.3 item 13, but sending stays disabled with a clear note until Step 6. No calendar on listing pages.
 Gated prices and hidden locations stay private everywhere on the page and in its data.
 
@@ -288,7 +319,7 @@ $caveman full — Mstar Property | Step 6: Agent enquiries, LINE and WhatsApp
 
 PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, and the complete codex-handoff/BUILD-SPEC.md, codex-handoff/CODEX-PROMPT.md, MSTAR-CODEX-RULES.md (project root), codex-handoff/wireframe.html and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Follow the approved V3 design, no invented UI. Token saving: small diffs, capped logs, no Serena dashboard, reuse existing project config. Do only this step.
 
-Requires Step 5 Done. Make enquiries real (BUILD-SPEC §6). Build ONE shared contact form component and ONE server action, used by: the property page contact box, the phone bottom bar "Email agent", the gallery "Email agent" button, and the "Contact agent" dialog on every results card (built in Step 3 with sending disabled — enable it now). The small home-row cards have no contact button.
+Requires Step 5 Done. Make enquiries real (BUILD-SPEC §6). Build ONE shared contact form component and ONE server action, used by: the property page contact box, the phone bottom bar "Email agent", the gallery "Email agent" button, and the "Contact agent" dialog on every results card (built in Step 3 with sending disabled — enable it now). Home row cards use the same card and dialog.
 Fields: Full name*, Email*, Phone* (Thai and international formats), message prefilled with title and listing ID, "I'd like help with a bank loan", PDPA consent text with privacy link.
 Server: validate, honeypot, rate limit per IP and per email, save the enquiry row FIRST (listing, agent, all fields, consent version and time, source page, UTM, language, user agent), then queue the agent notification with retry and send the buyer an acknowledgement in their language. Give the database app role only the narrow INSERT rights this needs. Success shows "✓ Message sent"; failure shows a clear retry message, never a fake success.
 LINE and WhatsApp buttons use the owner's chosen contacts (one company contact or per agent). If not chosen yet, keep them visibly unavailable and report the blocker — never invent IDs, numbers or inboxes. Log chat_click events (listing, channel); a click is not a sent message.
@@ -355,7 +386,7 @@ Requires Step 7 Done. Use the shared motion system from Step 3C for rows, galler
 - Home types with plan image, beds, m², price from and an availability bar ("4 of 12 available"); sold-out types stay visible, faded, with "Join waitlist".
 - Clickable site plan drawn as SVG from stored plot polygons: green available, amber reserved, grey sold. Clicking a plot shows code, type, land size, price and status; only available plots show "Book a site visit".
 - Facilities chips, construction progress (4 stages, % for the current one, "Updated {month}", optional dated photos), brochure / price-list request (phone or LINE ID) saved as an enquiry (type=brochure).
-- Listings that belong to the project use the small card from Step 3B.
+- Listings that belong to the project use the same ListingCard as everywhere else.
 - Site visit: /projects/[slug]/visit?plot=… with 3 steps (date and time → your details → confirmed), "Fill in with LINE" only if the owner approved LINE login, saved as an enquiry with type=site_visit and the plot_id through the Step 6 server action. A sold or reserved plot cannot be booked; handle booking conflicts.
 - /projects list page: project cards filterable by status and province.
 
@@ -383,7 +414,7 @@ $caveman full — Mstar Property | Step 9: Saved homes, searches and viewings
 PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, and the complete codex-handoff/BUILD-SPEC.md, codex-handoff/CODEX-PROMPT.md, MSTAR-CODEX-RULES.md (project root), codex-handoff/wireframe.html and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Follow the approved V3 design, no invented UI. Token saving: small diffs, capped logs, no Serena dashboard, reuse existing project config. Do only this step.
 
 Requires Step 8 Done. Build /[locale]/saved per BUILD-SPEC §5.6 with tabs Homes · Searches · Viewings.
-- Homes: shows every home saved with the heart on the big results cards, the small home-row cards and the property page (one shared device storage), using the big results card 3 per row (2 tablet, 1 phone). Removing works from here too.
+- Homes: shows every home saved with the heart on the listing cards on every page and the property page (one shared device storage), using the big results card 3 per row (2 tablet, 1 phone). Removing works from here too.
 - Searches: "Save search" on the results pages saves the current URL, a name, the live result count and "N new" since last visit. Alert options Instant / Daily / Off only when signed in; when not signed in, switching alerts on asks the person to sign in (sign-in itself is Step 10).
 - Viewings: the person's own site visits and enquiries with status (Waiting for agent / Confirmed / Done), Reschedule and Chat. Never show anyone else's.
 - Without an account everything stays on this device; signing in later moves it to the account safely (merge without duplicates) once Step 10 exists.

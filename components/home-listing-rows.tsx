@@ -4,7 +4,7 @@ import {useEffect,useRef,useState} from 'react';
 import type {Language} from '@/lib/i18n';
 import type {HomeListingRow} from '@/lib/home-listings';
 import {searchCopy} from '@/lib/search-copy';
-import {SmallListingCard} from './small-listing-card';
+import {ListingCard} from './listing-card';
 import {cancelRailMotion,moveRail,settleRail} from '@/lib/motion';
 function ListingRow({row,language}:{row:HomeListingRow;language:Language}){
  const rail=useRef<HTMLDivElement>(null),[edges,setEdges]=useState({start:true,end:true});
@@ -14,7 +14,7 @@ function ListingRow({row,language}:{row:HomeListingRow;language:Language}){
   <div className="home-row-header"><Link className="home-row-heading" href={row.href}><h2 id={`row-${row.id}`}>{row.title}</h2><span className="home-row-go" aria-hidden="true">→</span></Link>
    <div className="home-row-arrows"><button type="button" disabled={edges.start} onClick={()=>move(-1)} aria-label={`${language==='th'?'ก่อนหน้า':'Previous'}: ${row.title}`}>‹</button><button type="button" disabled={edges.end} onClick={()=>move(1)} aria-label={`${language==='th'?'ถัดไป':'Next'}: ${row.title}`}>›</button></div>
   </div>
-  <div className="home-rail" ref={rail} role="list" aria-label={row.title} tabIndex={0} onKeyDown={event=>{if(event.target===event.currentTarget&&(event.key==='ArrowLeft'||event.key==='ArrowRight')){event.preventDefault();move(event.key==='ArrowRight'?1:-1);}}} onWheel={()=>{if(rail.current)cancelRailMotion(rail.current);}} onTouchStart={()=>{if(rail.current)cancelRailMotion(rail.current);}} onPointerDown={()=>{if(rail.current)cancelRailMotion(rail.current);}}>{row.items.map(listing=><SmallListingCard key={listing.id} listing={listing} language={language} investment={row.investment}/>)}</div>
+  <div className="home-rail" ref={rail} role="list" aria-label={row.title} tabIndex={0} onKeyDown={event=>{if(event.target===event.currentTarget&&(event.key==='ArrowLeft'||event.key==='ArrowRight')){event.preventDefault();move(event.key==='ArrowRight'?1:-1);}}} onWheel={()=>{if(rail.current)cancelRailMotion(rail.current);}} onTouchStart={()=>{if(rail.current)cancelRailMotion(rail.current);}} onPointerDown={()=>{if(rail.current)cancelRailMotion(rail.current);}}>{row.items.map(listing=><div className="home-rail-item" role="listitem" key={listing.id}><ListingCard listing={listing} language={language} investment={row.investment}/></div>)}</div>
  </section>;
 }
 export function HomeListingRows({rows,language,currency}:{rows:HomeListingRow[];language:Language;currency:string}){

@@ -30,7 +30,7 @@ for(const language of ['en','th'] as const){
   }
   await page.goto(`/${language}`);
   if(production){await expect(page.locator('.home-listing-row')).toHaveCount(0);await expect(page.locator('.sample-badge')).toHaveCount(0);await expect(page.locator('.demo-notice')).toHaveCount(0);expect(await page.content()).not.toMatch(/FICTIONAL|fictional-demo|sample-sale/);}
-  else{await expect(page.locator('.home-listing-row')).toHaveCount(4);for(const badge of await page.locator('.small-listing-card .sample-badge').all())await expect(badge).toHaveText(language==='th'?'ตัวอย่าง':'Sample');}
+  else{await expect(page.locator('.home-listing-row')).toHaveCount(4);for(const badge of await page.locator('.lcard .sample-badge').all())await expect(badge).toHaveText(language==='th'?'ตัวอย่าง':'Sample');}
   const untrusted=await request.get('/api/listings?route=buy&demo=1',{headers:{Host:'mstar.example'}});
   expect(untrusted.status()).toBe(200);const live=await untrusted.json();expect(live.demo).toBe(false);expect(live.items.every((item:{demo:boolean})=>!item.demo)).toBe(true);
   if(production)expect((await request.get('/api/listings?route=buy&filter.fictional_multi=fictional_option_0')).status()).toBe(400);

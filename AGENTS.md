@@ -1,5 +1,18 @@
 # Mstar Property project instructions
 
+## Current Step 3E — R07 — 2026-10-10
+
+Step 3E is the latest authorized scope. ListingCard is the only listing card in use on home and buy/rent/invest. Reuse it for More units, Similar homes, project listings and Saved in Steps 5/8/9. Keep unused components/small-listing-card.tsx and its CSS until the owner explicitly approves deletion. Preserve lib/listing-format.ts and lib/motion.ts/CSS motion tokens. Stop before Step 4 without its prompt.
+
+Passed: 7 formatting unit checks; 175 development regression cases covered (174 in the full run plus the successful focused Thai 1440px metadata-Apply rerun), with five redundant boundary cases skipped. After the gesture fix, all 24 Step 3E checks and 11 phone card/motion/search checks passed again. Twelve development client-navigation console audits passed (10 initially, two phone cold-compilation timeouts recovered in a warm rerun); a document-continuity marker proves client navigation. Eighteen real-DB fixture browser checks and 24 production browser checks passed. Real app/PostgreSQL groups passed: 12 search, 8 fixture, 5 development sample and 6 production sample guards. Production build and TypeScript passed. Both languages and 390/768/1024/1280/1440/1600px were covered. Twelve rail views and four settled dialog views were captured; desktop/phone screenshots reviewed. Final visual and development/production navigation audits recorded zero console errors and page exceptions. The reported Next/React development-only use() warning was not reproduced in these final audits; production tests show no such warning or other console error. Existing 16 fictional listings remain unchanged after controlled fixture cleanup. Schema/migrations/seed and runtime grants are unchanged; no real enquiry submission or admin exists. All test servers are stopped.
+
+All nine maintained Markdown files were read and updated. Approved handoff Markdown/HTML, historical references and all migration files are immutable exceptions: current input SHA-256 hashes are preserved. Six owner-supplied Step 3E reference revisions are adopted unchanged into Git/live after confirming their live predecessors match HEAD; they are not rewritten to record completion. Generated next-env.d.ts is preserved and excluded from this commit/synchronization. The preceding Step 3D tracker closeout e4f71bb is retained.
+
+The same root Mstar-Property-Task-Tracker.xlsx preserves all 87 prior permanent IDs/statuses and append-only dated history, adds R07 Done, and refreshes F08/F25/F39 evidence. Totals: 88 IDs; 23 Done, 23 Pending, 42 Not started; Frontend/Backend/Emails open views 31/26/8. Every ID occurs exactly once among status sheets. All six sheets, formulas/caches, tables, dates, validation, frozen headers, yellow/light-green/red statuses and visible borders/gridlines are verified. The owner’s exactly-one-workbook rule remains: the root tracker is independently verified and committed; no workbook is copied into live/. Source/configuration/document Git/live SHA-256 pairs and safe origin/main commit/push are verified at closeout; exact hash is in the final report. Secrets, runtime state, dependencies and caches are excluded. live/ is a local mirror, not a deployment.
+
+Verified HTTP 200 during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health (database ready). Servers on 3000/5432 stop after tests; these URLs are then unavailable. No admin URL, real form submission, production deployment or production migration exists for this task. Earlier dated sections below remain historical.
+
+
 ## Current Step 3D — R06 — 2026-10-10
 
 Step 3D is the latest authorized scope. Reuse lib/listing-format.ts for card facts and lib/motion.ts/CSS motion tokens for all future UI. Keep English whole square feet as a display conversion only; stored size remains square metres. Use floor for condo units and buildingFloors for buildings. Stop before Step 4 without its prompt.
@@ -118,7 +131,7 @@ Keep the root workbook. The owner deferred tests for now. Port 3000 is currently
 - Use exact V3 design tokens and Prompt/Noto Sans Thai fonts. Use 720px and 1000px breakpoints and validate 390px, 768px, 1024px and 1440px.
 - Keep scans, diffs, logs and tests focused. Avoid unrelated work and redundant scans. Never launch Serena dashboard unless explicitly required.
 - Use existing project configuration and interpreter. At Step 0 there is no application configuration or package manifest to reuse; document chosen settings when the build is authorized.
-- Implement only the currently authorized step. Step 3D is the latest authorized stage; never begin Step 4 without its prompt.
+- Implement only the currently authorized step. Step 3E is the latest authorized stage; never begin Step 4 without its prompt.
 - Keep localhost closed unless explicitly requested open. The owner requested port 3000 closed during Step 1. Start servers only under explicit owner preview or test authorization in the current task; the Step 3 prompt authorizes its tests and requires shutdown afterward. Provide configured local links every task and state availability. Completion gates alone do not authorize reopening ports.
 - Do not guess any of BUILD-SPEC section 12's eight owner decisions. See `design.md` for existing tracker IDs.
 

@@ -2,9 +2,9 @@ import {test,expect,type Locator,type Page} from '@playwright/test';
 const frame=async(page:Page)=>page.evaluate(()=>new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve()))));
 async function settled(rail:Locator){await expect(rail).not.toHaveAttribute('data-motion','scrolling');await expect.poll(()=>rail.evaluate(element=>{const cards=Array.from(element.children) as HTMLElement[];return Math.min(...cards.map(card=>Math.abs(card.offsetLeft-cards[0].offsetLeft-element.scrollLeft)));})).toBeLessThan(1.5);}
 async function swipe(page:Page,locator:Locator,direction:number){
- await locator.scrollIntoViewIfNeeded();const rect=await locator.boundingBox(),session=await page.context().newCDPSession(page),y=rect!.y+Math.min(70,rect!.height/2),start=rect!.x+rect!.width*(direction>0?.8:.2);
+ await locator.scrollIntoViewIfNeeded();const rect=await locator.boundingBox(),session=await page.context().newCDPSession(page),y=rect!.y+(await locator.getAttribute('class')==='home-rail'?rect!.height-85:Math.min(70,rect!.height/2)),start=rect!.x+rect!.width*(direction>0?.8:.2);
  await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:start,y}]});
- for(let n=1;n<=5;n++){await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:start-direction*n*25,y}]});await page.waitForTimeout(25);}
+ for(let n=1;n<=5;n++){await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:start-direction*n*40,y}]});await page.waitForTimeout(25);}
  await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await session.detach();
 }
 for(const lang of ['en','th']){
@@ -18,10 +18,11 @@ for(const lang of ['en','th']){
    expect(mid.left).toBeGreaterThan(0);expect(mid.left).toBeLessThan(mid.max);expect(mid.snap).toBe('none');expect(mid.motion).toBe('scrolling');
    // Retarget during the existing animation; position continues rather than jumping.
    await buttons.first().evaluate(el=>(el as HTMLButtonElement).click());await page.waitForTimeout(60);await buttons.last().evaluate(el=>(el as HTMLButtonElement).click());await settled(rail);
+   while(await buttons.last().isEnabled()){await buttons.last().click();await settled(rail);}
    await expect(buttons.last()).toBeDisabled();await expect.poll(()=>buttons.last().evaluate(el=>Number(getComputedStyle(el).opacity))).toBe(.4);
-   await buttons.first().click();await settled(rail);await expect(buttons.first()).toBeDisabled();
-   await rail.focus();await page.keyboard.press('ArrowRight');await settled(rail);await expect(buttons.last()).toBeDisabled();await page.keyboard.press('ArrowLeft');await settled(rail);await expect(buttons.first()).toBeDisabled();
-   await buttons.last().evaluate(el=>(el as HTMLButtonElement).click());await page.waitForTimeout(80);await page.emulateMedia({reducedMotion:'reduce'});await frame(page);await settled(rail);await expect(buttons.last()).toBeDisabled();await page.emulateMedia({reducedMotion:'no-preference'});await buttons.first().click();await settled(rail);
+   while(await buttons.first().isEnabled()){await buttons.first().click();await settled(rail);}await expect(buttons.first()).toBeDisabled();
+   await rail.focus();await page.keyboard.press('ArrowRight');await settled(rail);expect(await rail.evaluate(el=>el.scrollLeft)).toBeGreaterThan(0);await page.keyboard.press('ArrowLeft');await settled(rail);await expect(buttons.first()).toBeDisabled();
+   await buttons.last().evaluate(el=>(el as HTMLButtonElement).click());await page.waitForTimeout(80);await page.emulateMedia({reducedMotion:'reduce'});await frame(page);await settled(rail);expect(await rail.evaluate(el=>el.scrollLeft)).toBeGreaterThan(0);await page.emulateMedia({reducedMotion:'no-preference'});await buttons.first().click();await settled(rail);
    // Wheel input interrupts scripted motion; native scroll-snap remains responsible for gestures.
    await buttons.last().evaluate(el=>(el as HTMLButtonElement).click());await rail.hover();await page.mouse.wheel(140,0);await expect(rail).not.toHaveAttribute('data-motion','scrolling');await page.waitForTimeout(600);await settled(rail);
    await rail.evaluate(el=>el.scrollTo({left:0,behavior:'instant'}));await rail.hover();await page.keyboard.down('Shift');await page.mouse.wheel(0,140);await page.keyboard.up('Shift');await page.waitForTimeout(600);await settled(rail);
@@ -29,7 +30,7 @@ for(const lang of ['en','th']){
    await expect(row.locator('.home-row-arrows')).toBeHidden();await swipe(page,rail,1);await expect.poll(()=>rail.evaluate(el=>el.scrollLeft)).toBeGreaterThan(30);await page.waitForTimeout(800);await settled(rail);await expect(page).toHaveURL(`/${lang}`);
   }
   expect(await rail.evaluate(el=>getComputedStyle(el).scrollSnapType)).toContain('mandatory');const after=await row.boundingBox();expect(after!.height).toBeCloseTo(before!.height,1);
-  if(width>720){await rail.evaluate(el=>el.scrollTo({left:0,behavior:'instant'}));const small=row.locator('.small-listing-card').first();await small.hover();await expect.poll(()=>small.locator('img').evaluate(el=>new DOMMatrixReadOnly(getComputedStyle(el).transform).m11)).toBeCloseTo(1.03,2);expect(await small.evaluate(el=>getComputedStyle(el).transitionDuration)).toBe('0.15s');}
+  if(width>720){await rail.evaluate(el=>el.scrollTo({left:0,behavior:'instant'}));const small=row.locator('.lcard').first();await small.hover();await expect.poll(()=>small.locator('.photo-current img').evaluate(el=>new DOMMatrixReadOnly(getComputedStyle(el).transform).m11)).toBeCloseTo(1.03,2);expect(await small.evaluate(el=>getComputedStyle(el).transitionDuration)).toBe('0.15s');}
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:info.outputPath(`${lang}-motion-row.png`),fullPage:true});
  });

@@ -34,7 +34,7 @@ Tech: Next.js + TypeScript, PostgreSQL 18 + Drizzle, one app on port 3000. The d
 2. **Header:** logo only (MP crest, no text), menu on one line, rectangular Sign in button (not a circle). Final logo file still to come from the designer: needs a version for white backgrounds.
 3. **Property page contact:** email form like Realtor.com (name, email, phone, message, Email agent) plus **Chat on LINE** and **Chat on WhatsApp**. No calendar on property pages. Date booking only for new-project site visits.
 4. **Results pages (Buy / Rent / Investment):** big Realtor-style card, **3 per row** on desktop, 2 tablet, 1 phone. No empty map column; the map opens with a **"Show map"** button (Step 4).
-5. **Home page under the search box:** **Airbnb-style rows** of small cards, one topic per row ("Popular homes for sale in Bangkok", "Condos for rent in Bangkok", "Homes in Pattaya and Jomtien", "Investment: hotels and land"), 7 / 6 / 5 / 4 cards per row by screen width, about 2.3 on phone. Admin will manage the rows later.
+5. **Home page under the search box:** rows by topic ("Popular homes for sale in Bangkok", "Condos for rent in Bangkok", "Homes in Pattaya and Jomtien", "Investment: hotels and land") using the **same big card as the results pages** (4 per row on a wide screen, 3 laptop, 2 tablet, about 1.15 on phone). One card component everywhere. Admin will manage the rows later.
 6. **Hero centred and fuller card facts (Step 3D):** the hero heading, tabs and search box are centred. Results cards show bed, bath, floor and sq ft like Realtor.com (land: rai / ngan / sq. wah; hotel: rooms, floors, land). English uses sq ft, Thai uses ตร.ม.
 7. **Smooth motion on every page:** one shared motion system (BUILD-SPEC §2 "Motion"): rows slide smoothly by whole cards, card photos slide, hover zoom 1.03, popovers and sheets fade or slide; turned off for people who choose reduced motion.
 8. **Sample listings:** 16 fake listings with "Sample" / "ตัวอย่าง" badges show only in development on the owner's computer, never on a real site.
@@ -53,7 +53,8 @@ Tech: Next.js + TypeScript, PostgreSQL 18 + Drizzle, one app on port 3000. The d
 | 3B | Results 3 per row, card fixes, home Airbnb rows | **Done** (commit `77d268a`) |
 | R05 | Tracker audit and grid fix | **Done** (commit `44f405a`) |
 | 3C | Smooth motion on every page | **Done** (commit `c526206`) |
-| 3D | Centred hero search, card facts with floor and sq ft | **Next** |
+| 3D | Centred hero search, card facts with floor and sq ft | **Done** (commit `6a269f3`) |
+| 3E | One listing card for home rows and results | **Next** |
 | 4 | Map + nearby places | Not started |
 | 5 | Property page | Not started |
 | 6 | Contact form sending, LINE, WhatsApp | Not started |
@@ -139,6 +140,6 @@ To stop: stop the dev server, then `./scripts/local-postgres.ps1 -Action stop`.
 
 1. The owner checks the 3C motion on the running site.
 2. Stop the server.
-3. Paste **Step 3D**, then **Step 4**, from `MSTAR-CODEX-PROMPTS-v5.md` into Codex.
+3. Paste **Step 3E**, then **Step 4**, from `MSTAR-CODEX-PROMPTS-v5.md` into Codex.
 4. When Codex lists the free map options, bring them to Claude to choose.
 5. After each step, ask Claude to "check CLAUDE.md and progress.md" to review what Codex did.

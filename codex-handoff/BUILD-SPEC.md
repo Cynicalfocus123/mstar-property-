@@ -82,7 +82,7 @@ Other accent options the owner can still choose (swap the four `--acc*` values o
 ### Motion (owner rule, 10 Oct 2026, applies to every page)
 One shared motion system, used everywhere something slides, changes photo or reacts to the pointer. Build it once (shared helper + CSS tokens) and reuse it; never a plain instant jump.
 - **Rows and carousels with ‹ › arrows** (home listing rows, category row, project rows, any future carousel): animate with requestAnimationFrame over about 450 ms, ease-out (fast start, soft stop); move by whole visible cards so a row always lands on a card edge; scroll-snap off during the animation and back on after; repeated clicks continue smoothly; arrows fade (150 ms) and disable at the ends; Left/Right keys work when the row has focus; trackpad, shift + wheel and touch swipe stay natural and snap to card edges.
-- **Photo changes inside a card** (results cards, small cards if they get photo arrows, saved page): the next/previous photo slides in over about 300 ms ease-out, following the swipe direction; dots move with it.
+- **Photo changes inside a card** (the listing card on every page): the next/previous photo slides in over about 300 ms ease-out, following the swipe direction; dots move with it.
 - **Galleries and lightboxes** (property page, project page): same slide motion as card photos; opening fades and scales in over 200 ms.
 - **Hover (desktop only):** card photo scales to 1.03 over 250 ms; card shadow rises over 150 ms; buttons and chips change colour over 150 ms.
 - **Popovers, sheets and dialogs** (filters, contact form): fade + small rise over 200 ms; phone sheets slide up over 250 ms.
@@ -119,7 +119,7 @@ One shared motion system, used everywhere something slides, changes photo or rea
 - Hidden on the property page, where the property action bar takes its place.
 
 ### 4.3 Listing card (Realtor.com style)
-Used on search results and Saved. (The home page uses the small card in §5.1 item 3.)
+Used everywhere a listing is shown: home page rows, search results, Saved, "More units" and "Similar homes" on the property page, and project pages. One component.
 - White card, 1px `--line` border, 16px radius, light shadow on hover. The whole card links to the property page; keyboard-focusable, Enter opens it.
 - **Photo** 3:2, up to 5 photos: next-photo arrow appears on hover (swipe on touch), dot indicator at the bottom.
 - **Badges** top-left on the photo, pill-shaped: `Featured`, `New`, `Video tour`, `Mstar project`, `Investment`.
@@ -136,7 +136,6 @@ Used on search results and Saved. (The home page uses the small card in §5.1 it
   - Size unit: English shows **sq ft** (1 m² = 10.7639 sq ft, rounded to whole numbers); Thai shows **ตร.ม.**. The property page shows both. Sizes are stored in m².
 - **Address:** two lines (project/street, then district, province, postcode). The nearest station moves to the end of line 2, e.g. "Watthana, Bangkok 10110 · 650 m to BTS" (real line name: BTS / MRT / ARL).
 - **Contact agent** button bottom-right: pill with border; turns accent-filled when the card is hovered. It opens the **contact dialog** (same fields as the property page form, §5.3 item 13), with the message prefilled for that listing. It must not open the listing.
-- Smaller "compact" cards (photo, price, one-line title, one-line facts, no Contact button) are used only inside the property page for "More units" and "Similar homes".
 
 ### 4.4 Buttons
 `acc` (filled accent) · `out` (white with border) · `line` (LINE green, white text) · `wa` (WhatsApp green, white text). 40px tall.
@@ -162,8 +161,8 @@ In order:
 3. **Listing rows (Airbnb style), directly under the search box** (owner change 10 Oct 2026). This is the first thing after the hero.
    - Several rows, one topic each. Default rows: "Popular homes for sale in Bangkok", "Condos for rent in Bangkok", "Homes in Pattaya and Jomtien", "Investment: hotels and land". Admin will choose the rows later (each row = a title + a saved search); until then they come from config.
    - Row header: title with a small round **→** button (both open the results page with that row's search), and ‹ › arrow buttons on the right (desktop only).
-   - **Small card** (not the big results card): photo 20:19 with 16px radius, one pill badge top-left (Featured / New / Price drop / Investment), heart top-right that saves without opening; under the photo a one-line title like "Condo in Watthana", then one line "**฿6,450,000** · 2 bd · 2 ba · 732 sq ft" (rent shows "/mo", land shows rai/ngan, hotel shows rooms; Thai shows ตร.ม.). No Contact agent button on the small card. The whole card opens the property page.
-   - Cards per row by screen width: **7** above 1440px, 6 at 1251–1440px, 5 at 1081–1250px, 4 at 721–1080px; on phone about 2.3 cards visible, swipe with scroll-snap, arrows hidden.
+   - **Same card as the results pages** (owner change 10 Oct 2026, replaces the small card): the big listing card from §4.3 with status dot and type, price and price drop, bold facts (bed, bath, floor, sq ft / land / rooms), two-line address with station, heart, photo arrows and Contact agent. One card component for home, results, Saved, property page and project page lists.
+   - Cards per row: **4** above 1280px, 3 at 1001–1280px, 2 at 721–1000px; on phone one card plus the edge of the next (about 1.15) with swipe and scroll-snap, arrows hidden. All cards in a row have the same height.
    - Up to 12 cards per row; featured first, then newest. A row with no homes is hidden.
 4. **Category row:** icons that scroll sideways: Condo, House, Townhouse, Pool villa, Land, Hotel, Beachfront, Near BTS/MRT, New build, Pet friendly, Commercial. Each one opens results with that filter on.
 5. **Continue your search:** only shown when this device has a recent or saved search or a viewed listing. Saved searches show the count of new matches.

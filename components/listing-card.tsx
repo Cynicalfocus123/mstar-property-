@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import {useRef,useState} from 'react';
+import {useEffect,useId,useRef,useState} from 'react';
 import type {Language} from '@/lib/i18n';
 import type {ListingCardData} from '@/lib/listing-types';
 import {typeNames} from '@/lib/search-state';
@@ -14,14 +14,22 @@ import {ListingPhotos} from './listing-photos';
 export function ListingCard({listing:l,language,investment=false}:{listing:ListingCardData;language:Language;investment?:boolean}){
  const t=searchCopy[language],[photo,setPhoto]=useState(0),[direction,setDirection]=useState(1),[contact,setContact]=useState(false);
  const {saved,storageError,toggle}=useSavedHome(l.id);
- const start=useRef<number|null>(null),swiped=useRef(0);
+ const submitDescription=useId();
+ const card=useRef<HTMLElement>(null),start=useRef<{x:number;y:number}|null>(null),swiped=useRef(0);
+ useEffect(()=>{
+  const element=card.current;if(!element||l.photos.length<2)return;
+  // A horizontal photo gesture must not also move its containing home rail.
+  const photoGesture=(event:TouchEvent)=>{if(!start.current)return;const touch=event.touches[0],dx=touch.clientX-start.current.x,dy=touch.clientY-start.current.y;if(Math.abs(dx)>8&&Math.abs(dx)>Math.abs(dy))event.preventDefault();};
+  element.addEventListener('touchmove',photoGesture,{passive:false});
+  return()=>element.removeEventListener('touchmove',photoGesture);
+ },[l.photos.length]);
  const amount=(v:number)=>listingAmount(v,language);
  const change=(index:number,slideDirection:number)=>{setDirection(slideDirection);setPhoto(index);};
  const next=()=>change((photo+1)%l.photos.length,1);
  const facts=listingFacts(l,language),station=stationLabel(l,language);
  const status=`${typeNames[language][l.type]} ${l.intent==='rent'?t.forRent:t.forSale}`;
  return <>
- <article className="lcard" data-listing-id={l.id} data-intent={l.intent} onTouchStart={e=>{if((e.target as HTMLElement).closest('button'))return;start.current=e.touches[0].clientX;swiped.current=0;}} onTouchEnd={e=>{if(start.current!==null&&l.photos.length>1){const delta=e.changedTouches[0].clientX-start.current;if(Math.abs(delta)>40){swiped.current=Date.now()+400;change((photo+(delta<0?1:l.photos.length-1))%l.photos.length,delta<0?1:-1);}}start.current=null;}}>
+ <article ref={card} className="lcard" data-listing-id={l.id} data-intent={l.intent} onTouchStart={e=>{start.current=null;if((e.target as HTMLElement).closest('button'))return;const bounds=e.currentTarget.querySelector('.listing-photo')!.getBoundingClientRect(),touch=e.touches[0];if(touch.clientY<bounds.top||touch.clientY>bounds.bottom)return;start.current={x:touch.clientX,y:touch.clientY};swiped.current=0;}} onTouchCancel={()=>{start.current=null;}} onTouchEnd={e=>{if(start.current!==null&&l.photos.length>1){const delta=e.changedTouches[0].clientX-start.current.x;if(Math.abs(delta)>40){swiped.current=Date.now()+400;change((photo+(delta<0?1:l.photos.length-1))%l.photos.length,delta<0?1:-1);}}start.current=null;}}>
   <Link className="lcard-link" href={`/${language}/property/${l.code}-${l.slug}`} aria-label={`${status}, ${l.title}`} onClick={e=>{if(e.detail>0&&Date.now()<swiped.current)e.preventDefault();swiped.current=0;}}><span className="sr-only">{l.title}</span></Link>
   <div className="listing-photo">
    <ListingPhotos photos={l.photos} index={photo} direction={direction} unavailable={t.unavailablePhoto}/>
@@ -45,8 +53,8 @@ export function ListingCard({listing:l,language,investment=false}:{listing:Listi
    <Input label={`${t.phone} *`} type="tel" required autoComplete="tel"/>
    <label className="field"><span>{t.message}</span><textarea rows={3} maxLength={2000} defaultValue={language==='th'?`สนใจ ${l.title} (${l.code})`:`I'm interested in ${l.title} (${l.code}).`}/></label>
    <label className="check-field"><input type="checkbox"/>{t.loan}</label>
-   <Button type="submit" variant="acc" disabled aria-describedby={`submit-${l.id}`}>{t.emailAgent}</Button>
-   <p id={`submit-${l.id}`} className="small muted">{t.submitLater}</p><p className="small muted">{t.consent} <Link href={`/${language}/privacy`}>{t.privacy}</Link></p>
+   <Button type="submit" variant="acc" disabled aria-describedby={submitDescription}>{t.emailAgent}</Button>
+   <p id={submitDescription} className="small muted">{t.submitLater}</p><p className="small muted">{t.consent} <Link href={`/${language}/privacy`}>{t.privacy}</Link></p>
    <ChatButtons language={language}/>
   </form>
  </Modal>
