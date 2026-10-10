@@ -1,5 +1,20 @@
 # Mstar Property — Claude project handoff
 
+## Tracker status and grid correction — R05 — 2026-10-10
+
+Use the newest tracker-audit record when interpreting statuses. Old “Not yet implemented” planning text inside dated history is not the current status. Inspect Current state and Next step first. Preserve the owner’s two divergent motion-guide revisions and existing next-env.d.ts change; they are outside this task. Step 3C remains unstarted and needs its explicit prompt.
+
+The owner requested a truthful completion audit and visible spreadsheet grid. R05 records this workbook/document correction only. Done means the entire stated task scope is completed with relevant evidence and applicable closeout gates. Pending means work has started but a named deliverable remains, or a real decision/asset/blocker awaits action. Not started means implementation of that task has not begun; an unrequested future stage or a nonexistent wireframe draft is not an approval blocker. Completed decisions do not inherit unrelated future implementation gates.
+
+The same root workbook preserves all 84 existing IDs and their exact prior history text. It adds R05 for this correction and F39 for the newly supplied, unstarted Step 3C motion scope: 86 IDs, 20 Done, 23 Pending and 43 Not started. Frontend/Backend/Emails contain synchronized open views of 32/26/8 records. F02 and B29 are Done owner decisions. F32/F34 are Not started because no draft exists. F21/F22/F23/F31 and B08/B11/B15/B20/B22/B31 move to Pending because they have partial implementation and specific remaining work. B28 stays Pending for the missing exchange-rate source/conversion. F01/F04/F05/F06/F07 and R01 retain their independent closeout blockers. F25 remains Pending for regional tiles.
+
+Current evidence and next actions are refreshed. The history header and prefix explicitly identify earlier states as dated history; old text is retained rather than represented as today's status. Thin visible borders separate every task cell, including coloured rows, and worksheet gridlines are enabled on all six sheets. Yellow Pending, light-green Done and red Not started remain. Existing formulas, table names, filters, date columns and frozen headers are preserved; status validation covers all task rows.
+
+Application code, UI, database schema, migrations and seed are unchanged. No new application, browser or PostgreSQL suite is run for this workbook-only edit. Existing externally started listeners on 3000/5432 were found running and left alone; read-only frontend /en and /api/health requests returned HTTP 200, with health database ok/ready true. These checks establish current availability only, not new feature tests. Admin and real enquiry submission remain absent. This task opens no server and authorizes no Step 3C/4 implementation, deployment or migration.
+
+Before editing, 88 source/live pairs matched; owner-revised BUILD-SPEC and V5 guide differed from live, and next-env.d.ts was already modified. Those three files are preserved and excluded from this correction's commit/synchronization. Only the workbook and nine maintained documents are synchronized after baseline checks. Final export validation, visual review, intended-file SHA-256 pairs and safe commit/origin/main push are checked at closeout; the exact commit is in the final report. Earlier dated sections below remain historical.
+
+
 ## Current Step 3B — R04 — 2026-10-10
 
 Current briefing: Step 3B is implemented and validated. Results have no empty map reserve; the home now has small Airbnb-style topic rows. Config: lib/home-rows-config.ts; server loader: lib/home-listings.ts; UI: components/home-listing-rows.tsx and small-listing-card.tsx. Both cards share lib/saved-homes.ts and listing-format.ts. Results stay in components/search-results.tsx and listing-card.tsx; safe query remains lib/listing-search.ts. No new dependency/schema is needed.
