@@ -1,17 +1,41 @@
 'use client';
-import {useEffect,useState,useTransition,type CSSProperties} from 'react';
+import {useEffect,useRef,useState,useTransition,type CSSProperties} from 'react';
 import {useRouter} from 'next/navigation';
+import dynamic from 'next/dynamic';
 import type {Language} from '@/lib/i18n';
-import type {Choice,SearchResults} from '@/lib/listing-types';
+import type {Choice,MapPin,SearchResults} from '@/lib/listing-types';
 import {parseSearch,propertyTypes,searchHref,searchParams,sorts,typeNames,type SearchState,type SearchRoute} from '@/lib/search-state';
 import {searchCopy} from '@/lib/search-copy';
+import {reducedMotion} from '@/lib/motion';
 import {Button,Input,Modal} from './ui';
 import {ListingCard} from './listing-card';
 
+// The map library loads only when a visitor opens the map.
+const ResultsMap=dynamic(()=>import('./results-map'),{ssr:false,loading:()=><div className="results-map-surface" aria-hidden="true"/>});
 type FilterPanel='location'|'intent'|'price'|'beds'|'type'|'more';
 export function SearchResultsView({data,language,currency}:{data:SearchResults;language:Language;currency:string}){
  const t=searchCopy[language],router=useRouter(),[pending,startTransition]=useTransition();
  const [open,setOpen]=useState<FilterPanel|null>(null),[draft,setDraft]=useState(()=>searchParams(data.state)),[draftRoute,setDraftRoute]=useState(data.state.route),[error,setError]=useState(''),[liveCount,setLiveCount]=useState<number|null>(null),[position,setPosition]=useState<CSSProperties>({});
+ const mapOn=data.state.values.map==='1',pins=data.pins||[],page=useRef<HTMLElement>(null);
+ const [highlighted,setHighlighted]=useState<string|null>(null),[searchAsMove,setSearchAsMove]=useState(true),[preview,setPreview]=useState<string|null>(null);
+ // The sticky/full-screen map sits below the header and filter bar and above the phone tab bar.
+ useEffect(()=>{
+  const section=page.current,bar=section?.querySelector<HTMLElement>('.results-filter-bar'),tabs=document.querySelector<HTMLElement>('.bottom-navigation');
+  if(!section||!bar)return;
+  const measure=()=>{section.style.setProperty('--filter-bar-h',`${bar.offsetHeight}px`);section.style.setProperty('--tabbar-h',`${tabs&&getComputedStyle(tabs).display!=='none'?tabs.offsetHeight:0}px`);};
+  measure();const observer=new ResizeObserver(measure);observer.observe(bar);if(tabs)observer.observe(tabs);
+  return()=>observer.disconnect();
+ },[]);
+ function toggleMap(){const params=searchParams(data.state);params.delete('page');if(mapOn){params.delete('map');params.delete('bbox');}else params.set('map','1');setPreview(null);setHighlighted(null);navigate(parseSearch(params,data.state.route));}
+ // Map moves replace the history entry so Back leaves the map search instead of replaying every drag.
+ function moved(bbox:string){try{const params=searchParams(data.state);params.delete('page');params.set('bbox',bbox);const href=searchHref(language,parseSearch(params,data.state.route));startTransition(()=>router.replace(href,{scroll:false}));}catch{/* ignore out-of-range bounds */}}
+ function selectPin(pin:MapPin){
+  const cell=document.querySelector<HTMLElement>(`[data-listing-cell="${pin.id}"]`);
+  if(!cell){router.push(`/${language}/property/${pin.code}-${pin.slug}`);return;}
+  if(matchMedia('(max-width:720px)').matches){setPreview(pin.id);return;}
+  setHighlighted(pin.id);cell.scrollIntoView({behavior:reducedMotion()?'auto':'smooth',block:'nearest'});
+ }
+ const previewItem=preview?data.items.find(item=>item.id===preview):undefined;
  const label=(c:Choice)=>language==='th'?c.nameTh||c.nameEn:c.nameEn||c.nameTh;
  function show(panel:FilterPanel,event:React.MouseEvent<HTMLButtonElement>){const rect=event.currentTarget.getBoundingClientRect();setPosition({'--filter-left':`${Math.max(16,Math.min(rect.left,innerWidth-416))}px`,'--filter-top':`${Math.min(rect.bottom+6,innerHeight-300)}px`} as CSSProperties);setDraft(searchParams(data.state));setDraftRoute(data.state.route);setError('');setLiveCount(data.total);setOpen(panel);}
  function set(key:string,value:string){setDraft(previous=>{const next=new URLSearchParams(previous);next.delete('page');if(value)next.set(key,value);else next.delete(key);return next;});setError('');}
@@ -19,7 +43,7 @@ export function SearchResultsView({data,language,currency}:{data:SearchResults;l
  function apply(){try{navigate(parseSearch(draft,draftRoute));setOpen(null);}catch{setError(t.invalid);}}
  function change(key:string,value:string){const params=searchParams(data.state);params.delete('page');if(value)params.set(key,value);else params.delete(key);navigate(parseSearch(params,data.state.route));}
  function clear(){navigate(parseSearch(new URLSearchParams(),data.state.route));}
- const active=[...searchParams(data.state).entries()].filter(([key])=>!['page','sort','bbox'].includes(key));
+ const active=[...searchParams(data.state).entries()].filter(([key])=>!['page','sort','bbox','map'].includes(key));
  function chipLabel(key:string,value:string){
    if(key==='loc')return data.locationName||value;
    if(key==='type')return value.split(',').map(type=>typeNames[language][type as typeof propertyTypes[number]]).join(', ');
@@ -42,14 +66,16 @@ export function SearchResultsView({data,language,currency}:{data:SearchResults;l
  if(data.state.types.length===1){const name=typeNames[language][data.state.types[0]];heading=language==='en'?`${name}${['land','commercial'].includes(data.state.types[0])?'':'s'} ${data.state.route==='rent'?t.forRent:t.forSale}`:`${name}${data.state.route==='rent'?t.forRent:t.forSale}`;}
  if(data.locationName)heading+=language==='th'?`ใน${data.locationName}`:` in ${data.locationName}`;
  const panelTitle=open?({location:t.location,intent:t.intent,price:t.price,beds:t.beds,type:t.type,more:t.more})[open]:'';
- return <section className="results-page" aria-busy={pending}>
+ return <section ref={page} className={`results-page${mapOn?' with-map':''}`} aria-busy={pending}>
   <div className="results-filter-bar">
    <button type="button" className="results-location" aria-haspopup="dialog" onClick={e=>show('location',e)}>⌕ {data.locationName||data.state.loc||t.selectLocation}</button>
    {(['intent','price','beds','type','more'] as FilterPanel[]).map(panel=><button type="button" className="filter-button" key={panel} aria-haspopup="dialog" aria-expanded={open===panel} onClick={e=>show(panel,e)}>{panel==='intent'?(data.state.route==='rent'?t.rent:t.sale):panel==='price'?t.price:panel==='beds'?t.beds:panel==='type'?t.type:t.more} {panel!=='more'?'▾':''}</button>)}
    <button type="button" className="filter-button save-search" disabled title={t.saveLater}>♡ {t.saveSearch}</button>
+   <button type="button" className="filter-button map-toggle" aria-pressed={mapOn} onClick={toggleMap}>{mapOn?t.hideMap:t.showMap}</button>
   </div>
   {data.demo?<p className="demo-notice" role="note">{t.demo}</p>:null}
   {currency==='USD'?<p className="currency-notice">{t.currency}</p>:null}
+  <div className="results-body">
   <div className="results-list">
    <div className="results-heading"><div><h1>{heading}</h1><span className="small muted" aria-live="polite">{data.total} {t.results}</span></div>
     <label className="sort-control"><span>{t.sort}</span><select aria-label={t.sort} value={data.state.sort} onChange={e=>change('sort',e.target.value)}>{sorts.map(s=><option value={s} key={s}>{t[s]}</option>)}</select></label>
@@ -59,9 +85,17 @@ export function SearchResultsView({data,language,currency}:{data:SearchResults;l
    </div>
    <p className="results-progress sr-only" role="status">{pending?t.loading:''}</p>
    {data.error?<p className="search-error" role="alert">{data.error==='input'?t.invalid:t.failed}</p>:null}
-   {!data.items.length?<div className="results-empty"><h2>{t.empty}</h2><Button onClick={()=>active.length?remove(...active[active.length-1]):clear()}>{active.length?t.clearLast:t.clear}</Button><Button disabled title={t.saveLater}>{t.saveSearch}</Button></div>:<div className="listing-grid">{data.items.map(listing=><ListingCard key={listing.id} listing={listing} language={language} investment={data.state.route==='invest'}/>)}</div>}
+   {!data.items.length?<div className="results-empty"><h2>{t.empty}</h2><Button onClick={()=>active.length?remove(...active[active.length-1]):clear()}>{active.length?t.clearLast:t.clear}</Button><Button disabled title={t.saveLater}>{t.saveSearch}</Button></div>:<div className="listing-grid">{data.items.map(listing=><div key={listing.id} className="listing-cell" data-listing-cell={listing.id} data-highlighted={mapOn&&highlighted===listing.id?'true':undefined} {...(mapOn?{onMouseEnter:()=>setHighlighted(listing.id),onMouseLeave:()=>setHighlighted(null),onFocus:()=>setHighlighted(listing.id),onBlur:()=>setHighlighted(null)}:{})}><ListingCard listing={listing} language={language} investment={data.state.route==='invest'}/></div>)}</div>}
    {data.hasMore?<div className="show-more"><Button disabled={pending} onClick={()=>navigate({...data.state,page:data.state.page+1})}>{t.showMore}</Button></div>:null}
   </div>
+  {mapOn?<aside className="results-map" aria-label={t.mapLabel}>
+   <ResultsMap pins={pins} language={language} bbox={data.state.values.bbox} highlighted={highlighted} searchAsMove={searchAsMove} labels={{map:t.mapLabel,area:t.areaOnly,failed:t.mapFailed}} onHighlight={setHighlighted} onSelect={selectPin} onMove={moved}/>
+   <label className="map-search-toggle check-field"><input type="checkbox" checked={searchAsMove} onChange={e=>setSearchAsMove(e.target.checked)}/>{t.searchAsMove}</label>
+   {!pins.length?<p className="map-note" role="status">{t.mapNone}</p>:pins.length>=500?<p className="map-note" role="status">{t.mapMore}</p>:null}
+   {previewItem?<div className="map-preview"><button type="button" className="icon-button map-preview-close" aria-label={t.close} onClick={()=>setPreview(null)}>×</button><ListingCard listing={previewItem} language={language} investment={data.state.route==='invest'}/></div>:null}
+  </aside>:null}
+  </div>
+  <button type="button" className="map-pill" aria-pressed={mapOn} onClick={toggleMap}>{mapOn?`${t.listPill} ☰`:`${t.mapPill} ⌖`}</button>
   <Modal open={open!==null} title={panelTitle} closeLabel={t.close} onClose={()=>setOpen(null)} sheet className="search-filter-modal" style={position}>
    <form className="filter-form" onSubmit={e=>{e.preventDefault();apply();}}>
    {open==='location'?<><Input label={t.location} list="search-locations" value={value('loc')} onChange={e=>set('loc',e.target.value)} autoFocus/><datalist id="search-locations">{data.metadata.locations.concat(data.metadata.stations).map(c=><option key={c.value} value={c.value}>{label(c)}</option>)}</datalist></>:null}

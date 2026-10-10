@@ -29,6 +29,13 @@
       "when": 1791643628157,
       "tag": "0003_building_floors",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1791651533745,
+      "tag": "0004_map_geo_nearby",
+      "breakpoints": true
     }
   ]
 }

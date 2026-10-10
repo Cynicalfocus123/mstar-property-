@@ -5,7 +5,8 @@ export const sorts = ['newest','price_asc','price_desc','size','nearest'] as con
 export type SearchState = {route:SearchRoute;loc:string;types:PropertyType[];sort:typeof sorts[number];page:number;custom:Record<string,string[]>;values:Record<string,string>};
 export class SearchInputError extends Error {}
 const numericLimits:Record<string,number> = {min:1e12,max:1e12,beds:100,baths:100,size:1e8,land:1e6,distance:100000,year:2200};
-const flags=['fq','pet','furnished','video'];
+// map=1 is view state (split list + map); it never filters the query.
+const flags=['fq','pet','furnished','video','map'];
 export function parseSearch(params:URLSearchParams,route:SearchRoute):SearchState {
   if(params.toString().length>4000)throw new SearchInputError('Search is too long.');
   const values:Record<string,string>={},custom:Record<string,string[]>={};
@@ -26,7 +27,7 @@ export function parseSearch(params:URLSearchParams,route:SearchRoute):SearchStat
   for(const key of flags){const v=params.get(key);if(v&&v!=='1')throw new SearchInputError(`Invalid ${key}.`);if(v)values[key]='1';}
   const near=params.get('near');if(near){if(!['bts','mrt','arl','srt'].includes(near))throw new SearchInputError('Invalid station line.');values.near=near;}
   const project=params.get('project');if(project){if(!/^[a-z0-9_-]{1,120}$/.test(project))throw new SearchInputError('Invalid project.');values.project=project;}
-  const bbox=params.get('bbox');if(bbox){const b=bbox.split(',').map(Number);if(b.length!==4||b.some(n=>!Number.isFinite(n))||b[0]<-180||b[2]>180||b[1]<-90||b[3]>90||b[0]>=b[2]||b[1]>=b[3])throw new SearchInputError('Invalid map bounds.');values.bbox=b.join(',');}
+  const bbox=params.get('bbox');if(bbox){const b=bbox.split(',').map(Number);if(b.length!==4||b.some(n=>!Number.isFinite(n))||b[0]<-180||b[2]>180||b[1]<-90||b[3]>90||b[0]>=b[2]||b[1]>=b[3])throw new SearchInputError('Invalid map bounds.');values.bbox=b.map(n=>String(Math.round(n*1e5)/1e5)).join(',');}
   for(const key of new Set(params.keys()))if(key.startsWith('filter.')){
     if(!/^filter\.[a-z][a-z0-9_]{0,63}$/.test(key))throw new SearchInputError('Invalid filter key.');
     const selected=params.getAll(key).flatMap(v=>v.split(','));

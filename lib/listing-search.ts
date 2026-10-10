@@ -2,7 +2,7 @@ import 'server-only';
 import {sql,type SQL} from 'drizzle-orm';
 import {getDatabase} from './db';
 import {SearchInputError,type SearchState,type PropertyType} from './search-state';
-import type {Choice,FilterDefinition,SearchMetadata,SearchResults,ListingCardData,ListingPhoto} from './listing-types';
+import type {Choice,FilterDefinition,SearchMetadata,SearchResults,ListingCardData,ListingPhoto,MapPin} from './listing-types';
 import type {Language} from './i18n';
 
 export function localDemoEnabled(host:string):boolean {
@@ -47,7 +47,11 @@ function conditions(state:SearchState,demo:boolean,metadata:SearchMetadata,omitP
   if(v.video)parts.push(sql`exists(select 1 from listing_media m where m.listing_id=l.id and m.kind='video' and m.is_demo=${demo})`);
   if(v.project)parts.push(sql`exists(select 1 from projects p where p.id=l.project_id and p.slug=${v.project} and p.publish_state='published' and p.is_demo=${demo})`);
   if(v.near||v.distance)parts.push(sql`exists(select 1 from listing_stations ls join stations s on s.id=ls.station_id where ls.listing_id=l.id and ls.is_demo=${demo} and s.is_demo=${demo} and ${v.near?sql`lower(s.line::text)=${v.near}`:sql`true`} and ls.distance_m<=${+(v.distance||'1000')})`);
-  if(v.bbox){const [west,south,east,north]=v.bbox.split(',').map(Number);parts.push(sql`not l.hide_exact and l.lng between ${west} and ${east} and l.lat between ${south} and ${north}`);}
+  if(v.bbox){
+    // Hidden-location listings match by their rounded area centre only, consistent with the area circle the browser receives.
+    const [west,south,east,north]=v.bbox.split(',').map(Number),box=sql`box(point(${west}::float8,${south}::float8),point(${east}::float8,${north}::float8))`;
+    parts.push(sql`((l.lat is not null and not l.hide_exact and point(l.lng::float8,l.lat::float8) <@ ${box}) or (l.lat is not null and l.hide_exact and point(round(l.lng,2)::float8,round(l.lat,2)::float8) <@ ${box}))`);
+  }
   for(const [key,selected] of Object.entries(state.custom)){
     const definition=metadata.filters.find(d=>d.value===key);
     if(!definition||state.types.length&&state.types.some(t=>!definition.types.includes(t)))throw new SearchInputError('Filter is inactive or outside its property scope.');
@@ -82,5 +86,11 @@ export async function listingSearch(state:SearchState,language:Language,demo:boo
   const media=raw.length?await query<{listingId:string;url:string;altTh:string;altEn:string}>(sql`select listing_id as "listingId",url,alt_th as "altTh",alt_en as "altEn" from (select listing_id,url,alt_th,alt_en,sort,row_number() over(partition by listing_id order by sort) as photo_number from listing_media where kind='photo' and is_demo=${demo} and listing_id::text in (${sql.join(raw.map(r=>sql`${r.id}`),sql`, `)})) photos where photo_number<=5 order by listing_id,sort`):[];
   const items=raw.map(r=>({id:String(r.id),code:String(r.code),slug:String(r.slug),type:r.type as PropertyType,intent:r.intent as 'sale'|'rent',title:String(language==='th'?r.title_th||r.title_en:r.title_en||r.title_th),address:String((language==='th'?r.address_th:r.address_en)||''),area:String(language==='th'?r.area_th||r.area_en:r.area_en||r.area_th),price:number(r.price),previousPrice:number(r.previous_price),period:r.price_period as ListingCardData['period'],beds:number(r.beds),baths:number(r.baths),floor:number(r.floor),buildingFloors:number(r.building_floors),size:number(r.size_sqm),land:number(r.land_sqwah),frontage:number(r.road_frontage_m),rooms:number(r.hotel_rooms),occupancy:number(r.hotel_occupancy),stationDistance:number(r.station_distance),stationLine:r.station_line===null?null:String(r.station_line),featured:Boolean(r.featured),video:Boolean(r.video),mstar:Boolean(r.mstar),isNew:Date.now()-new Date(String(r.published_at)).getTime()<7*86400000,demo:Boolean(r.is_demo),photos:media.filter(m=>m.listingId===r.id&&safePhoto(m.url)).slice(0,5).map(m=>({url:m.url,alt:(language==='th'?m.altTh||m.altEn:m.altEn||m.altTh)||'Property photo'})) as ListingPhoto[]}));
   const location=metadata.locations.concat(metadata.stations).find(c=>c.value===state.loc||c.nameEn.toLowerCase()===state.loc.toLowerCase()||c.nameTh===state.loc);
-  return {state,items,total:counts[0].total,hasMore:counts[0].total>items.length,histogram:prices.map(p=>({min:+p.min,max:+p.max,count:p.count})),metadata,demo,locationName:location?name(location,language):null};
+  const pins=state.values.map==='1'?await mapPins(where,language):undefined;
+  return {state,items,total:counts[0].total,hasMore:counts[0].total>items.length,histogram:prices.map(p=>({min:+p.min,max:+p.max,count:p.count})),metadata,demo,locationName:location?name(location,language):null,pins};
+}
+// Pins for every match in the current search (capped). The exact point of a hidden listing never leaves the database.
+async function mapPins(where:SQL,language:Language):Promise<MapPin[]>{
+  const rows=await query<Record<string,unknown>>(sql`select l.id,l.code,l.slug,l.intent,l.title_th,l.title_en,case when l.price_visibility='public' then l.price end as price,l.price_period,l.hide_exact,case when l.hide_exact then round(l.lat,2) else l.lat end as lat,case when l.hide_exact then round(l.lng,2) else l.lng end as lng from listings l join locations loc on loc.id=l.location_id where ${where} and l.lat is not null and l.lng is not null order by l.featured desc,l.published_at desc,l.id limit 500`);
+  return rows.map(r=>({id:String(r.id),code:String(r.code),slug:String(r.slug),title:String(language==='th'?r.title_th||r.title_en:r.title_en||r.title_th),intent:r.intent as 'sale'|'rent',price:number(r.price),period:r.price_period as MapPin['period'],area:Boolean(r.hide_exact),lat:Number(r.lat),lng:Number(r.lng)}));
 }

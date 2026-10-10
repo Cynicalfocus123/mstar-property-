@@ -35,7 +35,7 @@ try {
     const [result] = await client`select count(*)::int as count from drizzle.__drizzle_migrations`;
     assert.equal(result.count, migrationCount);
     const [tables] = await client`select count(*)::int as count from information_schema.tables where table_schema='public' and table_type='BASE TABLE'`;
-    assert.equal(tables.count, 18);
+    assert.equal(tables.count, 19); // 18 core tables + osm_places (Step 4)
   });
   await test('fictional seed is repeatable and public stock remains empty', async () => {
     await seedDemo(url); await seedDemo(url);
@@ -156,6 +156,6 @@ try {
     assert.equal((await client`select count(*)::int as count from listings`)[0].count, 14);
     assert.equal((await client`select count(*)::int as count from drizzle.__drizzle_migrations`)[0].count, migrationCount);
   });
-  await writeFile('.local/step2-db-results.json', JSON.stringify({ date: new Date().toISOString(), passed, database: 'mstar_property_step2_test', demoListings: 14, appTables: 18 }, null, 2));
+  await writeFile('.local/step2-db-results.json', JSON.stringify({ date: new Date().toISOString(), passed, database: 'mstar_property_step2_test', demoListings: 14, appTables: 19 }, null, 2));
   console.log(`${passed.length}/${passed.length} PostgreSQL groups passed. Evidence: .local/step2-db-results.json`);
 } finally { await client.end(); }

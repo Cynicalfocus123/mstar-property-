@@ -13,3 +13,4 @@ playwright-report/
 *.tsbuildinfo
 ~$*.xlsx
 .local/
+/public/vendor/

@@ -42,4 +42,10 @@ export function landUnits(squareWah:number|null,language:Language):Array<[number
  const wah=Math.round(squareWah);
  return [[Math.floor(wah/400),language==='th'?'ไร่':'rai'],[Math.floor(wah%400/100),language==='th'?'งาน':'ngan'],[wah%100,language==='th'?'ตร.ว.':'sq. wah']].filter(([value])=>Number(value)>0) as Array<[number,string]>;
 }
+// Short price for map pins, e.g. ฿12.5M, ฿850K, ฿25K/mo.
+export function compactPrice(value:number|null,period:'month'|'year'|null,language:Language){
+ if(value===null)return language==='th'?'สอบถาม':'Ask';
+ const short=value>=1e6?`${Number((value/1e6).toFixed(value>=1e7?0:1))}M`:value>=1e3?`${Math.round(value/1e3)}K`:String(Math.round(value));
+ return `฿${short}${period==='month'?(language==='th'?'/ด.':'/mo'):period==='year'?(language==='th'?'/ปี':'/yr'):''}`;
+}
 export function listingAmount(value:number,language:Language){return language==='th'?`${value.toLocaleString('en-US')} บาท`:`฿${value.toLocaleString('en-US')}`;}

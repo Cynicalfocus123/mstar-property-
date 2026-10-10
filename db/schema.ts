@@ -98,6 +98,9 @@ export const listings = pgTable('listings', {
 }, t => [
   index('listings_search_idx').on(t.intent, t.type, t.status, t.price), index('listings_location_idx').on(t.locationId, t.status),
   index('listings_bbox_idx').on(t.lat, t.lng), index('listings_project_idx').on(t.projectId), index('listings_agent_idx').on(t.agentId),
+  // Map bounds use built-in PostgreSQL point/box GiST indexes. Hidden listings are indexed only by their rounded area centre.
+  index('listings_point_gist_idx').using('gist', sql`point(${t.lng}::float8, ${t.lat}::float8)`).where(sql`${t.lat} IS NOT NULL AND NOT ${t.hideExact}`),
+  index('listings_area_gist_idx').using('gist', sql`point(round(${t.lng}, 2)::float8, round(${t.lat}, 2)::float8)`).where(sql`${t.lat} IS NOT NULL AND ${t.hideExact}`),
   index('listings_feed_idx').on(t.publishState, t.isDemo, t.featured, t.publishedAt),
   index('listings_text_idx').using('gin', sql`to_tsvector('simple', coalesce(${t.titleTh}, '') || ' ' || coalesce(${t.titleEn}, '') || ' ' || coalesce(${t.addressTh}, '') || ' ' || coalesce(${t.addressEn}, ''))`),
   coordinates('listings_coordinates', t),
@@ -137,6 +140,17 @@ export const listingNearby = pgTable('listing_nearby', {
   id: id(), listingId: uuid('listing_id').notNull().references(() => listings.id, { onDelete: 'cascade' }), category: text('category').notNull(), ...names(),
   distanceM: integer('distance_m').notNull(), source: text('source').notNull(), fetchedAt: timestamp('fetched_at', { withTimezone: true }).notNull(), isDemo: demo(), ...audit(),
 }, t => [unique('listing_nearby_place_unique').on(t.listingId, t.category, t.nameEn), nonemptyNames('listing_nearby_names', t), check('listing_nearby_distance', sql`${t.distanceM} >= 0 AND length(trim(${t.source})) > 0`)]);
+
+// Imported OpenStreetMap places (Geofabrik Thailand extract). Genuine provider data, never typed by hand.
+export const osmPlaces = pgTable('osm_places', {
+  id: text('id').primaryKey(), category: text('category').notNull(), kind: text('kind').notNull(), ...names(),
+  lat: numeric('lat', { precision: 10, scale: 7 }).notNull(), lng: numeric('lng', { precision: 10, scale: 7 }).notNull(),
+  dataDate: timestamp('data_date', { withTimezone: true }), importedAt: timestamp('imported_at', { withTimezone: true }).notNull(),
+}, t => [nonemptyNames('osm_places_names', t), coordinates('osm_places_coordinates', t),
+  check('osm_places_category', sql`${t.category} IN ('transit','school','shopping','hospital')`),
+  check('osm_places_id', sql`${t.id} ~ '^(node|way)/[0-9]+$'`),
+  index('osm_places_point_gist_idx').using('gist', sql`point(${t.lng}::float8, ${t.lat}::float8)`),
+  index('osm_places_category_idx').on(t.category)]);
 
 export const users = pgTable('users', {
   id: id(), email: text('email'), displayName: text('display_name').notNull(), role: userRole('role').default('customer').notNull(), status: userStatus('status').default('active').notNull(),

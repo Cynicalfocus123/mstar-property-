@@ -1,6 +1,6 @@
 # Mstar Property new site: handoff for a new chat
 
-**Updated:** 10 Oct 2026
+**Updated:** 11 Oct 2026
 **Owner:** the user (Mstar Property Development, Thailand). Claude designs and reviews; Codex writes the code, one step at a time.
 
 Start a new Claude chat **in the project folder** (`D:\mstar companies\mstar property\mstar property new site`) so Claude also loads the Codex-maintained `CLAUDE.md` automatically. Then say: "Read codex-handoff/NEW-CHAT-HANDOFF.md and CLAUDE.md, then check progress.md."
@@ -54,8 +54,8 @@ Tech: Next.js + TypeScript, PostgreSQL 18 + Drizzle, one app on port 3000. The d
 | R05 | Tracker audit and grid fix | **Done** (commit `44f405a`) |
 | 3C | Smooth motion on every page | **Done** (commit `c526206`) |
 | 3D | Centred hero search, card facts with floor and sq ft | **Done** (commit `6a269f3`) |
-| 3E | One listing card for home rows and results | **Next** |
-| 4 | Map + nearby places | Not started |
+| 3E | One listing card for home rows and results | **Done** (commit `2cf378f`) |
+| 4 | Map + nearby places | **Built and tested by Claude 11 Oct; Codex closeout next** (see `codex-handoff/STEP-4-CLOSEOUT-AND-STEP-5.md`) |
 | 5 | Property page | Not started |
 | 6 | Contact form sending, LINE, WhatsApp | Not started |
 | 7 | Rest of the home page | Not started |
@@ -96,12 +96,14 @@ Tracker after 3C: 86 task IDs, 21 Done, 23 Pending, 42 Not started.
 1. Logo file for white backgrounds (crest alone or wide version).
 2. Where enquiry emails go: one Mstar inbox or each listing's agent.
 3. LINE / WhatsApp: one company contact or one per agent (IDs and numbers not given yet).
-4. Sign-in: LINE only, or LINE + Google + email.
-5. Map provider: free / open-source, exact one chosen in Step 4.
+4. ~~Sign-in~~ Decided 11 Oct: LINE + Google + email.
+5. ~~Map provider~~ Decided 10 Oct: MapLibre + OpenFreeMap; nearby from OpenStreetMap, refreshed monthly.
 6. Exchange-rate source for showing USD (THB is stored).
 7. Real hero photo and real listing photos.
 
-Already decided: gold accent; THB + USD; admin chooses per listing whether the price is public or "contact for price"; free mapping.
+Already decided: gold accent; THB + USD; admin chooses per listing whether the price is public or "contact for price"; map = MapLibre + OpenFreeMap, nearby places = OpenStreetMap Thailand data refreshed **monthly** (new file replaces old, one copy on D:); customer sign-in = **LINE + Google + email**; admin = **separate backend with its own login and dashboard** (properties with map-based address entry, categories), wireframe first.
+
+Still open from Step 4: automatic monthly task on the PC (yes/no), delete the 313 MB file after each import (yes/no).
 
 ---
 
