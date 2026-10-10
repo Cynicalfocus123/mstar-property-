@@ -1,5 +1,26 @@
 # Design direction
 
+## Current Step 3B — R04 — 2026-10-10
+
+Results reuse the approved big 3:2 card with full-width equal 3/2/1 columns. The home uses the approved separate small card: 20:19 photo, 16px radius, one badge, top-right heart, single-line title and price/facts, no contact button. Topic title and round arrow share a matching results link; desktop previous/next controls disable at the rail edges. Phone uses native scroll-snap and hides arrows.
+
+Use viewport thresholds from the owner’s explicit prompt: 7 above 1440px, 6 at 1251–1440, 5 at 1081–1250, 4 at 721–1080, approximately 2.3 at 720 or below. The prototype’s container thresholds differ; they are review-frame values, not a reason to override the owner’s viewport rules. Whole land units omit zero rai/ngan/square wah and round total square wah before decomposition. Display the nearest recorded station’s actual line.
+
+Original prototype browser rendering remains previously policy-blocked; this task reviews its full CSS/markup/JavaScript and actual app screenshots, not a rendered-original pixel comparison. The header logo and all unresolved owner decisions remain unchanged. Fictional rows have fictional regional titles and visible Sample/ตัวอย่าง badges.
+
+Verification: 91 development checks covered (66 existing plus 25 new/boundary checks), 18 real-DB fixture browser checks, 12 production browser checks, eight Step 3B DB groups, 12 search groups, five development/six production sample groups, build and TypeScript passed. See testing.md for initial test-harness failures and final evidence.
+
+Step 3B is the only scope completed here. R04 records this owner change and updates F08/F09/F10/B06 without duplicating their IDs. F25 moves to Pending: home topic rows are implemented, but its regional tiles remain Step 7. The overall project and prior Step 0/1 blockers remain Pending. Stop before Step 4; no map, property detail, enquiry submission, account or admin is added.
+
+All nine maintained documents are updated. The owner supplied revised BUILD-SPEC, V5 guide, home-page.html, wireframe.html and wireframe-v3.html before this task. Their current input hashes are preserved; CODEX-PROMPT, historical sources and applied migrations are also unchanged. The old live references match the preceding committed text, so adopting the owner revisions is an intended update, not overwriting divergent work. The 82-file live baseline is rechecked before copying intended source/config/docs/tracker; final SHA-256 pairs, commit and origin/main push are verified at closeout. Secrets, runtime state, dependencies and caches are excluded. The exact commit is in the final report.
+
+The canonical root workbook retains all 83 prior IDs/history and adds R04: 84 IDs, 17 Done, 17 Pending, 50 Not started. Frontend/Backend/Emails remain synchronized open views (32/27/8); Done/Pending/Not started contain each ID exactly once. Pending stays yellow, Done light green and Not started red. If any final gate fails, R04 and affected changed tasks must be marked Pending.
+
+Verified during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health. All returned HTTP 200; health was database-ready. Ports 3000 and 5432 are now stopped. Admin and real form submission do not exist; no admin URL or submission proof is invented. No production deployment or migration is performed. Older dated sections below are historical and do not override this record.
+
+## Historical records before Step 3B
+
+
 ## Development-only samples — R03 — 2026-10-10
 
 The owner explicitly requested the text Sample on every fictional listing card. The existing approved top-left pill is reused with no layout/token redesign; the English Sample label appears in both Thai/English previews. The fictional-data notice and illustration labels remain. Badge and card visibility were checked on desktop/phone at 390/768/1024/1440px. Production pages show no fictional cards or notices. No map, logo, genuine photographs or later-stage UI is added.

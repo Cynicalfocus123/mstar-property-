@@ -109,7 +109,7 @@ Other accent options the owner can still choose (swap the four `--acc*` values o
 - Hidden on the property page, where the property action bar takes its place.
 
 ### 4.3 Listing card (Realtor.com style)
-Used on the home page carousel, search results and Saved. One component everywhere.
+Used on search results and Saved. (The home page uses the small card in §5.1 item 3.)
 - White card, 1px `--line` border, 16px radius, light shadow on hover. The whole card links to the property page; keyboard-focusable, Enter opens it.
 - **Photo** 3:2, up to 5 photos: next-photo arrow appears on hover (swipe on touch), dot indicator at the bottom.
 - **Badges** top-left on the photo, pill-shaped: `Featured`, `New`, `Video tour`, `Mstar project`, `Investment`.
@@ -145,11 +145,12 @@ In order:
 2. **Search box:** tabs Buy / Rent / New projects / Investment. Fields: Location · Type · Price · Beds · search button. On phone it collapses to one "Where?" field plus the button; tapping it opens a full-screen search sheet.
    - Location suggestions (dropdown) are grouped as Recent searches (from this device), Areas & stations (areas and BTS/MRT/ARL stations), and Projects (with an "Mstar" badge for Mstar developments).
    - The Investment tab switches the types to Hotel / Land / Commercial and shows budget instead of price.
-3. **Homes for you: listing carousel, directly under the search box.** This is the first thing after the hero.
-   - Heading "Homes for you", "See all" link, and ‹ › arrows on the right.
-   - Tabs under the heading: For sale / For rent / New listings / Price reduced / Investment. Switching a tab reloads the carousel.
-   - Uses the listing card from §4.3. 3 cards visible on desktop (narrow desktop: 2), about 1.1 on phone so the next card peeks in. Scroll-snap, swipe on touch.
-   - Content: admin-picked featured listings first, then newest active listings, up to 12 per tab.
+3. **Listing rows (Airbnb style), directly under the search box** (owner change 10 Oct 2026). This is the first thing after the hero.
+   - Several rows, one topic each. Default rows: "Popular homes for sale in Bangkok", "Condos for rent in Bangkok", "Homes in Pattaya and Jomtien", "Investment: hotels and land". Admin will choose the rows later (each row = a title + a saved search); until then they come from config.
+   - Row header: title with a small round **→** button (both open the results page with that row's search), and ‹ › arrow buttons on the right (desktop only).
+   - **Small card** (not the big results card): photo 20:19 with 16px radius, one pill badge top-left (Featured / New / Price drop / Investment), heart top-right that saves without opening; under the photo a one-line title like "Condo in Watthana", then one line "**฿6,450,000** · 2 bd · 68 m²" (rent shows "/mo", land shows rai/ngan, hotel shows rooms). No Contact agent button on the small card. The whole card opens the property page.
+   - Cards per row by screen width: **7** above 1440px, 6 at 1251–1440px, 5 at 1081–1250px, 4 at 721–1080px; on phone about 2.3 cards visible, swipe with scroll-snap, arrows hidden.
+   - Up to 12 cards per row; featured first, then newest. A row with no homes is hidden.
 4. **Category row:** icons that scroll sideways: Condo, House, Townhouse, Pool villa, Land, Hotel, Beachfront, Near BTS/MRT, New build, Pet friendly, Commercial. Each one opens results with that filter on.
 5. **Continue your search:** only shown when this device has a recent or saved search or a viewed listing. Saved searches show the count of new matches.
 6. **Explore by location:** Bangkok, Pattaya, Phuket, Rayong with live listing counts. Locations are managed by admin.
@@ -166,10 +167,11 @@ In order:
   - **All filter state is in the URL** (§7), so a search can be shared on LINE.
 - **Heading:** a readable title such as "Condos for sale in Sukhumvit", the result count and sort (Newest, Price low–high, Price high–low, Size, Nearest BTS).
 - **Quick chips:** active filters with ✕, plus suggestions (Near BTS, Foreign quota, Pet friendly, Video tour).
-- **List + map** on desktop: list on the left (2-column listing cards from §4.3), map on the right (sticky) with price pins.
+- **Card grid (default view, owner change 10 Oct 2026):** the list uses the full page width with **3 cards per row** on desktop (> 1000px), 2 at 721–1000px and 1 on phone. Cards keep the same width in every row (CSS grid with equal columns), even when the last row is not full. No empty map column is reserved.
+- **Map is opened on request:** a "Show map" button sits at the right end of the filter bar. When on, the page splits into list (2 cards per row) on the left and a sticky map with price pins on the right; the button reads "Hide map". The choice is stored in the URL (`map=1`).
   - Hovering a card highlights its pin, and hovering a pin highlights its card.
   - "Search as I move the map" (on by default) and "Draw area".
-  - "Show more homes" button (load more), not page numbers. Keep the URL in sync for back/forward.
+  - "Show more homes" button (load more), not page numbers. Load 12 homes at a time (4 full rows of 3). Keep the URL in sync for back/forward.
 - **Phone:** list first, single column. A floating `Map` pill switches to a full-screen map; it then reads `List`.
 - Empty state: "No homes match these filters", with buttons to clear the last filter and to save the search to be alerted.
 

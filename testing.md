@@ -1,5 +1,26 @@
 # Verification record
 
+## Current Step 3B — R04 — 2026-10-10
+
+Production build and final TypeScript passed. Development browser coverage: 66 existing checks passed in the initial 90-test run; the initial 24 new checks failed because assertions/focus were attempted during streamed loading. Explicit visibility/focus waits fixed the test harness without changing product navigation. All 24 new checks then passed. A final visual run passed 25 checks (24 repeated plus one breakpoint-boundary check); five duplicate boundary runs were deliberately skipped. Final screenshots wait for actual rows and visible images instead of capturing the loading skeleton.
+
+Checks cover English/Thai at 390/768/1024/1280/1440/1600px, 3/2/1 results columns, equal last-row widths, no empty map column/overflow, 7/6/5/4 home-card sizing and approximately 2.3 phone cards, native swipe, arrows, matching row search links, shared heart saves, keyboard detail links, land/hotel whole units and Thai ตัวอย่าง. Additional boundary checks cover 720/721, 1000/1001, 1080/1081, 1250/1251 and 1440/1441.
+
+Eight real Step 3B app/PostgreSQL groups passed, including 18 additional Chromium fixture checks across all six widths and both locales. The harness temporarily inserts 20 clearly fictional test listings and two MRT/ARL stations, proves 12/24/28 cumulative pagination with refresh/back/forward, actual nearest station labels, preserved Nearest BTS sorting, featured/newest home order, 12-card cap, hidden empty/public-host rows and public-view exclusion. A finally block removes these fixtures; every original listing row hash matches the baseline. The permanent development seed remains 16 fictional listings. No original location/station/listing or seed source is rewritten.
+
+The existing 12 actual search groups and five development sample API/DB checks passed. Production ran next start with NODE_ENV=production and MSTAR_DEMO_MODE=1 while all 16 seeded samples remained in PostgreSQL: 12 Chromium checks and six API/DB checks passed, proving no fictional results, home rows, notices, DTOs or demo metadata, including a forced internal demo=true query and public-site/Host denial. No frontend submission exists, so form-row proof is not applicable. No schema change requires migration/rollback retesting in this step.
+
+Step 3B is the only scope completed here. R04 records this owner change and updates F08/F09/F10/B06 without duplicating their IDs. F25 moves to Pending: home topic rows are implemented, but its regional tiles remain Step 7. The overall project and prior Step 0/1 blockers remain Pending. Stop before Step 4; no map, property detail, enquiry submission, account or admin is added.
+
+All nine maintained documents are updated. The owner supplied revised BUILD-SPEC, V5 guide, home-page.html, wireframe.html and wireframe-v3.html before this task. Their current input hashes are preserved; CODEX-PROMPT, historical sources and applied migrations are also unchanged. The old live references match the preceding committed text, so adopting the owner revisions is an intended update, not overwriting divergent work. The 82-file live baseline is rechecked before copying intended source/config/docs/tracker; final SHA-256 pairs, commit and origin/main push are verified at closeout. Secrets, runtime state, dependencies and caches are excluded. The exact commit is in the final report.
+
+The canonical root workbook retains all 83 prior IDs/history and adds R04: 84 IDs, 17 Done, 17 Pending, 50 Not started. Frontend/Backend/Emails remain synchronized open views (32/27/8); Done/Pending/Not started contain each ID exactly once. Pending stays yellow, Done light green and Not started red. If any final gate fails, R04 and affected changed tasks must be marked Pending.
+
+Verified during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health. All returned HTTP 200; health was database-ready. Ports 3000 and 5432 are now stopped. Admin and real form submission do not exist; no admin URL or submission proof is invented. No production deployment or migration is performed. Older dated sections below are historical and do not override this record.
+
+## Historical records before Step 3B
+
+
 ## Development-only samples — R03 — 2026-10-10
 
 R03 validation against the actual app and PostgreSQL passed. Development: 42/44 initial Chromium tests passed; two first homepage loads hit the 30-second timeout during cold compilation. Both failed checks passed in a focused warm 2/2 rerun. All 44 checks are therefore covered, including eight new sample tests in Thai/English at 390/768/1024/1440px, each card's Sample badge and no horizontal overflow. Existing 12 real search groups passed; five new development API/DB checks prove the 16 samples remain seeded.

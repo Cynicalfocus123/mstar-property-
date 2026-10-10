@@ -1,5 +1,22 @@
 # Mstar Property — Codex permanent completion rules (V4)
 
+## Current Step 3B — R04 — 2026-10-10
+
+The owner’s explicit Step 3B overrides the older two-column/empty-map and single big homepage carousel descriptions. Build full-width 3/2/1 results with 12-home batches and separate small home topic rows only. Preserve the development-only sample guard at every public consumer; fictional locations must never be relabelled Bangkok/Pattaya. Keep the current root workbook and every completion gate. Only the current prompt authorizes test-server use; both servers stop afterward.
+
+Verification: 91 development checks covered (66 existing plus 25 new/boundary checks), 18 real-DB fixture browser checks, 12 production browser checks, eight Step 3B DB groups, 12 search groups, five development/six production sample groups, build and TypeScript passed. See testing.md for initial test-harness failures and final evidence.
+
+Step 3B is the only scope completed here. R04 records this owner change and updates F08/F09/F10/B06 without duplicating their IDs. F25 moves to Pending: home topic rows are implemented, but its regional tiles remain Step 7. The overall project and prior Step 0/1 blockers remain Pending. Stop before Step 4; no map, property detail, enquiry submission, account or admin is added.
+
+All nine maintained documents are updated. The owner supplied revised BUILD-SPEC, V5 guide, home-page.html, wireframe.html and wireframe-v3.html before this task. Their current input hashes are preserved; CODEX-PROMPT, historical sources and applied migrations are also unchanged. The old live references match the preceding committed text, so adopting the owner revisions is an intended update, not overwriting divergent work. The 82-file live baseline is rechecked before copying intended source/config/docs/tracker; final SHA-256 pairs, commit and origin/main push are verified at closeout. Secrets, runtime state, dependencies and caches are excluded. The exact commit is in the final report.
+
+The canonical root workbook retains all 83 prior IDs/history and adds R04: 84 IDs, 17 Done, 17 Pending, 50 Not started. Frontend/Backend/Emails remain synchronized open views (32/27/8); Done/Pending/Not started contain each ID exactly once. Pending stays yellow, Done light green and Not started red. If any final gate fails, R04 and affected changed tasks must be marked Pending.
+
+Verified during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health. All returned HTTP 200; health was database-ready. Ports 3000 and 5432 are now stopped. Admin and real form submission do not exist; no admin URL or submission proof is invented. No production deployment or migration is performed. Older dated sections below are historical and do not override this record.
+
+## Historical records before Step 3B
+
+
 ## Development-only samples — R03 — 2026-10-10
 
 The owner's 2026-10-10 sample instruction overrides the older preview behavior. Samples are strictly local development only: require NODE_ENV=development, explicit flag, loopback SITE_URL/Host and named local DB. Never show them under NODE_ENV=production or a configured public site. Apply this rule at every future public listing/metadata consumer, preserving the query-boundary defense and visible Sample labels. Tests must prove exclusion with the flag enabled and fixtures still present. This corrective task authorizes its requested tests only; stop servers afterward.

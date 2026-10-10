@@ -1,5 +1,24 @@
 # Mstar Property project instructions
 
+## Current Step 3B — R04 — 2026-10-10
+
+Follow the owner’s 10 October Step 3B changes in the active V5 guide. Default results now occupy the full width (3 columns above 1000px, 2 at 721–1000px, 1 on phone), with 12 homes per cumulative page. Do not reserve an empty map column. Step 4 alone introduces opt-in map=1.
+
+Home topic rows use the distinct small 20:19 card. Config supplies translated titles and validated saved searches; genuine rows keep the approved Bangkok/Pattaya/investment topics. Local sample rows use explicitly fictional titles/locations under the unchanged development/site/Host/database guard. Never substitute fictional inventory into a genuine regional query. Preserve gated prices and hidden locations. Both card sizes share device-save storage. Thai samples are labelled ตัวอย่าง.
+
+Verification: 91 development checks covered (66 existing plus 25 new/boundary checks), 18 real-DB fixture browser checks, 12 production browser checks, eight Step 3B DB groups, 12 search groups, five development/six production sample groups, build and TypeScript passed. See testing.md for initial test-harness failures and final evidence.
+
+Step 3B is the only scope completed here. R04 records this owner change and updates F08/F09/F10/B06 without duplicating their IDs. F25 moves to Pending: home topic rows are implemented, but its regional tiles remain Step 7. The overall project and prior Step 0/1 blockers remain Pending. Stop before Step 4; no map, property detail, enquiry submission, account or admin is added.
+
+All nine maintained documents are updated. The owner supplied revised BUILD-SPEC, V5 guide, home-page.html, wireframe.html and wireframe-v3.html before this task. Their current input hashes are preserved; CODEX-PROMPT, historical sources and applied migrations are also unchanged. The old live references match the preceding committed text, so adopting the owner revisions is an intended update, not overwriting divergent work. The 82-file live baseline is rechecked before copying intended source/config/docs/tracker; final SHA-256 pairs, commit and origin/main push are verified at closeout. Secrets, runtime state, dependencies and caches are excluded. The exact commit is in the final report.
+
+The canonical root workbook retains all 83 prior IDs/history and adds R04: 84 IDs, 17 Done, 17 Pending, 50 Not started. Frontend/Backend/Emails remain synchronized open views (32/27/8); Done/Pending/Not started contain each ID exactly once. Pending stays yellow, Done light green and Not started red. If any final gate fails, R04 and affected changed tasks must be marked Pending.
+
+Verified during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health. All returned HTTP 200; health was database-ready. Ports 3000 and 5432 are now stopped. Admin and real form submission do not exist; no admin URL or submission proof is invented. No production deployment or migration is performed. Older dated sections below are historical and do not override this record.
+
+## Historical records before Step 3B
+
+
 ## Development-only samples — R03 — 2026-10-10
 
 Samples must never be shown in production or a configured live site. Require NODE_ENV=development, MSTAR_DEMO_MODE=1, loopback Host and SITE_URL, and the named local development/test database. Enforce this at public entry points AND listing query/metadata boundaries, including internal callers requesting demo=true. Production ignores the flag. Each fictional card shows a visible Sample pill; retain the fictional-data notice. Use npm run dev for sample review. Tests use actual development and production servers separately and stop afterward. Next agentRules is disabled to prevent automatic rewriting of owner-maintained instructions.
@@ -58,7 +77,7 @@ Keep the root workbook. The owner deferred tests for now. Port 3000 is currently
 - Use exact V3 design tokens and Prompt/Noto Sans Thai fonts. Use 720px and 1000px breakpoints and validate 390px, 768px, 1024px and 1440px.
 - Keep scans, diffs, logs and tests focused. Avoid unrelated work and redundant scans. Never launch Serena dashboard unless explicitly required.
 - Use existing project configuration and interpreter. At Step 0 there is no application configuration or package manifest to reuse; document chosen settings when the build is authorized.
-- Implement only the currently authorized step. Step 3 is the latest authorized stage; never begin Step 4 without its prompt.
+- Implement only the currently authorized step. Step 3B is the latest authorized stage; never begin Step 4 without its prompt.
 - Keep localhost closed unless explicitly requested open. The owner requested port 3000 closed during Step 1. Start servers only under explicit owner preview or test authorization in the current task; the Step 3 prompt authorizes its tests and requires shutdown afterward. Provide configured local links every task and state availability. Completion gates alone do not authorize reopening ports.
 - Do not guess any of BUILD-SPEC section 12's eight owner decisions. See `design.md` for existing tracker IDs.
 

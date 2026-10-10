@@ -1,5 +1,24 @@
 # Architecture
 
+## Current Step 3B — R04 — 2026-10-10
+
+lib/home-rows-config.ts holds bilingual topic titles and validated query strings; lib/home-listings.ts is server-only and selects genuine or explicitly guarded fictional configuration. It calls the existing parameterized listingSearch with an internal featuredFirst option. HomeListingRows provides native horizontal rails and accessible controls; SmallListingCard renders the distinct home layout. lib/saved-homes.ts shares the existing 500-ID localStorage contract between both cards; lib/listing-format.ts shares whole land units and price formatting.
+
+Search keeps 12 homes per cumulative page, bounded by the existing 50-page parser (600 homes maximum). A lateral station query pairs nearest distance and line deterministically across actual station types; the separate BTS minimum still controls Nearest BTS sorting. Public-price predicates, histograms, hidden exact location and demo guards are unchanged. Homepage errors use the existing generic unavailable copy, and empty rows render nothing. No schema, dependency, map or public home API is added.
+
+Verification: 91 development checks covered (66 existing plus 25 new/boundary checks), 18 real-DB fixture browser checks, 12 production browser checks, eight Step 3B DB groups, 12 search groups, five development/six production sample groups, build and TypeScript passed. See testing.md for initial test-harness failures and final evidence.
+
+Step 3B is the only scope completed here. R04 records this owner change and updates F08/F09/F10/B06 without duplicating their IDs. F25 moves to Pending: home topic rows are implemented, but its regional tiles remain Step 7. The overall project and prior Step 0/1 blockers remain Pending. Stop before Step 4; no map, property detail, enquiry submission, account or admin is added.
+
+All nine maintained documents are updated. The owner supplied revised BUILD-SPEC, V5 guide, home-page.html, wireframe.html and wireframe-v3.html before this task. Their current input hashes are preserved; CODEX-PROMPT, historical sources and applied migrations are also unchanged. The old live references match the preceding committed text, so adopting the owner revisions is an intended update, not overwriting divergent work. The 82-file live baseline is rechecked before copying intended source/config/docs/tracker; final SHA-256 pairs, commit and origin/main push are verified at closeout. Secrets, runtime state, dependencies and caches are excluded. The exact commit is in the final report.
+
+The canonical root workbook retains all 83 prior IDs/history and adds R04: 84 IDs, 17 Done, 17 Pending, 50 Not started. Frontend/Backend/Emails remain synchronized open views (32/27/8); Done/Pending/Not started contain each ID exactly once. Pending stays yellow, Done light green and Not started red. If any final gate fails, R04 and affected changed tasks must be marked Pending.
+
+Verified during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health. All returned HTTP 200; health was database-ready. Ports 3000 and 5432 are now stopped. Admin and real form submission do not exist; no admin URL or submission proof is invented. No production deployment or migration is performed. Older dated sections below are historical and do not override this record.
+
+## Historical records before Step 3B
+
+
 ## Development-only samples — R03 — 2026-10-10
 
 localDemoEnabled now requires NODE_ENV exactly development plus the existing explicit flag/local DB checks, a strictly loopback Host and loopback HTTP(S) SITE_URL. listingSearch and searchMetadata enforce the guard again so internal demo=true cannot bypass production. Public routes/API use the same server-only policy; no client query parameter can enable samples. Production selects genuine inventory and metadata. A configured public SITE_URL is denied even in development. No data projection, price/location privacy or SQL filter semantics is weakened.

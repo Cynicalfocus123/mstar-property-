@@ -10,7 +10,7 @@ const groups:string[]=[];
 async function request(query:string){const response=await fetch(`${base}?lang=en&${query}`);const body=await response.text();assert.equal(response.status,200,body.slice(0,200));return JSON.parse(body);}
 try{
  const [actual]=await client`select count(*)::int as total from listings where is_demo and publish_state='published' and status in ('active','reserved') and intent='sale'`;
- const buy=await request('route=buy');assert.equal(buy.total,actual.total);assert(buy.items.every((l:{intent:string;demo:boolean})=>l.intent==='sale'&&l.demo));assert.equal(buy.items.length,6);assert.equal(buy.hasMore,true);
+ const buy=await request('route=buy');assert.equal(buy.total,actual.total);assert(buy.items.every((l:{intent:string;demo:boolean})=>l.intent==='sale'&&l.demo));assert.equal(buy.items.length,Math.min(actual.total,12));assert.equal(buy.hasMore,actual.total>12);
  const all=await request('route=buy&page=2');assert.equal(all.items.length,actual.total);assert.equal(all.hasMore,false);groups.push('Real PostgreSQL row count, sale intent and cumulative pagination');
  const rent=await request('route=rent&page=2');assert(rent.items.every((l:{intent:string})=>l.intent==='rent'));assert(rent.items.some((l:{price:number|null;period:string})=>l.price===20000&&l.period==='month'));groups.push('Separate rent intent and genuine fixture price period');
  const investment=await request('route=invest');assert(investment.items.every((l:{type:string;intent:string})=>['land','hotel','commercial'].includes(l.type)&&l.intent==='sale'));groups.push('Investment type scope');

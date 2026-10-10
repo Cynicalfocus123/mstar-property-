@@ -1,5 +1,26 @@
 # Mstar Property — Claude project handoff
 
+## Current Step 3B — R04 — 2026-10-10
+
+Current briefing: Step 3B is implemented and validated. Results have no empty map reserve; the home now has small Airbnb-style topic rows. Config: lib/home-rows-config.ts; server loader: lib/home-listings.ts; UI: components/home-listing-rows.tsx and small-listing-card.tsx. Both cards share lib/saved-homes.ts and listing-format.ts. Results stay in components/search-results.tsx and listing-card.tsx; safe query remains lib/listing-search.ts. No new dependency/schema is needed.
+
+Genuine topic configuration uses Bangkok sale homes, Bangkok rental condos, Bang Lamung for Pattaya/Jomtien homes, and hotel/land investment. These rows currently hide because no genuine stock exists. Guarded local samples use honest fictional topic names and the existing fictional area. They are never reassigned to a real city. The small card’s property destination remains the explicit unfinished Step 5 page; the big card contact dialog still cannot submit until Step 6. Step 7 completes the remaining homepage sections; admin row management awaits its approved stage.
+
+R04 is the completed scoped change; F25 is Pending only for its remaining regional tiles. Preserve prior unresolved owner choices, independent project blockers and all permanent task history. Both ports are stopped. Do not begin Step 4 from this handoff alone.
+
+Verification: 91 development checks covered (66 existing plus 25 new/boundary checks), 18 real-DB fixture browser checks, 12 production browser checks, eight Step 3B DB groups, 12 search groups, five development/six production sample groups, build and TypeScript passed. See testing.md for initial test-harness failures and final evidence.
+
+Step 3B is the only scope completed here. R04 records this owner change and updates F08/F09/F10/B06 without duplicating their IDs. F25 moves to Pending: home topic rows are implemented, but its regional tiles remain Step 7. The overall project and prior Step 0/1 blockers remain Pending. Stop before Step 4; no map, property detail, enquiry submission, account or admin is added.
+
+All nine maintained documents are updated. The owner supplied revised BUILD-SPEC, V5 guide, home-page.html, wireframe.html and wireframe-v3.html before this task. Their current input hashes are preserved; CODEX-PROMPT, historical sources and applied migrations are also unchanged. The old live references match the preceding committed text, so adopting the owner revisions is an intended update, not overwriting divergent work. The 82-file live baseline is rechecked before copying intended source/config/docs/tracker; final SHA-256 pairs, commit and origin/main push are verified at closeout. Secrets, runtime state, dependencies and caches are excluded. The exact commit is in the final report.
+
+The canonical root workbook retains all 83 prior IDs/history and adds R04: 84 IDs, 17 Done, 17 Pending, 50 Not started. Frontend/Backend/Emails remain synchronized open views (32/27/8); Done/Pending/Not started contain each ID exactly once. Pending stays yellow, Done light green and Not started red. If any final gate fails, R04 and affected changed tasks must be marked Pending.
+
+Verified during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health. All returned HTTP 200; health was database-ready. Ports 3000 and 5432 are now stopped. Admin and real form submission do not exist; no admin URL or submission proof is invented. No production deployment or migration is performed. Older dated sections below are historical and do not override this record.
+
+## Historical records before Step 3B
+
+
 ## Development-only samples — R03 — 2026-10-10
 
 Latest owner request: development-only fictional listings, each card visibly marked Sample; they must never appear in production or a configured live site. R03 implements this correction to existing Step 3 and links F08/B06. localDemoEnabled and both listing query/metadata boundaries require NODE_ENV=development, flag=1, loopback SITE_URL/Host and named local DB. Production ignores the flag and returns genuine-only inventory/metadata; the fixture rows are unchanged. Use npm run dev for sample review. Older npm run start examples below are production commands and cannot display samples.

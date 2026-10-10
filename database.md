@@ -1,5 +1,24 @@
 # Database
 
+## Current Step 3B — R04 — 2026-10-10
+
+No migration, schema, role, password or permanent seed change is made. Read-only runtime access and original public-price/location protections remain. Home rows call the same guarded DB search; featured/date/id ordering is server-controlled and bounded. Station distance and line now come from the same nearest relation; Nearest BTS sort remains BTS-specific.
+
+npm run test:step3b requires NODE_ENV=development, the existing named loopback development/test database, migration credentials in ignored configuration and an actual guarded development app. It creates random-ID fictional test records only, clones existing safe media, inserts fictional MRT/ARL distances, tests the real app, and deletes its own IDs in finally. Listing/media/station joins and original row hashes prove cleanup. No genuine record or original seed is changed; the persistent development fixture remains 16. Do not run this harness against production or a shared database. Existing backups/rollback procedures are unchanged and were not rerun because no schema changed.
+
+Verification: 91 development checks covered (66 existing plus 25 new/boundary checks), 18 real-DB fixture browser checks, 12 production browser checks, eight Step 3B DB groups, 12 search groups, five development/six production sample groups, build and TypeScript passed. See testing.md for initial test-harness failures and final evidence.
+
+Step 3B is the only scope completed here. R04 records this owner change and updates F08/F09/F10/B06 without duplicating their IDs. F25 moves to Pending: home topic rows are implemented, but its regional tiles remain Step 7. The overall project and prior Step 0/1 blockers remain Pending. Stop before Step 4; no map, property detail, enquiry submission, account or admin is added.
+
+All nine maintained documents are updated. The owner supplied revised BUILD-SPEC, V5 guide, home-page.html, wireframe.html and wireframe-v3.html before this task. Their current input hashes are preserved; CODEX-PROMPT, historical sources and applied migrations are also unchanged. The old live references match the preceding committed text, so adopting the owner revisions is an intended update, not overwriting divergent work. The 82-file live baseline is rechecked before copying intended source/config/docs/tracker; final SHA-256 pairs, commit and origin/main push are verified at closeout. Secrets, runtime state, dependencies and caches are excluded. The exact commit is in the final report.
+
+The canonical root workbook retains all 83 prior IDs/history and adds R04: 84 IDs, 17 Done, 17 Pending, 50 Not started. Frontend/Backend/Emails remain synchronized open views (32/27/8); Done/Pending/Not started contain each ID exactly once. Pending stays yellow, Done light green and Not started red. If any final gate fails, R04 and affected changed tasks must be marked Pending.
+
+Verified during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health. All returned HTTP 200; health was database-ready. Ports 3000 and 5432 are now stopped. Admin and real form submission do not exist; no admin URL or submission proof is invented. No production deployment or migration is performed. Older dated sections below are historical and do not override this record.
+
+## Historical records before Step 3B
+
+
 ## Development-only samples — R03 — 2026-10-10
 
 No schema/migration/seed/password changes are made. All 16 published fictional development listings remain is_demo=true. The public_listings view still excludes them. Actual API counts match the appropriate demo/genuine PostgreSQL partition in both app modes; the current genuine result count is zero. The production test forces internal demo=true and still receives genuine-only results/metadata. Existing ignored settings and the isolated cluster are preserved; no shared postgres account is changed. No form submission is implemented.

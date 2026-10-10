@@ -1,5 +1,24 @@
 # Progress
 
+## Current Step 3B — R04 — 2026-10-10
+
+R04 is the Step 3B implementation record, linked to F08/F09/F10/B06/F25. Existing completed IDs retain their status with current evidence/history. F25 becomes Pending because approved home rows are now implemented while regional tiles remain an unstarted Step 7 portion. No other prior status changes. Previous pushed commit is 830e037; final commit/push/sync are verified during closeout.
+
+Implemented only full-width results, 12-home pagination, card corrections and small home topic rows. This owner prompt advances just the listing-row portion formerly reserved for Step 7. Categories, recent searches, region tiles, projects, tools and services remain later work. Step 4 is not started.
+
+Verification: 91 development checks covered (66 existing plus 25 new/boundary checks), 18 real-DB fixture browser checks, 12 production browser checks, eight Step 3B DB groups, 12 search groups, five development/six production sample groups, build and TypeScript passed. See testing.md for initial test-harness failures and final evidence.
+
+Step 3B is the only scope completed here. R04 records this owner change and updates F08/F09/F10/B06 without duplicating their IDs. F25 moves to Pending: home topic rows are implemented, but its regional tiles remain Step 7. The overall project and prior Step 0/1 blockers remain Pending. Stop before Step 4; no map, property detail, enquiry submission, account or admin is added.
+
+All nine maintained documents are updated. The owner supplied revised BUILD-SPEC, V5 guide, home-page.html, wireframe.html and wireframe-v3.html before this task. Their current input hashes are preserved; CODEX-PROMPT, historical sources and applied migrations are also unchanged. The old live references match the preceding committed text, so adopting the owner revisions is an intended update, not overwriting divergent work. The 82-file live baseline is rechecked before copying intended source/config/docs/tracker; final SHA-256 pairs, commit and origin/main push are verified at closeout. Secrets, runtime state, dependencies and caches are excluded. The exact commit is in the final report.
+
+The canonical root workbook retains all 83 prior IDs/history and adds R04: 84 IDs, 17 Done, 17 Pending, 50 Not started. Frontend/Backend/Emails remain synchronized open views (32/27/8); Done/Pending/Not started contain each ID exactly once. Pending stays yellow, Done light green and Not started red. If any final gate fails, R04 and affected changed tasks must be marked Pending.
+
+Verified during actual tests: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health. All returned HTTP 200; health was database-ready. Ports 3000 and 5432 are now stopped. Admin and real form submission do not exist; no admin URL or submission proof is invented. No production deployment or migration is performed. Older dated sections below are historical and do not override this record.
+
+## Historical records before Step 3B
+
+
 ## Development-only samples — R03 — 2026-10-10
 
 R03 closes the owner-requested development-only sample correction. F08/B06 retain their IDs/Done status with current test dates/evidence and append-only history; R03 is the new Done fix ID. Prior counts/status/history are preserved: Frontend 32, Backend 27 and Emails 8 open tasks; Done 16, Pending 16, Not started 51, for 83 unique canonical IDs. Pending is yellow, Done light green and Not started red. Step 0/1 independent blockers remain Pending; Step 4 is unstarted.

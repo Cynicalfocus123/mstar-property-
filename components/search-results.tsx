@@ -50,7 +50,7 @@ export function SearchResultsView({data,language,currency}:{data:SearchResults;l
   </div>
   {data.demo?<p className="demo-notice" role="note">{t.demo}</p>:null}
   {currency==='USD'?<p className="currency-notice">{t.currency}</p>:null}
-  <div className="results-split"><div className="results-list">
+  <div className="results-list">
    <div className="results-heading"><div><h1>{heading}</h1><span className="small muted" aria-live="polite">{data.total} {t.results}</span></div>
     <label className="sort-control"><span>{t.sort}</span><select aria-label={t.sort} value={data.state.sort} onChange={e=>change('sort',e.target.value)}>{sorts.map(s=><option value={s} key={s}>{t[s]}</option>)}</select></label>
    </div>
@@ -61,7 +61,7 @@ export function SearchResultsView({data,language,currency}:{data:SearchResults;l
    {data.error?<p className="search-error" role="alert">{data.error==='input'?t.invalid:t.failed}</p>:null}
    {!data.items.length?<div className="results-empty"><h2>{t.empty}</h2><Button onClick={()=>active.length?remove(...active[active.length-1]):clear()}>{active.length?t.clearLast:t.clear}</Button><Button disabled title={t.saveLater}>{t.saveSearch}</Button></div>:<div className="listing-grid">{data.items.map(listing=><ListingCard key={listing.id} listing={listing} language={language} investment={data.state.route==='invest'}/>)}</div>}
    {data.hasMore?<div className="show-more"><Button disabled={pending} onClick={()=>navigate({...data.state,page:data.state.page+1})}>{t.showMore}</Button></div>:null}
-  </div><div className="reserved-map-column" aria-hidden="true"/></div>
+  </div>
   <Modal open={open!==null} title={panelTitle} closeLabel={t.close} onClose={()=>setOpen(null)} sheet className="search-filter-modal" style={position}>
    <form className="filter-form" onSubmit={e=>{e.preventDefault();apply();}}>
    {open==='location'?<><Input label={t.location} list="search-locations" value={value('loc')} onChange={e=>set('loc',e.target.value)} autoFocus/><datalist id="search-locations">{data.metadata.locations.concat(data.metadata.stations).map(c=><option key={c.value} value={c.value}>{label(c)}</option>)}</datalist></>:null}
