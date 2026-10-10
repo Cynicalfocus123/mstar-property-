@@ -6,13 +6,13 @@ import type {Language} from '@/lib/i18n';
 import type {ListingCardData} from '@/lib/listing-types';
 import {searchCopy} from '@/lib/search-copy';
 import {typeNames} from '@/lib/search-state';
-import {landUnits,listingAmount} from '@/lib/listing-format';
+import {smallListingFacts,listingAmount} from '@/lib/listing-format';
 import {useSavedHome} from '@/lib/saved-homes';
 export function SmallListingCard({listing:l,language,investment=false}:{listing:ListingCardData;language:Language;investment?:boolean}){
  const t=searchCopy[language],{saved,storageError,toggle}=useSavedHome(l.id),[imageError,setImageError]=useState(false);
  const title=language==='th'?`${typeNames.th[l.type]}ใน${l.area}`:`${typeNames.en[l.type]} in ${l.area}`;
  const badge=l.demo?t.demoBadge:l.featured?t.featured:l.price!==null&&l.previousPrice!==null&&l.previousPrice>l.price?(language==='th'?'ราคาลดลง':'Price drop'):investment?t.investment:l.isNew?t.new:null;
- const facts=l.type==='land'?landUnits(l.land,language).map(([n,unit])=>`${n} ${unit}`):l.type==='hotel'?(l.rooms===null?[]:[`${l.rooms} ${t.rooms}`]):[l.beds===null?null:`${l.beds} ${language==='th'?t.bed:'bd'}`,l.size===null?null:`${l.size.toLocaleString('en-US')} m²`].filter(Boolean);
+ const facts=smallListingFacts(l,language);
  return <article className="small-listing-card" data-listing-id={l.id} role="listitem">
   <Link className="small-card-link" href={`/${language}/property/${l.code}-${l.slug}`} aria-label={`${title}, ${l.title}`}><span className="sr-only">{l.title}</span></Link>
   <div className="small-card-photo">

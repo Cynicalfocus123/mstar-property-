@@ -5,7 +5,7 @@
 **Source of truth:** `codex-handoff/BUILD-SPEC.md`, `codex-handoff/wireframe.html` and `codex-handoff/home-page.html` (approved V3; updated 9 Oct 2026 with Realtor-style results cards, and 10 Oct 2026 with 3 cards per row on results and Airbnb-style listing rows on the home page); companion `MSTAR-CODEX-RULES.md` in the project root.
 **Tracker:** `Mstar-Property-Task-Tracker.xlsx` in the project root (the one Codex already uses; don't create a second copy).
 
-**10 Oct 2026:** added Step 3C (one smooth motion system for every page) and Step 3B (results 3 per row, card fixes, Airbnb-style home listing rows) before Step 4, and rewrote Steps 4–12 to match: map is opt-in (Show map), small cards reused on the property and project pages, one shared contact form for every Contact agent button, home rows managed in admin.
+**10 Oct 2026:** added Step 3D (centred hero search, Realtor-style card facts with floor and sq ft), Step 3C (one smooth motion system for every page) and Step 3B (results 3 per row, card fixes, Airbnb-style home listing rows) before Step 4, and rewrote Steps 4–12 to match: map is opt-in (Show map), small cards reused on the property and project pages, one shared contact form for every Contact agent button, home rows managed in admin.
 
 **Changes from V4:** fixed file paths; Step 3 uses the new Realtor-style listing card (BUILD-SPEC §4.3); Step 4 follows the owner's choice of free open-source mapping; Step 6 adds the Contact agent dialog on cards; Step 7 adds the "Homes for you" carousel directly under the search box and removes "no invented carousel"; footer is light grey; dev servers are not left running.
 
@@ -174,6 +174,47 @@ Tests: at 1600/1440/1280/1024px click next/previous quickly on home rows → lan
 
 ---
 
+## Step 3D — Centred hero search and fuller card facts (owner change 10 Oct 2026)
+
+Run after Step 3C and before Step 4.
+
+Copy the entire block below into Codex:
+
+```text
+$caveman full — Mstar Property | Step 3D: Centred hero search and fuller card facts
+
+PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, the updated codex-handoff/BUILD-SPEC.md §4.3 (Facts row, Address) and §5.1 items 1 and 3, and codex-handoff/home-page.html and wireframe.html. Inspect the actual Git and live/ directories. Small diffs, capped logs, no Serena dashboard. Do only this step.
+
+PART 1 — Home hero centred (BUILD-SPEC §5.1 item 1):
+Centre everything in the hero: heading "Find your place in Thailand", the supporting line, the Buy / Rent / New projects / Investment tabs and the search box. Search box width 100% up to about 880px, centred on the page; its fields stay left-aligned inside. Same on Thai. Phone: hero centred, search collapses as now.
+
+PART 2 — Big results card facts like Realtor.com (BUILD-SPEC §4.3):
+Facts row, bold numbers and normal words, in this order, hiding any fact without a value:
+- Condo: bed, bath, floor ("18th floor"), size.
+- House / townhouse / pool villa: bed, bath, number of floors ("2 floors"), size, land (rai / ngan / sq. wah, zero units hidden).
+- Land: rai, ngan, sq. wah, road frontage.
+- Hotel: rooms, floors, land in rai.
+- Commercial: floors, size, land.
+Size unit: English shows sq ft (m² × 10.7639, whole numbers, thousands separator); Thai shows ตร.ม. Sizes stay stored in m². The nearest station moves to the end of address line 2 ("Watthana, Bangkok 10110 · 650 m to BTS", real line name).
+If the database has no field for a building's number of floors, add it with a reviewed additive migration (never rewrite applied migrations), add it to the sample data, and keep the public projection safe. Use the existing floor field for the condo unit's floor.
+
+PART 3 — Small home cards (BUILD-SPEC §5.1 item 3):
+One line "price · bed · bath · size" (e.g. "฿6,450,000 · 2 bd · 2 ba · 732 sq ft"; Thai ตร.ม.); land shows rai / ngan; hotel shows rooms.
+
+Tests: hero centred at 1600/1440/1024/768/390 in both languages; every property type's facts on big and small cards with the right order, units and hidden empty values; sq ft conversion unit test; station at the end of the address; migration apply/rerun on the test database; no layout shift or sideways scroll.
+
+### Mandatory completion contract — do this at the end of THIS prompt
+- **All maintained `.md` files:** read first, then update `AGENTS.md`, `README.md`, `design.md`, `architecture.md`, `database.md`, `testing.md`, `progress.md`, `MSTAR-CODEX-RULES.md`, `CLAUDE.md` and any other maintained project Markdown. Leave approved immutable handoff source unchanged, but document that exception. **No MD verification = NOT DONE.**
+- **Six-tab Excel:** update the SAME root `Mstar-Property-Task-Tracker.xlsx`; update permanent task IDs, new fix IDs if needed, work/test evidence and blockers; regenerate `Frontend`, `Backend`, `Emails`, `Done`, `Pending`, `Not started` with accurate counts, each ID exactly once among status sheets. **No Excel update = NOT DONE.**
+- **Git and live:** synchronize all relevant code, configs, docs and tracker between the real Git working tree and `live/` without overwriting conflicts or copying secrets; verify diffs/hashes. Commit and push via existing remote when possible. **No verified sync/push = Pending, not Done.**
+- **Tests:** test this step on actual running frontend/backend and PostgreSQL, desktop + phone when applicable. Record exact outcomes and DB proof for forms. **Untested = NOT DONE.**
+- **Dev server:** start it only to run this step's tests and stop it afterwards. Don't leave it running unless I ask.
+- **Localhost URLs:** provide the **verified working** frontend URL, backend API/health URL and admin URL only if admin really exists. Use actual configured ports, no invented links. If inaccessible from this environment, explain the blocker and reproducible command, and mark the gate Pending.
+- Finish with task IDs, modifications, all MD files, all six Excel sheets/status changes, tests, Git commit/push/sync, URLs, and one explicit status: `Done` only if EVERY gate passed, otherwise `Pending` with next action. Stop—do not begin the next step.
+```
+
+---
+
 ## Step 4 — Interactive map and nearby data integration
 
 Copy the entire block below into Codex:
@@ -183,7 +224,7 @@ $caveman full — Mstar Property | Step 4: Interactive map and nearby data integ
 
 PRE-FLIGHT: Read all maintained project .md files including CLAUDE.md, and the complete codex-handoff/BUILD-SPEC.md, codex-handoff/CODEX-PROMPT.md, MSTAR-CODEX-RULES.md (project root), codex-handoff/wireframe.html and codex-handoff/home-page.html. Inspect the actual Git and live/ directories. Follow the approved V3 design, no invented UI. Token saving: small diffs, capped logs, no Serena dashboard, reuse existing project config. Do only this step.
 
-Requires Step 3C Done. Use the shared motion system from Step 3C for the map split view and Map/List toggle. The owner chose free, open-source mapping (design.md B09). FIRST propose 2–3 concrete free options (for example a MapLibre-based map with an OpenStreetMap-based tile source, and a free source for nearby places) with each one's usage limits, cost risk and attribution rules, then STOP and wait for the owner to pick one. No paid provider and no invented provider.
+Requires Step 3D Done. Use the shared motion system from Step 3C for the map split view and Map/List toggle. The owner chose free, open-source mapping (design.md B09). FIRST propose 2–3 concrete free options (for example a MapLibre-based map with an OpenStreetMap-based tile source, and a free source for nearby places) with each one's usage limits, cost risk and attribution rules, then STOP and wait for the owner to pick one. No paid provider and no invented provider.
 
 After the owner picks: add the map as an opt-in view on /buy, /rent and /invest (BUILD-SPEC §5.2). A "Show map" button at the right end of the filter bar opens a split view: listing cards 2 per row on the left, sticky map with price pins on the right; the button then reads "Hide map". Store it in the URL as map=1. The default view stays the full-width 3-per-row card grid from Step 3B. In map view: hover/focus card↔pin highlight both ways, map bounds in the URL (bbox), "Search as I move the map" (on by default) and "Draw area" when the library supports it. Phone: a floating Map / List pill switches between a full-screen map and the list. Build the geo-indexed bounds query. Listings with hide_exact_location show an area circle, never an exact pin, and their exact point is never sent to the browser. Nearby places (Transit / Schools / Shopping / Hospitals) come only from the chosen provider, stored in listing_nearby with source and fetch date and refreshed every 90 days; show "Distances are approximate". If the provider needs keys that aren't available, build the database/API contract, report the exact blocker and show no map — never fake maps, pins or distances. Sample listings stay development-only.
 

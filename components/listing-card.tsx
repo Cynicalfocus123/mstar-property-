@@ -5,7 +5,7 @@ import type {Language} from '@/lib/i18n';
 import type {ListingCardData} from '@/lib/listing-types';
 import {typeNames} from '@/lib/search-state';
 import {searchCopy} from '@/lib/search-copy';
-import {landUnits,listingAmount} from '@/lib/listing-format';
+import {listingFacts,stationLabel,listingAmount} from '@/lib/listing-format';
 import {useSavedHome} from '@/lib/saved-homes';
 import {Button,Input,Modal} from './ui';
 import {ChatButtons} from './chat-buttons';
@@ -18,10 +18,7 @@ export function ListingCard({listing:l,language,investment=false}:{listing:Listi
  const amount=(v:number)=>listingAmount(v,language);
  const change=(index:number,slideDirection:number)=>{setDirection(slideDirection);setPhoto(index);};
  const next=()=>change((photo+1)%l.photos.length,1);
- const facts:Array<[number|string,string]>=[];
- if(l.type==='land'){facts.push(...landUnits(l.land,language));if(l.land!==null)facts.push([l.land*4,'m²']);if(l.frontage!==null)facts.push([`${l.frontage} m`,t.road]);}
- else if(l.type==='hotel'){if(l.rooms!==null)facts.push([l.rooms,t.rooms]);if(l.occupancy!==null)facts.push([`${l.occupancy}%`,t.occupancy]);facts.push(...landUnits(l.land,language));}
- else {if(l.beds!==null)facts.push([l.beds,t.bed]);if(l.baths!==null)facts.push([l.baths,t.bath]);if(l.size!==null)facts.push([l.size,'m²']);if(l.type!=='condo'&&l.land!==null)facts.push([Math.round(l.land),language==='th'?'ตร.ว. ที่ดิน':'sq. wah land']);if(l.stationDistance!==null&&l.stationLine)facts.push([`${l.stationDistance} m`,`${language==='th'?'ถึง':'to'} ${l.stationLine}`]);}
+ const facts=listingFacts(l,language),station=stationLabel(l,language);
  const status=`${typeNames[language][l.type]} ${l.intent==='rent'?t.forRent:t.forSale}`;
  return <>
  <article className="lcard" data-listing-id={l.id} data-intent={l.intent} onTouchStart={e=>{if((e.target as HTMLElement).closest('button'))return;start.current=e.touches[0].clientX;swiped.current=0;}} onTouchEnd={e=>{if(start.current!==null&&l.photos.length>1){const delta=e.changedTouches[0].clientX-start.current;if(Math.abs(delta)>40){swiped.current=Date.now()+400;change((photo+(delta<0?1:l.photos.length-1))%l.photos.length,delta<0?1:-1);}}start.current=null;}}>
@@ -35,8 +32,8 @@ export function ListingCard({listing:l,language,investment=false}:{listing:Listi
   </div>
   <div className="lbody"><div className="lstat"><i className={investment?'inv':l.intent==='rent'?'rent':''}/>{status}</div>
    <div className="lprice">{l.price===null?t.gated:amount(l.price)}{l.intent==='rent'&&l.price!==null?<small>{l.period==='year'?t.year:t.month}</small>:null}{l.price!==null&&l.previousPrice!==null&&l.previousPrice>l.price?<span className="price-drop">↓ {amount(l.previousPrice-l.price)}</span>:null}</div>
-   <div className="lfacts">{facts.map(([n,label],i)=><span key={i}><b>{typeof n==='number'?n.toLocaleString('en-US'):n}</b> {label}</span>)}</div>
-   <div className="lfoot"><div className="laddr">{l.address||l.title}<br/>{l.area}</div><button type="button" className="contact" onClick={()=>setContact(true)}>{t.contact}</button></div>
+   <div className="lfacts">{facts.map(([n,label],i)=><span key={i}><b>{typeof n==='number'?n.toLocaleString('en-US',{maximumFractionDigits:6}):n}</b> {label}</span>)}</div>
+   <div className="lfoot"><div className="laddr"><span className="address-line">{l.address||l.title}</span><br/><span className="address-line address-details"><span className="address-area">{l.area}</span>{station?<span className="address-station">{` · ${station}`}</span>:null}</span></div><button type="button" className="contact" onClick={()=>setContact(true)}>{t.contact}</button></div>
    {storageError?<p role="alert" className="small">{t.storage}</p>:null}
   </div>
  </article>

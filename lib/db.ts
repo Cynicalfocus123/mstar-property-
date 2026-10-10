@@ -21,6 +21,7 @@ export async function databaseHealth(): Promise<'ok' | 'unavailable' | 'not_conf
     // A reachable empty database is not application-ready.
     await drizzle(client).execute(sql`select id from public.public_listings limit 0`);
     await drizzle(client).execute(sql`select slug from public.stations limit 0`);
+    await drizzle(client).execute(sql`select floor, building_floors from public.public_listings limit 0`);
     return 'ok';
   } catch {
     return 'unavailable';

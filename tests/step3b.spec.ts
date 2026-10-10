@@ -29,7 +29,7 @@ for(const language of ['en','th'] as const){
   await page.goto(`/${language}`);const property=page.locator('.small-card-link').first();await expect(property).toBeVisible();await property.focus();await expect(property).toBeFocused();await page.keyboard.press('Enter');await expect(page).toHaveURL(new RegExp(`/${language}/property/`));await expect(page.getByRole('heading',{name:language==='th'?'รายละเอียดอสังหาริมทรัพย์':'Property details'})).toBeVisible();
   await page.goto(`/${language}`);await expect(page.locator('.home-listing-row')).toHaveCount(4);for(const item of await page.locator('.home-listing-row').all()){await item.scrollIntoViewIfNeeded();await expect(item.locator('img').first()).toHaveJSProperty('complete',true);}await page.evaluate(async()=>{await document.fonts.ready;(document.activeElement as HTMLElement)?.blur();scrollTo(0,0);});await page.screenshot({path:info.outputPath(`${language}-home-rows.png`),fullPage:true});expect(errors).toEqual([]);
  });
- test(`${language}: full-width results keep equal last-row widths and whole land/hotel units`,async({page},info)=>{
+ test(`${language}: full-width results keep equal last-row widths and current land/hotel units`,async({page},info)=>{
   for(const route of ['buy','rent','invest']){
    await page.goto(`/${language}/${route}`);await expect(page.locator('.listing-grid')).toBeVisible();await expect(page.locator('.lcard').first()).toBeVisible();await expect(page.locator('.reserved-map-column')).toHaveCount(0);const width=page.viewportSize()!.width,expected=width>1000?3:width>720?2:1;
    expect(await page.locator('.listing-grid').evaluate(element=>getComputedStyle(element).gridTemplateColumns.split(' ').length)).toBe(expected);
@@ -38,8 +38,8 @@ for(const language of ['en','th'] as const){
    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   }
   await page.goto(`/${language}/invest`);const response=await page.request.get(`/api/listings?route=invest&lang=${language}`),data=await response.json();
-  for(const type of ['land','hotel']){const listing=data.items.find((item:{type:string})=>item.type===type),facts=page.locator(`.lcard[data-listing-id="${listing.id}"] .lfacts`);await expect(facts).toContainText(language==='th'?'50 ตร.ว.':'50 sq. wah');expect(await facts.textContent()).not.toMatch(/0\.125|\b0 (rai|ngan)|(?:^|\s)0 (ไร่|งาน)/);}
-  await page.goto(`/${language}/buy?loc=fictional-demo-station`);await expect(page.locator('.lfacts')).toContainText(language==='th'?'456 m ถึง BTS':'456 m to BTS');await expect(page.locator('.sample-badge')).toHaveText(language==='th'?'ตัวอย่าง':'Sample');
+  for(const type of ['land','hotel']){const listing=data.items.find((item:{type:string})=>item.type===type),facts=page.locator(`.lcard[data-listing-id="${listing.id}"] .lfacts`);await expect(facts).toContainText(type==='hotel'?(language==='th'?'0.125 ไร่ ที่ดิน':'0.125 rai land'):(language==='th'?'50 ตร.ว.':'50 sq. wah'));expect(await facts.textContent()).not.toMatch(/\b0 (rai|ngan)|(?:^|\s)0 (ไร่|งาน)/);}
+  await page.goto(`/${language}/buy?loc=fictional-demo-station`);await expect(page.locator('.laddr')).toContainText(language==='th'?'456 ม. ถึง BTS':'456 m to BTS');await expect(page.locator('.sample-badge')).toHaveText(language==='th'?'ตัวอย่าง':'Sample');
   await page.goto(`/${language}/buy`);await expect(page.locator('.lcard')).toHaveCount(8);await expect(page.locator('.listing-grid')).toBeVisible();await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:info.outputPath(`${language}-full-grid.png`),fullPage:true});
  });
 }

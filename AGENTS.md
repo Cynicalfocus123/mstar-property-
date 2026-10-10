@@ -1,5 +1,18 @@
 # Mstar Property project instructions
 
+## Current Step 3D — R06 — 2026-10-10
+
+Step 3D is the latest authorized scope. Reuse lib/listing-format.ts for card facts and lib/motion.ts/CSS motion tokens for all future UI. Keep English whole square feet as a display conversion only; stored size remains square metres. Use floor for condo units and buildingFloors for buildings. Stop before Step 4 without its prompt.
+
+The actual Git root is D:/mstar companies/mstar property/mstar property new site; live/ is its local deployable mirror, not a deployed website. All 94 existing mirror files were compared before safely synchronizing 100 intended source/configuration/document files and the unchanged canonical workbook. The prepared tracker replacement remains excluded until its file unlock. SHA-256 pairs and the safe origin/main commit/push are verified at closeout; exact commit is in the final report. Secrets, runtime state, dependencies and caches are excluded. Owner-approved handoff Markdown/HTML and historical references remain immutable exceptions to maintained-document updates, with current input hashes verified. Prior migration SQL/snapshots are unchanged; only the migration journal receives its additive entry. The preceding c526206 Step 3C commit and all tracker history are preserved.
+
+Passed: 7 unit checks; 151 development browser checks (including 24 Step 3D checks, with all 24 rerun after the final address fix), 18 MRT/ARL fixture browser checks and 12 production browser checks. Five redundant boundary cases skipped. Both languages and 390/768/1024/1280/1440/1600px covered; phone/desktop screenshots reviewed. Real PostgreSQL/app groups passed: 7 Step 3D, 12 regression, 8 fixture, 12 search, 5 development and 6 production sample guards. Production build, TypeScript and Drizzle no-schema-drift passed. HTTP 200 frontend/listings/health with database ready verified. Test servers stopped; admin and enquiry submission absent.
+
+All nine maintained Markdown files are updated. Step 3D completion is Pending: the canonical root Mstar-Property-Task-Tracker.xlsx is write-locked by an open application and remains unchanged (86 IDs, 21 Done, 23 Pending, 42 Not started). Its current bytes match the preflight archive. A prepared replacement outside the project preserves all 86 original IDs/statuses/history and adds R06 Pending: 87 IDs, 21 Done, 24 Pending, 42 Not started; Frontend/Backend/Emails open views are 32/26/8. All six prepared sheets, formulas, tables, dates, validations, frozen headers, visible borders/gridlines and yellow/light-green/red statuses are verified. Prior test evidence is retained verbatim under dated history while the tests column shows current evidence. The prepared update is not installed into the locked canonical file or live mirror. Owner next action: save and close that workbook; Codex must recompare changes before replacement, synchronize and push the workbook closeout. Existing unrelated blockers remain Pending.
+
+Verified HTTP 200 during actual testing: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health (database ready). Test servers on 3000/5432 are stopped after testing; these links are not currently running. No admin URL exists. No new form submission, production deployment or production migration is performed. Earlier dated sections below are historical.
+
+
 ## Current Step 3C — F39 — 2026-10-10
 
 Step 3C is the current authorized scope. Reuse lib/motion.ts and the CSS motion tokens for all future map split views, galleries, project rails and Saved pages in Steps 4–12. Do not begin Step 4 without its prompt. F39 records this implementation; development-only samples and existing privacy protections are unchanged.
@@ -105,7 +118,7 @@ Keep the root workbook. The owner deferred tests for now. Port 3000 is currently
 - Use exact V3 design tokens and Prompt/Noto Sans Thai fonts. Use 720px and 1000px breakpoints and validate 390px, 768px, 1024px and 1440px.
 - Keep scans, diffs, logs and tests focused. Avoid unrelated work and redundant scans. Never launch Serena dashboard unless explicitly required.
 - Use existing project configuration and interpreter. At Step 0 there is no application configuration or package manifest to reuse; document chosen settings when the build is authorized.
-- Implement only the currently authorized step. Step 3C is the latest authorized stage; never begin Step 4 without its prompt.
+- Implement only the currently authorized step. Step 3D is the latest authorized stage; never begin Step 4 without its prompt.
 - Keep localhost closed unless explicitly requested open. The owner requested port 3000 closed during Step 1. Start servers only under explicit owner preview or test authorization in the current task; the Step 3 prompt authorizes its tests and requires shutdown afterward. Provide configured local links every task and state availability. Completion gates alone do not authorize reopening ports.
 - Do not guess any of BUILD-SPEC section 12's eight owner decisions. See `design.md` for existing tracker IDs.
 

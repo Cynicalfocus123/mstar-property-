@@ -17,7 +17,7 @@ try {
   if(!base)throw new Error('Required fictional seed is missing.');
   for(const [n,intent,visibility,price] of [[114,'rent','public','20000'],[115,'sale','contact_gated','99999999']] as const){
    const rows=await tx.select({demo:s.listings.isDemo}).from(s.listings).where(eq(s.listings.id,id(n)));if(rows.some(r=>!r.demo))throw new Error('Reserved demo ID contains genuine data.');
-   await tx.insert(s.listings).values({...base,id:id(n),code:`FICTIONAL-SEARCH-${n}`,slug:`fictional-search-${n}`,intent,priceVisibility:visibility,price,previousPrice:n===114?'22000':null,pricePeriod:intent==='rent'?'month':null,featured:false,titleEn:`[FICTIONAL DEMO] Search example ${n} — not a real property`,titleTh:`ข้อมูลสมมติ — ตัวอย่างค้นหา ${n}`}).onConflictDoNothing();
+   await tx.insert(s.listings).values({...base,id:id(n),code:`FICTIONAL-SEARCH-${n}`,slug:`fictional-search-${n}`,intent,priceVisibility:visibility,price,previousPrice:n===114?'22000':null,pricePeriod:intent==='rent'?'month':null,featured:false,titleEn:`[FICTIONAL DEMO] Search example ${n} — not a real property`,titleTh:`ข้อมูลสมมติ — ตัวอย่างค้นหา ${n}`}).onConflictDoUpdate({target:s.listings.id,set:{floor:base.floor,buildingFloors:base.buildingFloors}});
   }
   const listingIds=Array.from({length:16},(_,i)=>id(100+i));
   await tx.update(s.listingMedia).set({url:'/demo/property-1.svg'}).where(and(eq(s.listingMedia.id,id(200)),eq(s.listingMedia.isDemo,true)));

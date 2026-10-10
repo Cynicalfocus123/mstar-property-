@@ -36,7 +36,7 @@ try{
  const [station]=await client`select slug from stations where id='00000000-0000-4000-8000-000000000020'`;
  assert.equal(station.slug,'fictional-demo-station');
  await assert.rejects(()=>client.begin(async tx=>{await tx`insert into stations(slug,line,name_th,name_en,is_demo) values(${station.slug},'BTS','ข้อมูลสมมติ uniqueness','[FICTIONAL DEMO] unique slug probe',true)`;}),(error:unknown)=>(error as {code:string;constraint_name:string}).code==='23505'&&(error as {constraint_name:string}).constraint_name==='stations_slug_unique');
- assert.equal((await client`select count(*)::int as total from drizzle.__drizzle_migrations`)[0].total,3);groups.push('Applied third migration, real unique station slug constraint and fixture transaction rollback');
+ assert.equal((await client`select count(*)::int as total from drizzle.__drizzle_migrations`)[0].total,4);groups.push('All four migrations applied, real unique station slug constraint and fixture transaction rollback');
  await writeFile('.local/step3-search-results.json',JSON.stringify({passed:groups.length,groups,frontend:'http://127.0.0.1:3000/en/buy',api:base,fictional:true},null,2));
  console.log(`PASS: ${groups.length} real app/PostgreSQL search groups\n${groups.map(g=>`- ${g}`).join('\n')}`);
 }finally{await client.end();}

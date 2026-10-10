@@ -1,5 +1,18 @@
 # Progress
 
+## Current Step 3D — R06 — 2026-10-10
+
+R06 records the scoped Step 3D owner change. F08/B01/B06/B07 receive new evidence while retaining Done; F22/F25 receive partial-scope evidence and remain Pending for the genuine hero asset and regional tiles. Every other prior task status remains unchanged. The overall project retains its independent Pending work. Stop before Step 4.
+
+The actual Git root is D:/mstar companies/mstar property/mstar property new site; live/ is its local deployable mirror, not a deployed website. All 94 existing mirror files were compared before safely synchronizing 100 intended source/configuration/document files and the unchanged canonical workbook. The prepared tracker replacement remains excluded until its file unlock. SHA-256 pairs and the safe origin/main commit/push are verified at closeout; exact commit is in the final report. Secrets, runtime state, dependencies and caches are excluded. Owner-approved handoff Markdown/HTML and historical references remain immutable exceptions to maintained-document updates, with current input hashes verified. Prior migration SQL/snapshots are unchanged; only the migration journal receives its additive entry. The preceding c526206 Step 3C commit and all tracker history are preserved.
+
+Passed: 7 unit checks; 151 development browser checks (including 24 Step 3D checks, with all 24 rerun after the final address fix), 18 MRT/ARL fixture browser checks and 12 production browser checks. Five redundant boundary cases skipped. Both languages and 390/768/1024/1280/1440/1600px covered; phone/desktop screenshots reviewed. Real PostgreSQL/app groups passed: 7 Step 3D, 12 regression, 8 fixture, 12 search, 5 development and 6 production sample guards. Production build, TypeScript and Drizzle no-schema-drift passed. HTTP 200 frontend/listings/health with database ready verified. Test servers stopped; admin and enquiry submission absent.
+
+All nine maintained Markdown files are updated. Step 3D completion is Pending: the canonical root Mstar-Property-Task-Tracker.xlsx is write-locked by an open application and remains unchanged (86 IDs, 21 Done, 23 Pending, 42 Not started). Its current bytes match the preflight archive. A prepared replacement outside the project preserves all 86 original IDs/statuses/history and adds R06 Pending: 87 IDs, 21 Done, 24 Pending, 42 Not started; Frontend/Backend/Emails open views are 32/26/8. All six prepared sheets, formulas, tables, dates, validations, frozen headers, visible borders/gridlines and yellow/light-green/red statuses are verified. Prior test evidence is retained verbatim under dated history while the tests column shows current evidence. The prepared update is not installed into the locked canonical file or live mirror. Owner next action: save and close that workbook; Codex must recompare changes before replacement, synchronize and push the workbook closeout. Existing unrelated blockers remain Pending.
+
+Verified HTTP 200 during actual testing: http://127.0.0.1:3000/en, /th, /en/buy, /th/buy, /en/rent, /en/invest, /api/listings?route=buy&lang=en and /api/health (database ready). Test servers on 3000/5432 are stopped after testing; these links are not currently running. No admin URL exists. No new form submission, production deployment or production migration is performed. Earlier dated sections below are historical.
+
+
 ## Current Step 3C — F39 — 2026-10-10
 
 F39 changes from Not started to Done only after the Step 3C closeout gates. All other R05-audited statuses remain unchanged: the overall project remains Pending. This implementation-stage wheel fix stays within F39 rather than duplicating its task ID. Stop before Step 4.

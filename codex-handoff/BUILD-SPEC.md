@@ -126,11 +126,15 @@ Used on search results and Saved. (The home page uses the small card in §5.1 it
 - **Heart** (save): white 42px circle at the **bottom-right of the photo**. Toggles without opening the listing.
 - **Status line:** coloured dot + type and intent, e.g. "● Condo for sale", "● Land for sale", "● Hotel for sale", "● Condo for rent". Dot: green for sale, blue for rent, accent for investment.
 - **Price:** large (about 1.45rem, `--f-head` 600). Rent shows `฿35,000 /month`. If the price dropped, show a green `↓ ฿200k` next to it.
-- **Facts row**, numbers in bold, depends on type:
-  - Condo / house / townhouse: **2** bed **2** bath **68** m² **650 m** to BTS (house adds **52** sq. wah land)
-  - Land: **2** rai **1** ngan **3,600** m² **40 m** road
-  - Hotel: **156** rooms **72%** occupancy **4** rai land
-- **Address:** two lines (project/street, then district, province, postcode).
+- **Facts row** (owner change 10 Oct 2026, like Realtor.com "3 bed 2.5 bath 2,795 sqft 1.52 acre lot"): numbers in bold, words normal, in this order, by type. Hide any fact that has no value.
+  - Condo: **2** bed **2** bath **18th** floor **732** sq ft
+  - House / townhouse / pool villa: **3** bed **3** bath **2** floors **1,916** sq ft **52** sq. wah land (land in rai / ngan / sq. wah, zero units hidden)
+  - Land: **2** rai **1** ngan **50** sq. wah **40 m** road frontage
+  - Hotel: **156** rooms **8** floors **4** rai land
+  - Commercial: **5** floors **12,917** sq ft **1** rai land
+  - Rent uses the same facts as its type.
+  - Size unit: English shows **sq ft** (1 m² = 10.7639 sq ft, rounded to whole numbers); Thai shows **ตร.ม.**. The property page shows both. Sizes are stored in m².
+- **Address:** two lines (project/street, then district, province, postcode). The nearest station moves to the end of line 2, e.g. "Watthana, Bangkok 10110 · 650 m to BTS" (real line name: BTS / MRT / ARL).
 - **Contact agent** button bottom-right: pill with border; turns accent-filled when the card is hovered. It opens the **contact dialog** (same fields as the property page form, §5.3 item 13), with the message prefilled for that listing. It must not open the listing.
 - Smaller "compact" cards (photo, price, one-line title, one-line facts, no Contact button) are used only inside the property page for "More units" and "Similar homes".
 
@@ -151,14 +155,14 @@ Routes are shown without the language prefix (see §9).
 
 ### 5.1 Home `/`
 In order:
-1. **Hero:** one large photo (no slider) with the heading "Find your place in Thailand" and one line of supporting text.
+1. **Hero:** one large photo (no slider) with the heading "Find your place in Thailand" and one line of supporting text. **Everything in the hero is centred** (owner change 10 Oct 2026): heading, supporting text, the Buy / Rent / New projects / Investment tabs and the search box (max width about 880px, centred on the page).
 2. **Search box:** tabs Buy / Rent / New projects / Investment. Fields: Location · Type · Price · Beds · search button. On phone it collapses to one "Where?" field plus the button; tapping it opens a full-screen search sheet.
    - Location suggestions (dropdown) are grouped as Recent searches (from this device), Areas & stations (areas and BTS/MRT/ARL stations), and Projects (with an "Mstar" badge for Mstar developments).
    - The Investment tab switches the types to Hotel / Land / Commercial and shows budget instead of price.
 3. **Listing rows (Airbnb style), directly under the search box** (owner change 10 Oct 2026). This is the first thing after the hero.
    - Several rows, one topic each. Default rows: "Popular homes for sale in Bangkok", "Condos for rent in Bangkok", "Homes in Pattaya and Jomtien", "Investment: hotels and land". Admin will choose the rows later (each row = a title + a saved search); until then they come from config.
    - Row header: title with a small round **→** button (both open the results page with that row's search), and ‹ › arrow buttons on the right (desktop only).
-   - **Small card** (not the big results card): photo 20:19 with 16px radius, one pill badge top-left (Featured / New / Price drop / Investment), heart top-right that saves without opening; under the photo a one-line title like "Condo in Watthana", then one line "**฿6,450,000** · 2 bd · 68 m²" (rent shows "/mo", land shows rai/ngan, hotel shows rooms). No Contact agent button on the small card. The whole card opens the property page.
+   - **Small card** (not the big results card): photo 20:19 with 16px radius, one pill badge top-left (Featured / New / Price drop / Investment), heart top-right that saves without opening; under the photo a one-line title like "Condo in Watthana", then one line "**฿6,450,000** · 2 bd · 2 ba · 732 sq ft" (rent shows "/mo", land shows rai/ngan, hotel shows rooms; Thai shows ตร.ม.). No Contact agent button on the small card. The whole card opens the property page.
    - Cards per row by screen width: **7** above 1440px, 6 at 1251–1440px, 5 at 1081–1250px, 4 at 721–1080px; on phone about 2.3 cards visible, swipe with scroll-snap, arrows hidden.
    - Up to 12 cards per row; featured first, then newest. A row with no homes is hidden.
 4. **Category row:** icons that scroll sideways: Condo, House, Townhouse, Pool villa, Land, Hotel, Beachfront, Near BTS/MRT, New build, Pet friendly, Commercial. Each one opens results with that filter on.

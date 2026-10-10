@@ -127,11 +127,11 @@ h1,h2,h3{font-family:var(--f-head);font-weight:600;margin:0;text-wrap:balance;le
 .tabsbar button.on .ico{background:var(--acc);border-color:var(--acc)}
 
 /* home hero + search */
-.hero{position:relative;margin:20px 28px 0;border-radius:20px;min-height:360px;display:grid;align-content:end;padding:28px}
-.hero h1{font-size:2.3rem;line-height:1.1;max-width:15ch}
-.hero .lead{margin:8px 0 18px;color:var(--ink);opacity:.8;max-width:44ch}
-.search{background:#fff;border-radius:18px;box-shadow:0 12px 32px rgba(31,38,51,.14);padding:8px;max-width:820px;position:relative}
-.stabs{display:flex;gap:4px;padding:4px 4px 8px}
+.hero{position:relative;margin:20px 28px 0;border-radius:20px;min-height:360px;display:grid;align-content:center;justify-items:center;text-align:center;padding:40px 28px}
+.hero h1{font-size:2.5rem;line-height:1.1;max-width:22ch}
+.hero .lead{margin:10px auto 22px;color:var(--ink);opacity:.8;max-width:52ch}
+.search{background:#fff;border-radius:18px;box-shadow:0 12px 32px rgba(31,38,51,.14);padding:8px;width:100%;max-width:880px;margin:0 auto;position:relative;text-align:left}
+.stabs{display:flex;justify-content:center;gap:4px;padding:4px 4px 8px}
 .stabs button{padding:6px 12px;border-radius:999px;font-weight:500;font-size:.88rem}
 .stabs button.on{background:var(--ink);color:#fff}
 .sfields{display:grid;grid-template-columns:1.6fr 1fr 1fr .8fr auto;border:1px solid var(--line);border-radius:999px;align-items:center}
@@ -957,14 +957,14 @@ tr:last-child td{border-bottom:0}
 
   /* ---------- sample listings (examples, not real stock) ---------- */
   const L = [
-    {st:'Condo for sale',k:'',p:'฿6,450,000',drop:'฿200k',f:[['2','bed'],['2','bath'],['68','m²'],['650 m','to BTS']],a1:'The Lofts 39, Sukhumvit 39',a2:'Watthana, Bangkok 10110',t:'2-bed condo · The Lofts 39',m:'2 bd · 2 ba · 68 m² · BTS 650 m',tag:[['Video tour','']],ph:'',x:45,y:40,s:'฿6.4M'},
-    {st:'Condo for sale',k:'',p:'฿9,200,000',f:[['2','bed'],['2','bath'],['82','m²'],['300 m','to BTS']],a1:'Noble Refine, Sukhumvit 26',a2:'Khlong Toei, Bangkok 10110',t:'2-bed condo · Noble Refine',m:'2 bd · 2 ba · 82 m² · BTS 300 m',tag:[['Featured',''],['New','ok']],ph:'b',x:30,y:28,s:'฿9.2M'},
-    {st:'Condo for rent',k:'rent',p:'฿35,000',per:'/month',f:[['1','bed'],['1','bath'],['45','m²'],['Pet','friendly']],a1:'Rhythm 36, Sukhumvit 36',a2:'Khlong Toei, Bangkok 10110',t:'1-bed condo · Rhythm 36',m:'1 bd · 1 ba · 45 m² · pet friendly',tag:[['New','ok']],ph:'c',x:62,y:22,s:'฿35k'},
-    {st:'Land for sale',k:'',p:'฿12,500,000',f:[['2','rai'],['1','ngan'],['3,600','m²'],['40 m','road']],a1:'Soi Chaiyapruek 2, Jomtien',a2:'Bang Lamung, Chon Buri 20150',t:'Land · Jomtien, Pattaya',m:'2 rai 1 ngan · yellow zone · 40 m road',tag:null,ph:'d',x:70,y:70,s:'฿12.5M'},
-    {st:'Condo for sale',k:'',p:'฿7,890,000',drop:'฿310k',f:[['2','bed'],['2','bath'],['71','m²'],['Foreign','quota']],a1:'Siamese 39, Sukhumvit 39',a2:'Watthana, Bangkok 10110',t:'2-bed condo · Siamese 39',m:'2 bd · 2 ba · 71 m² · foreign quota',tag:null,ph:'b',x:52,y:30,s:'฿7.9M'},
-    {st:'House for sale',k:'',p:'฿4,950,000',f:[['3','bed'],['3','bath'],['178','m²'],['52','sq. wah land']],a1:'Emperor Grand View, Plot A-07',a2:'Example location, Thailand',t:'House · Emperor Grand View',m:'3 bd · 3 ba · 178 m² · 52 sq. wah',tag:[['Mstar project','acc']],ph:'c',x:22,y:66,s:'฿4.9M'},
-    {st:'Hotel for sale',k:'inv',p:'฿480,000,000',f:[['156','rooms'],['72%','occupancy'],['4','rai land']],a1:'Kalim Bay',a2:'Kathu, Phuket 83150',t:'Hotel · 156 rooms, Phuket',m:'156 rooms · 72% occupancy · sea view',tag:[['Investment','acc']],ph:'d',x:80,y:50,s:'฿480M'},
-    {st:'Condo for sale',k:'',p:'฿8,300,000',f:[['2','bed'],['2','bath'],['75','m²'],['400 m','to BTS']],a1:'Park 24, Sukhumvit 24',a2:'Khlong Toei, Bangkok 10110',t:'2-bed condo · Park 24',m:'2 bd · 2 ba · 75 m² · BTS 400 m',tag:null,ph:'',x:38,y:55,s:'฿8.3M'}
+    {st:'Condo for sale',k:'',p:'฿6,450,000',drop:'฿200k',f:[['2','bed'],['2','bath'],['18th','floor'],['732','sq ft']],a1:'The Lofts 39, Sukhumvit 39',a2:'Watthana, Bangkok 10110 · 650 m to BTS',t:'2-bed condo · The Lofts 39',m:'2 bd · 2 ba · 68 m² · BTS 650 m',tag:[['Video tour','']],ph:'',x:45,y:40,s:'฿6.4M'},
+    {st:'Condo for sale',k:'',p:'฿9,200,000',f:[['2','bed'],['2','bath'],['24th','floor'],['883','sq ft']],a1:'Noble Refine, Sukhumvit 26',a2:'Khlong Toei, Bangkok 10110 · 300 m to BTS',t:'2-bed condo · Noble Refine',m:'2 bd · 2 ba · 82 m² · BTS 300 m',tag:[['Featured',''],['New','ok']],ph:'b',x:30,y:28,s:'฿9.2M'},
+    {st:'Condo for rent',k:'rent',p:'฿35,000',per:'/month',f:[['1','bed'],['1','bath'],['9th','floor'],['484','sq ft']],a1:'Rhythm 36, Sukhumvit 36',a2:'Khlong Toei, Bangkok 10110',t:'1-bed condo · Rhythm 36',m:'1 bd · 1 ba · 45 m² · pet friendly',tag:[['New','ok']],ph:'c',x:62,y:22,s:'฿35k'},
+    {st:'Land for sale',k:'',p:'฿12,500,000',f:[['2','rai'],['1','ngan'],['40 m','road frontage']],a1:'Soi Chaiyapruek 2, Jomtien',a2:'Bang Lamung, Chon Buri 20150',t:'Land · Jomtien, Pattaya',m:'2 rai 1 ngan · yellow zone · 40 m road',tag:null,ph:'d',x:70,y:70,s:'฿12.5M'},
+    {st:'Condo for sale',k:'',p:'฿7,890,000',drop:'฿310k',f:[['2','bed'],['2','bath'],['12th','floor'],['764','sq ft']],a1:'Siamese 39, Sukhumvit 39',a2:'Watthana, Bangkok 10110',t:'2-bed condo · Siamese 39',m:'2 bd · 2 ba · 71 m² · foreign quota',tag:null,ph:'b',x:52,y:30,s:'฿7.9M'},
+    {st:'House for sale',k:'',p:'฿4,950,000',f:[['3','bed'],['3','bath'],['2','floors'],['1,916','sq ft'],['52','sq. wah land']],a1:'Emperor Grand View, Plot A-07',a2:'Example location, Thailand',t:'House · Emperor Grand View',m:'3 bd · 3 ba · 178 m² · 52 sq. wah',tag:[['Mstar project','acc']],ph:'c',x:22,y:66,s:'฿4.9M'},
+    {st:'Hotel for sale',k:'inv',p:'฿480,000,000',f:[['156','rooms'],['8','floors'],['4','rai land']],a1:'Kalim Bay',a2:'Kathu, Phuket 83150',t:'Hotel · 156 rooms, Phuket',m:'156 rooms · 72% occupancy · sea view',tag:[['Investment','acc']],ph:'d',x:80,y:50,s:'฿480M'},
+    {st:'Condo for sale',k:'',p:'฿8,300,000',f:[['2','bed'],['2','bath'],['15th','floor'],['807','sq ft']],a1:'Park 24, Sukhumvit 24',a2:'Khlong Toei, Bangkok 10110 · 400 m to BTS',t:'2-bed condo · Park 24',m:'2 bd · 2 ba · 75 m² · BTS 400 m',tag:null,ph:'',x:38,y:55,s:'฿8.3M'}
   ];
   /* full listing card: home, results, saved */
   const lcard = (o,i) => `<article class="lcard" data-go="detail" data-i="${i}" role="link" tabindex="0" aria-label="${o.st}, ${o.p}, ${o.a1}">
@@ -983,7 +983,7 @@ tr:last-child td{border-bottom:0}
     <span class="price">${o.p}</span><span class="ctitle">${o.t}</span><span class="cmeta">${o.m}</span></div>`;
   /* home rails: sample rows of small cards (examples, not real stock) */
   const RAILS = {
-    bkk:[['Condo in Watthana','฿6,450,000','2 bd · 68 m²','',['Price drop','acc']],['Condo in Khlong Toei','฿9,200,000','2 bd · 82 m²','b',['New','ok']],['House in Bang Na','฿12,900,000','4 bd · 260 m²','c',null],['Townhouse in Lat Phrao','฿4,390,000','3 bd · 140 m²','d',null],['Condo in Sathorn','฿7,850,000','2 bd · 74 m²','',['Featured','']],['Condo in Ari','฿5,200,000','1 bd · 48 m²','b',null],['House in Bang Kapi','฿8,500,000','3 bd · 190 m²','c',['Video tour','']],['Condo in Thong Lo','฿11,400,000','2 bd · 90 m²','d',null]],
+    bkk:[['Condo in Watthana','฿6,450,000','2 bd · 2 ba · 732 sq ft','',['Price drop','acc']],['Condo in Khlong Toei','฿9,200,000','2 bd · 2 ba · 883 sq ft','b',['New','ok']],['House in Bang Na','฿12,900,000','4 bd · 4 ba · 2,799 sq ft','c',null],['Townhouse in Lat Phrao','฿4,390,000','3 bd · 3 ba · 1,507 sq ft','d',null],['Condo in Sathorn','฿7,850,000','2 bd · 2 ba · 797 sq ft','',['Featured','']],['Condo in Ari','฿5,200,000','1 bd · 1 ba · 517 sq ft','b',null],['House in Bang Kapi','฿8,500,000','3 bd · 3 ba · 2,045 sq ft','c',['Video tour','']],['Condo in Thong Lo','฿11,400,000','2 bd · 2 ba · 969 sq ft','d',null]],
     rent:[['Condo in Khlong Toei','฿35,000 /mo','1 bd · 45 m²','c',['Pet friendly','']],['Condo in Phrom Phong','฿48,000 /mo','2 bd · 70 m²','',['New','ok']],['Condo in Ari','฿22,000 /mo','1 bd · 35 m²','b',null],['Condo in Sathorn','฿55,000 /mo','2 bd · 85 m²','d',['Featured','']],['Condo in On Nut','฿16,000 /mo','1 bd · 30 m²','',null],['Condo in Thong Lo','฿65,000 /mo','2 bd · 96 m²','c',null],['Condo in Rama 9','฿28,000 /mo','1 bd · 42 m²','b',null],['House in Ekkamai','฿120,000 /mo','4 bd · 300 m²','d',null]],
     pty:[['Condo in Jomtien','฿3,900,000','1 bd · 40 m²','b',['Sea view','']],['Pool villa in Huai Yai','฿14,500,000','4 bd · 320 m²','c',['Featured','']],['Land in Bang Lamung','฿12,500,000','2 rai 1 ngan','d',null],['Condo in Wong Amat','฿6,900,000','2 bd · 66 m²','',['New','ok']],['House in East Pattaya','฿5,450,000','3 bd · 180 m²','b',null],['Condo in Pratumnak','฿4,750,000','1 bd · 52 m²','c',['Price drop','acc']],['Condo in Na Jomtien','฿8,200,000','2 bd · 88 m²','d',null],['Townhouse in Nong Prue','฿2,990,000','3 bd · 120 m²','',null]],
     inv:[['Hotel in Kathu, Phuket','฿480,000,000','156 rooms · 72% occ.','d',['Investment','acc']],['Land in Ban Chang, Rayong','฿18,000,000','6 rai · road 40 m','c',null],['Hotel in Jomtien','฿210,000,000','88 rooms · 65% occ.','b',['Investment','acc']],['Resort on Koh Phi Phi','฿350,000,000','42 villas · beachfront','',['Featured','']],['Land in Huai Yai','฿9,800,000','3 rai 2 ngan','d',null],['Building on Sukhumvit','฿95,000,000','5 floors · 1,200 m²','c',null],['Hotel in Patong','฿260,000,000','120 rooms · 70% occ.','b',null],['Land in Rayong','฿6,400,000','4 rai','',null]]

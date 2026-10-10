@@ -37,6 +37,8 @@ export async function seedDemo(url: string) {
       for (const [i, type] of schema.propertyType.enumValues.entries()) {
         for (const [j, intent] of schema.intent.enumValues.entries()) {
           const n = i * 2 + j, residential = ['condo','house','townhouse','pool_villa'].includes(type);
+          const floor = type === 'condo' ? 18 : null;
+          const buildingFloors = ({house:2,townhouse:3,pool_villa:1,hotel:8,commercial:5} as Partial<Record<typeof type,number>>)[type] ?? null;
           await tx.insert(schema.listings).values({
             id: demoId(100 + n), code: `FICTIONAL-${type.toUpperCase()}-${intent.toUpperCase()}`, slug: `fictional-demo-${type}-${intent}`,
             intent, type, status: 'active', publishState: 'published', publishedAt: now,
@@ -45,11 +47,12 @@ export async function seedDemo(url: string) {
             price: String(10000 + n * 11111), previousPrice: n === 0 ? '22222' : null, pricePeriod: intent === 'rent' ? 'month' : null,
             priceVisibility: n % 2 ? 'contact_gated' : 'public', beds: residential ? 2 : null, baths: residential ? 2 : null,
             sizeSqm: type === 'land' ? null : '100', landSqwah: type === 'condo' || type === 'commercial' ? null : '50',
+            floor, buildingFloors,
             hotelRooms: type === 'hotel' ? 20 : null, hotelOccupancy: type === 'hotel' ? '50' : null,
             landZoning: type === 'land' ? 'FICTIONAL TEST ZONE' : null, roadFrontageM: type === 'land' ? '10' : null,
             foreignQuota: type === 'condo' ? true : null, petFriendly: residential ? true : null, featured: n === 0,
             badges: ['FICTIONAL DEMO'], isDemo: true,
-          }).onConflictDoNothing();
+          }).onConflictDoUpdate({target:schema.listings.id,set:{floor,buildingFloors}});
         }
       }
       await tx.insert(schema.listingMedia).values({ id: demoId(200), listingId: demoId(100), kind: 'photo', url: 'https://example.invalid/fictional-demo.jpg', captionEn: `${label} Image not available`, captionTh: 'ภาพสมมติ', altEn: `${label} Placeholder, not a real property`, altTh: 'ภาพตัวอย่างสมมติ', isDemo: true }).onConflictDoNothing();
